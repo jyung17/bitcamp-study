@@ -15,6 +15,8 @@ public class Exam0430 {
     //(char)붙일 필요가 없다.
     System.out.println('A');
 
+    System.out.println('A' + 1);
+
     //작은 따옴표가 알려준 유니코드를 그대로 출력하기
     //정수를 의미하는 (int)를 앞에 붙인다.
     System.out.println((int)'A');
@@ -34,3 +36,6 @@ public class Exam0430 {
     System.out.println((char)('각' - 1));
   }
 }
+
+// javac -d bin/main src/main/java/com/eomcs/lang/ex03/Exam0430.java
+// java -cp bin/main com.eomcs.lang.ex03.Exam0430

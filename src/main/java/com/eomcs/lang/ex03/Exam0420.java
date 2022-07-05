@@ -82,6 +82,9 @@ public class Exam0420 {
     for (int i = 0; i < 26; i++) {
       System.out.print((char)(i + 65) + ",");
     }
+
+    System.out.println("");
+    System.out.println((char)66);
   }
 }
 
