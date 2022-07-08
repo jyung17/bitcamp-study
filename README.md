@@ -50,4 +50,8 @@ export PATH=${JAVA_HOME}/bin:$PATH
     - 프로세스와 OS 그리고 메모리
     - 변수 선언과 값 저장
     - l-value 와 r-value
+<<<<<<< HEAD
     
+=======
+    
+>>>>>>> dd8e212565a084355a878dd76a4084ed6c222943
