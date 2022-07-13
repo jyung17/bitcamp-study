@@ -14,7 +14,7 @@ package com.bitcamp.board;
 
 // import java.util.Scanner;
 
-public class App {
+public class App05 {
 
   public static void main(String[] args) {
     System.out.println("[게시판 애플리케이션]");
@@ -58,8 +58,8 @@ public class App {
         java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat(
           "yyyy-MM-dd"
         );
-
-        for (int i = 0; i < boardCount; i++) {
+        int i = 0;
+        while (i < boardCount) {
           // 밀리초 데이터 ==> Date 도구함으로 날짜 정보를 설정
           java.util.Date date = new java.util.Date(createDate[i]);
           // 날짜 정보 ==> "yyyyMM-dd" 형식의 문자열
@@ -72,6 +72,7 @@ public class App {
             writer[i],
             dateStr
           );
+          i++;
         }
       } else if (menuNo == 2) {
         //viewCount[boardCount] += 1;
@@ -83,12 +84,13 @@ public class App {
 
         // 해당 번호의 게시글이 몇 번 배열에 들어 있는지 알아내기
         int boardIndex = -1;
-
-        for (int i = 0; i < boardCount; i++) {
+        int i = 0;
+        while (i < boardCount) {
           if (no[i] == boardNo) {
             boardIndex = i;
             break;
           }
+          i++;
         }
 
         // 사용자가 입력한 번호에 해당하는 게시글을 못 찾았다면,
