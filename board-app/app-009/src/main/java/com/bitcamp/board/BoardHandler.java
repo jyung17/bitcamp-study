@@ -84,8 +84,6 @@ public class BoardHandler {
     boards[boardCount] = board;
 
     boardCount++;
-
-    System.out.println("게시글을 등록했습니다.");
   }
 
   static void processDelete() {
@@ -109,39 +107,6 @@ public class BoardHandler {
     if (boardIndex == -1) {
       System.out.println("해당 번호의 게시글이 없습니다.!");
       return;
-    }
-  }
-
-  static void processUpdate() {
-    System.out.println("게시글 변경]");
-    int boardNo = Prompt.inputInt("변경할 게시글 번호");
-
-    // 변경할 게시글 번호 잘못 입력시 함수 빠져나가기 위해 사용하지 않는 -1로 초기화
-    int boardIndex = -1;
-    for (int i = 0; i < boardCount; i++) {
-      if (boards[i].no == boardNo) {
-        boardIndex = i;
-      }
-    }
-
-    if (boardIndex == -1) {
-      System.out.println("해당 번호의 게시글이 없습니다.!");
-      return;
-    }
-
-    System.out.printf("제목?(%s)", boards[boardIndex].title);
-    String updateTitle = Prompt.inputString();
-    System.out.printf("내용?(%s)", boards[boardIndex].content);
-    String updateContent = Prompt.inputString();
-    String updateYN = Prompt.inputString("변경하시겠습니까?(y/n) : ");
-
-    // ==은 주소값을 비교하므로 euals메서드들 사용하여 문자열 내용을 비교
-    if ("y".equals(updateYN)) {
-      boards[boardIndex].title = updateTitle;
-      boards[boardIndex].content = updateContent;
-      System.out.println("변경했습니다.");
-    } else {
-      System.out.println("변경 취소했습니다.");
     }
   }
 }

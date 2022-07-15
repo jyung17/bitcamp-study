@@ -40,9 +40,6 @@ public class App {
         case 4:
           BoardHandler.processDelete();
           break;
-        case 5:
-          BoardHandler.processUpdate();
-          break;
         default:
           System.out.println("메뉴 번호가 옳지 않습니다.");
       }
@@ -68,7 +65,7 @@ public class App {
     System.out.println("  2: 게시글 상세보기");
     System.out.println("  3: 게시글 등록");
     System.out.println("  4: 게시글 삭제");
-    System.out.println("  5: 게시글 변경");
+    System.out.println();
   }
 
   // 메뉴 번호 조건 검사 코드

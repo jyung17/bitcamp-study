@@ -31,4 +31,4 @@ public class Prompt {
   static void close() {
     keyboardInput.close();
   }
-} // Prompt
+} //Prompt
