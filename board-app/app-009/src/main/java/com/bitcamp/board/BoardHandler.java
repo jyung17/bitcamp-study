@@ -13,7 +13,9 @@ public class BoardHandler {
 
   static void processList() {
     // 날짜 정보에서 값을 추출하여 특정 포맷의 문자열로 만들어줄 도구를 준비
-    java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat(
+      "yyyy-MM-dd"
+    );
 
     System.out.println("[게시글 목록]");
     System.out.println("번호 제목 조회수 작성자 등록일");
@@ -26,8 +28,14 @@ public class BoardHandler {
       // 날짜 정보 ==> "yyyy-MM-dd" 형식의 문자열
       String dateStr = formatter.format(date);
 
-      System.out.printf("%d\t%s\t%d\t%s\t%s\n", board.no, board.title, board.viewCount,
-          board.writer, dateStr);
+      System.out.printf(
+        "%d\t%s\t%d\t%s\t%s\n",
+        board.no,
+        board.title,
+        board.viewCount,
+        board.writer,
+        dateStr
+      );
     }
   }
 
@@ -58,7 +66,6 @@ public class BoardHandler {
     System.out.printf("작성자: %s\n", board.writer);
     java.util.Date date = new java.util.Date(board.createdDate);
     System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
-
   }
 
   static void processInput() {
