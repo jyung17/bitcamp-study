@@ -58,7 +58,6 @@ public class BoardHandler {
     System.out.printf("작성자: %s\n", board.writer);
     java.util.Date date = new java.util.Date(board.createdDate);
     System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
-
   }
 
   static void processInput() {
