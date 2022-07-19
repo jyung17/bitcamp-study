@@ -1,6 +1,6 @@
 package com.eomcs.oop.ex01;
 
-//# 레퍼런스와 인스턴스 - 인스턴스 주소 주고 받기
+// # 레퍼런스와 인스턴스 - 인스턴스 주소 주고 받기
 //
 public class Exam0310 {
   public static void main(String[] args) {
@@ -24,5 +24,9 @@ public class Exam0310 {
 
     // s1이 가리키는 메모리는 s2를 사용하여 접근할 수 있다.
     System.out.println(s2.name);
+
+    s2.kor = 80;
+
+    System.out.println(s1.kor);
   }
 }

@@ -1,11 +1,12 @@
 package com.eomcs.oop.ex02;
 
-// # 사용자 정의 데이터 타입
+// 0) 낱개 변수 사용
+// 1)성적 데이터를 저장할 사용자 정의 데이터 타입을 만든다.
 //
 public class Exam0110 {
 
   // ## 사용자 정의 데이터 타입 만들기
-  // - 인스턴스 변수를 사용하여 학생의 성적 데이터를 담을 메모리를 설계한다.
+  // - 인스턴스 변수를 사용하여 학생의 성적 데이터를 담을 메모리(변수)를 설계한다.
   //
   static class Score {
     // 인스턴스 변수(instance variable; instance field)
@@ -17,7 +18,7 @@ public class Exam0110 {
     int eng;
     int math;
     int sum;
-    float average;
+    float aver;
   }
 
   public static void main(String[] args) {
@@ -25,18 +26,40 @@ public class Exam0110 {
     // - new 명령을 사용하여 설계도에 기술된 대로 메모리를 준비한다.
     // - 메모리는 Heap 영역에 생성된다.
     // - 메모리 주소를 레퍼런스(주소 변수)에 저장한다.
-    Score score = new Score();
+    Score s1 = new Score();
 
     // - 클래스로 만든 메모리는 레퍼런스를 통해 접근한다.
-    score.name = "홍길동";
-    score.kor = 100;
-    score.eng = 90;
-    score.math = 85;
-    score.sum = score.kor + score.eng + score.math;
-    score.average = score.sum / 3f;
+    s1.name = "홍길동";
+    s1.kor = 100;
+    s1.eng = 90;
+    s1.math = 85;
+    s1.sum = s1.kor + s1.eng + s1.math;
+    s1.aver = (float) s1.sum / 3;
 
-    System.out.printf("%s, %d, %d, %d, %d, %.1f\n", score.name, score.kor, score.eng, score.math,
-        score.sum, score.average);
+    System.out.printf("%s: %d, %d, %d, %d, %.1f\n", s1.name, s1.kor, s1.eng, s1.math, s1.sum,
+        s1.aver);
+
+    Score s2 = new Score();
+    s2.name = "임꺽정";
+    s2.kor = 90;
+    s2.eng = 80;
+    s2.math = 75;
+    s2.sum = s2.kor + s2.eng + s2.math;
+    s2.aver = (float) s2.sum / 3;
+
+    System.out.printf("%s: %d, %d, %d, %d, %.1f\n", s2.name, s2.kor, s2.eng, s2.math, s2.sum,
+        s2.aver);
+
+    Score s3 = new Score();
+    s3.name = "유관순";
+    s3.kor = 80;
+    s3.eng = 70;
+    s3.math = 65;
+    s3.sum = s3.kor + s3.eng + s3.math;
+    s3.aver = (float) s3.sum / 3;
+
+    System.out.printf("%s: %d, %d, %d, %d, %.1f\n", s3.name, s3.kor, s3.eng, s3.math, s3.sum,
+        s3.aver);
   }
 }
 
