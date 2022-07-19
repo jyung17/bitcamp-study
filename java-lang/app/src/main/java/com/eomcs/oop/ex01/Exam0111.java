@@ -21,6 +21,20 @@ public class Exam0111 {
     // - 출력 형식을 바꾸고 싶으면 그 블록으로 가서 변경하면 된다.
     //
     printScore(name, kor, eng, math);
+
+    name = "임꺽정";
+    kor = 90;
+    eng = 80;
+    math = 75;
+
+    printScore(name, kor, eng, math);
+
+    name = "유관순";
+    kor = 80;
+    eng = 70;
+    math = 65;
+
+    printScore(name, kor, eng, math);
   }
 
   static void printScore(String name, int kor, int eng, int math) {
@@ -40,11 +54,11 @@ public class Exam0111 {
 //
 // 클래스란?
 // - 개발자가 자신이 개발하는 프로그램에서 사용할 특별한 형식의 데이터를 다룰 수 있는
-//   새로운 데이터 타입을 정의하게 해주는 문법이다.
+// 새로운 데이터 타입을 정의하게 해주는 문법이다.
 // - 즉 byte, short, int, long, float, double, boolean, char 외에
-//   새 형식의 새로운 메모리 구조를 갖는 데이터 타입을 정의할 수 있다.
+// 새 형식의 새로운 메모리 구조를 갖는 데이터 타입을 정의할 수 있다.
 // - 이렇게 정의한 새 데이터 타입을
-//   "사용자 정의 데이터 타입(user defined data type)" 이라 한다.
+// "사용자 정의 데이터 타입(user defined data type)" 이라 한다.
 //
 // 사용자?
 // - 아니~~ 자바 언어를 사용하는 사람이 누군가?
