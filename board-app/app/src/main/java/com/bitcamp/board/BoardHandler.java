@@ -13,17 +13,16 @@ public class BoardHandler {
 
   static void excute() {
     while (true) {
-      displayHeadLine();
       System.out.println("메뉴:");
-      System.out.println("  1: 목록");
-      System.out.println("  2: 상세보기");
-      System.out.println("  3: 등록");
-      System.out.println("  4: 삭제");
-      System.out.println("  5: 변경");
-      System.out.println();
+      System.out.println("  1: 게시글 목록");
+      System.out.println("  2: 게시글 상세보기");
+      System.out.println("  3: 게시글 등록");
+      System.out.println("  4: 게시글 삭제");
+      System.out.println("  5: 게시글 변경");
 
       int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 이전) ");
-      displayHeadLine();
+
+      displayHadeLine();
 
       switch (menuNo) {
         case 0:
@@ -47,12 +46,12 @@ public class BoardHandler {
           System.out.println("메뉴 번호가 옳지 않습니다.");
       }
       displayBlankLine();
-    } // 게시판 while
+    }
   }
 
   // 메뉴 번호 조건 검사 코드
-  static void displayHeadLine() {
-    System.out.println("=================================");
+  static void displayHadeLine() {
+    System.out.println("-----------------------------------");
   }
 
   // 결과 출력 후 빈 라인 출력 코드

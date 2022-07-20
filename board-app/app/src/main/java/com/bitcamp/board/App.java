@@ -9,12 +9,6 @@
 // java -cp app/bin/main/ com.bitcamp.board.App
 // 3. ./run.sh
 
-// 1) 게시판 메뉴 구조 변경
-// 2) onBoardMenu() 메서드 추가
-// - displayMenu() 메서드 제거 : onBoardMenu()로 코드를 옮긴다.
-// - App02로 백업
-// 3)
-
 package com.bitcamp.board;
 
 // import java.util.Scanner;
@@ -26,30 +20,30 @@ public class App {
 
     loop: while (true) {
 
-      // 메인 메뉴 출력
       System.out.println("메뉴:");
       System.out.println("  1: 게시판");
       System.out.println("  2: 독서록");
-      System.out.println("  3: 박명록");
+      System.out.println("  3: 방명록");
       System.out.println("  4: 공지사항");
-      System.out.println();
-      int mainMenuNo = Prompt.inputInt("메뉴를 선택하세요[1..4](0: 종료) ");
+      int displayMenuNo = Prompt.inputInt("메뉴를 선택하세요[1..4](0: 종료) ");
 
-      switch (mainMenuNo) {
+      switch (displayMenuNo) {
         case 0:
           break loop;
-        case 1: // 게시판
+        case 1:
           BoardHandler.excute();
           break;
-        case 2: // 독서록
+        case 2:
           break;
-        case 3: // 방명록
+        case 3:
           break;
-        case 4: // 공지사항
+        case 4:
+          break;
+        case 5:
           break;
         default:
           System.out.println("메뉴 번호가 옳지 않습니다.");
-      } // switch_mainMenuNo
+      }
     } // while
     System.out.println("안녕히 가세요!");
     Prompt.close();
@@ -62,5 +56,7 @@ public class App {
     System.out.println("환영합니다!");
     System.out.println();
   }
+
+
 
 } // app
