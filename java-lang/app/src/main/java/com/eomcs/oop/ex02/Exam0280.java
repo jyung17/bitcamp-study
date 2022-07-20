@@ -47,6 +47,7 @@ public class Exam0280 {
 
     System.out.printf("c1.result = %d\n", c1.getResult());
     System.out.printf("c2.result = %d\n", c2.getResult());
+    System.out.printf("c1.result = %d\n", c1.result);
   }
 }
 
