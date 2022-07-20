@@ -8,18 +8,13 @@
 // 2. gradle classes -> 프로젝트와 종속된 모든 프로젝트들을 조립하고 테스트(컴파일)
 // java -cp app/bin/main/ com.bitcamp.board.App
 // 3. ./run.sh
-
-// 1) 게시판 메뉴 구조 변경
-// 2) onBoardMenu() 메서드 추가
-// - displayMenu() 메서드 제거 : onBoardMenu()로 코드를 옮긴다.
-// - App02로 백업
-// 3)
+// 게시판 메뉴 구조 변경
 
 package com.bitcamp.board;
 
 // import java.util.Scanner;
 
-public class App {
+public class App01 {
 
   public static void main(String[] args) {
     welcome();
@@ -39,7 +34,34 @@ public class App {
         case 0:
           break loop;
         case 1: // 게시판
-          BoardHandler.excute();
+          board_loop: while (true) {
+            displayMenu();
+            int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 이전) ");
+            displayLine();
+
+            switch (menuNo) {
+              case 0:
+                break board_loop;
+              case 1:
+                BoardHandler.processList();
+                break;
+              case 2:
+                BoardHandler.processDetail();
+                break;
+              case 3:
+                BoardHandler.processInput();
+                break;
+              case 4:
+                BoardHandler.processDelete();
+                break;
+              case 5:
+                BoardHandler.processUpdate();
+                break;
+              default:
+                System.out.println("메뉴 번호가 옳지 않습니다.");
+            }
+            displayBlankLine();
+          } // 게시판 while
           break;
         case 2: // 독서록
           break;
@@ -63,4 +85,24 @@ public class App {
     System.out.println();
   }
 
+  // 메뉴를 출력하는 코드
+  static void displayMenu() {
+    System.out.println("메뉴:");
+    System.out.println("  1: 목록");
+    System.out.println("  2: 상세보기");
+    System.out.println("  3: 등록");
+    System.out.println("  4: 삭제");
+    System.out.println("  5: 변경");
+    System.out.println();
+  }
+
+  // 메뉴 번호 조건 검사 코드
+  static void displayLine() {
+    System.out.println("-----------------------------------");
+  }
+
+  // 결과 출력 후 빈 라인 출력 코드
+  static void displayBlankLine() {
+    System.out.println();
+  }
 } // app

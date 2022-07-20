@@ -13,13 +13,12 @@
 // 2) onBoardMenu() 메서드 추가
 // - displayMenu() 메서드 제거 : onBoardMenu()로 코드를 옮긴다.
 // - App02로 백업
-// 3)
 
 package com.bitcamp.board;
 
 // import java.util.Scanner;
 
-public class App {
+public class App02 {
 
   public static void main(String[] args) {
     welcome();
@@ -39,7 +38,7 @@ public class App {
         case 0:
           break loop;
         case 1: // 게시판
-          BoardHandler.excute();
+          onBoardMenu();
           break;
         case 2: // 독서록
           break;
@@ -61,6 +60,56 @@ public class App {
     System.out.println();
     System.out.println("환영합니다!");
     System.out.println();
+  }
+
+  // 메뉴 번호 조건 검사 코드
+  static void displayLine() {
+    System.out.println("=================================");
+  }
+
+  // 결과 출력 후 빈 라인 출력 코드
+  static void displayBlankLine() {
+    System.out.println();
+  }
+
+
+  static void onBoardMenu() {
+    while (true) {
+      displayLine();
+      System.out.println("메뉴:");
+      System.out.println("  1: 목록");
+      System.out.println("  2: 상세보기");
+      System.out.println("  3: 등록");
+      System.out.println("  4: 삭제");
+      System.out.println("  5: 변경");
+      System.out.println();
+
+      int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 이전) ");
+      displayLine();
+
+      switch (menuNo) {
+        case 0:
+          return;
+        case 1:
+          BoardHandler.processList();
+          break;
+        case 2:
+          BoardHandler.processDetail();
+          break;
+        case 3:
+          BoardHandler.processInput();
+          break;
+        case 4:
+          BoardHandler.processDelete();
+          break;
+        case 5:
+          BoardHandler.processUpdate();
+          break;
+        default:
+          System.out.println("메뉴 번호가 옳지 않습니다.");
+      }
+      displayBlankLine();
+    } // 게시판 while
   }
 
 } // app

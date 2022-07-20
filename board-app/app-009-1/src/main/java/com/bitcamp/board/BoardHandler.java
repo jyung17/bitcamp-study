@@ -11,55 +11,6 @@ public class BoardHandler {
 
   static Board[] boards = new Board[SIZE];
 
-  static void excute() {
-    while (true) {
-      displayHeadLine();
-      System.out.println("메뉴:");
-      System.out.println("  1: 목록");
-      System.out.println("  2: 상세보기");
-      System.out.println("  3: 등록");
-      System.out.println("  4: 삭제");
-      System.out.println("  5: 변경");
-      System.out.println();
-
-      int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 이전) ");
-      displayHeadLine();
-
-      switch (menuNo) {
-        case 0:
-          return;
-        case 1:
-          BoardHandler.processList();
-          break;
-        case 2:
-          BoardHandler.processDetail();
-          break;
-        case 3:
-          BoardHandler.processInput();
-          break;
-        case 4:
-          BoardHandler.processDelete();
-          break;
-        case 5:
-          BoardHandler.processUpdate();
-          break;
-        default:
-          System.out.println("메뉴 번호가 옳지 않습니다.");
-      }
-      displayBlankLine();
-    } // 게시판 while
-  }
-
-  // 메뉴 번호 조건 검사 코드
-  static void displayHeadLine() {
-    System.out.println("=================================");
-  }
-
-  // 결과 출력 후 빈 라인 출력 코드
-  static void displayBlankLine() {
-    System.out.println();
-  }
-
   static void processList() {
     // 날짜 정보에서 값을 추출하여 특정 포맷의 문자열로 만들어줄 도구를 준비
     java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
