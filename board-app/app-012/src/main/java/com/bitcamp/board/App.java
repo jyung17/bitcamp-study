@@ -27,7 +27,6 @@ public class App {
     BoardHandler noticeHandler = new BoardHandler("공지사항");
     BoardHandler diaryHandler = new BoardHandler("일기장");
 
-
     loop: while (true) {
 
       System.out.println("메뉴:");
@@ -43,19 +42,19 @@ public class App {
         case 0:
           break loop;
         case 1:
-          boardHandler.execute();
+          boardHandler.excute();
           break;
         case 2:
-          readingHandler.execute();
+          readingHandler.excute();
           break;
         case 3:
-          visitHandler.execute();
+          visitHandler.excute();
           break;
         case 4:
-          noticeHandler.execute();
+          noticeHandler.excute();
           break;
         case 5:
-          diaryHandler.execute();
+          diaryHandler.excute();
           break;
         default:
           System.out.println("메뉴 번호가 옳지 않습니다.");

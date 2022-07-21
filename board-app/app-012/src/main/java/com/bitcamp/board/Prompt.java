@@ -28,13 +28,6 @@ public class Prompt {
     return keyboardInput.nextLine();
   }
 
-  static char inputChar(String title) {
-    System.out.print(title);
-    char ch = keyboardInput.next().charAt(0);
-    return ch;
-  }
-
-
   static void close() {
     keyboardInput.close();
   }
