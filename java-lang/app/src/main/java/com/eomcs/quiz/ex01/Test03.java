@@ -1,16 +1,17 @@
-package com.eomcs.quiz;
+package com.eomcs.quiz.ex01;
 
-// [문제]
-// 두 위치의 비트 값을 맞교환 하라!
-// 예) 값: 0b00101100_01110001
-// 2번째(2^2 자리) 비트와 13번째(2^13 자리) 비트
-// 결과: 0b00001100_01110101
-//
+// [문제] 
+// 두 위치의 비트 값을 맞교환 하라! 
+// 예) 값:   0b00101100_01110001
+//     2번째(2^2 자리) 비트와 13번째(2^13 자리) 비트
+//     결과: 0b00001100_01110101
+//  
 // [훈련 목표]
 // - 관계 연산자 및 비트 연산자, 비트 이동 연산자 활용
 // - 반복문 활용
 // - 메서드 파라미터 및 리턴 값 다루기
-//
+// [시간 복잡도]
+// - ?
 public class Test03 {
 
   public static void main(String[] args) {
@@ -22,15 +23,8 @@ public class Test03 {
   }
 
   static int swapBits(int value, int i, int j) {
-    int n1 = 1;
-    int n2 = 1;
-    for (int n = 1; n <= 2; n++) {
-      n1 *= 2;
-    }
-    for (int m = 1; m <= 13; m++) {
-      n2 *= 2;
-    }
-    value = ((value ^ n1) & (value ^ n2));
+    // 이 메서드를 완성하시오!
     return 0;
   }
+
 }
