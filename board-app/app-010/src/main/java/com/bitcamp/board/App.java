@@ -17,16 +17,6 @@ public class App {
 
   public static void main(String[] args) {
     welcome();
-    // 생성자는 인스턴스를 사용하기 전에 유용한 값으로 설정하게 만드는 아주 특별한 메소드이다 
-
-    // 인스턴스를 생성할 때 생성자가 원하는 값을 반드시 줘야 한다.
-    // 주지 않으면 컴파일 오류이다.!
-    BoardHandler boardHandler = new BoardHandler("게시판");
-    BoardHandler readingHandler = new BoardHandler("독서록");
-    BoardHandler visitHandler = new BoardHandler("박명록");
-    BoardHandler noticeHandler = new BoardHandler("공지사항");
-    BoardHandler diaryHandler = new BoardHandler("일기장");
-
 
     loop: while (true) {
 
@@ -35,27 +25,22 @@ public class App {
       System.out.println("  2: 독서록");
       System.out.println("  3: 방명록");
       System.out.println("  4: 공지사항");
-      System.out.println("  5: 일기장");
       int displayMenuNo = Prompt.inputInt("메뉴를 선택하세요[1..4](0: 종료) ");
 
-      // 다른 인스턴스 메서드를 호출할 때 this에 보관된 인스턴스 주소를 사용한다.
       switch (displayMenuNo) {
         case 0:
           break loop;
         case 1:
-          boardHandler.excute();
+          BoardHandler.excute();
           break;
         case 2:
-          readingHandler.excute();
+          ReadingHandler.excute();
           break;
         case 3:
-          visitHandler.excute();
+          VisitHandler.excute();
           break;
         case 4:
-          noticeHandler.excute();
-          break;
-        case 5:
-          diaryHandler.excute();
+          NoticeHandler.excute();
           break;
         default:
           System.out.println("메뉴 번호가 옳지 않습니다.");
