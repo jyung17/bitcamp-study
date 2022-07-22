@@ -16,7 +16,6 @@ public class BoardList {
   Board[] boards;
   int no = 0;
 
-
   // 생성자
   public BoardList() {
     this.boards = new Board[DEFAULT_SIZE];

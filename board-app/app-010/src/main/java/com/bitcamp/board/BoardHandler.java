@@ -11,7 +11,7 @@ public class BoardHandler {
 
   static Board[] boards = new Board[DEFAULT_SIZE];
 
-  static void excute() {
+  static void execute() {
     while (true) {
       System.out.println("게시글:");
       System.out.println("  1: 목록");

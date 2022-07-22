@@ -9,7 +9,6 @@ package com.eomcs.quiz.ex01.ctest;
 //
 // [시간 복잡도]
 // - ?
-//
 public class Test05 {
 
   public static void main(String[] args) {
@@ -19,23 +18,10 @@ public class Test05 {
   static int countWaysToChangeDigit(int value) {
     int answer = 0;
     // 이 메서드를 완성하시오!
-    //    while ()
-    for (int i = 1; i < 10; i++) {
-      int a = value + i;
-      if (a / 10 != a / 10) {
-        break;
-      }
-      answer++;
+    while (value != 0) {
+      answer += 9; // 맨 뒷자리를 9번 바꿀 수 있다.
+      value /= 10; // 맨 뒷자리를 제거한다.
     }
-
-    for (int i = 1; i < 10; i++) {
-      int b = value * i;
-      if (b % 10 != b % 10) {
-        break;
-      }
-    }
-    answer++;
-    System.out.println(answer);
-    return answer;
+    return answer - 1;
   }
 }

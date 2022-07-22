@@ -43,19 +43,19 @@ public class App {
         case 0:
           break loop;
         case 1:
-          boardHandler.excute();
+          boardHandler.execute();
           break;
         case 2:
-          readingHandler.excute();
+          readingHandler.execute();
           break;
         case 3:
-          visitHandler.excute();
+          visitHandler.execute();
           break;
         case 4:
-          noticeHandler.excute();
+          noticeHandler.execute();
           break;
         case 5:
-          diaryHandler.excute();
+          diaryHandler.execute();
           break;
         default:
           System.out.println("메뉴 번호가 옳지 않습니다.");

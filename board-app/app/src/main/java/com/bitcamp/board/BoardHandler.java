@@ -1,6 +1,8 @@
 /*
- * 게시글 메뉴 처리 클래스
+ * 게시글 메뉴 처리 클래
  */
+
+
 package com.bitcamp.board;
 
 import java.text.SimpleDateFormat;
@@ -21,7 +23,7 @@ public class BoardHandler {
     this.title = title;
   }
 
-  void excute() {
+  void execute() {
     // App 클래스에서 이 메서드를 호출할 때 BoardHandler의 인스턴스 주소를 줄 것이다.
     // 그 주소는 this 라는 내장 변수에 보관될 것이다.
     while (true) {

@@ -11,7 +11,7 @@ public class NoticeHandler {
 
   static Board[] boards = new Board[DEFAULT_SIZE];
 
-  static void excute() {
+  static void execute() {
     while (true) {
       System.out.println("공지사항:");
       System.out.println("  1: 목록");

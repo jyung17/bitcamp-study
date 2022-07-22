@@ -31,16 +31,16 @@ public class App {
         case 0:
           break loop;
         case 1:
-          BoardHandler.excute();
+          BoardHandler.execute();
           break;
         case 2:
-          ReadingHandler.excute();
+          ReadingHandler.execute();
           break;
         case 3:
-          VisitHandler.excute();
+          VisitHandler.execute();
           break;
         case 4:
-          NoticeHandler.excute();
+          NoticeHandler.execute();
           break;
         default:
           System.out.println("메뉴 번호가 옳지 않습니다.");
