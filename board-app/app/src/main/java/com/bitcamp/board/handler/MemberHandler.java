@@ -63,12 +63,12 @@ public class MemberHandler {
     System.out.println("[회원 목록]");
     System.out.println("번호 이름 이메일");
 
-    Member[] list = this.memberList.toArray();
+    Object[] list = this.memberList.toArray();
 
-    for (Member member : list) {
+    for (Object obj : list) {
+      Member member = (Member) obj;
       System.out.printf("%d\t%s\t%s\n", member.no, member.name, member.email);
     }
-
   }
 
   private void onDetail() {
@@ -88,7 +88,6 @@ public class MemberHandler {
     System.out.printf("이메일: %s\n", member.email);
     Date date = new Date(member.createdDate);
     System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
-
   }
 
   private void onInput() {
@@ -143,5 +142,3 @@ public class MemberHandler {
     }
   }
 }
-
-

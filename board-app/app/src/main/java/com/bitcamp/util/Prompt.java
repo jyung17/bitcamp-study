@@ -5,7 +5,9 @@ package com.bitcamp.util;
 
 public class Prompt {
 
-  private static java.util.Scanner keyboardInput = new java.util.Scanner(System.in);
+  private static java.util.Scanner keyboardInput = new java.util.Scanner(
+    System.in
+  );
 
   public static int inputInt() {
     String str = keyboardInput.nextLine();
