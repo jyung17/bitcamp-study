@@ -35,7 +35,7 @@ public class App {
       System.out.println("  3: 방명록");
       System.out.println("  4: 공지사항");
       System.out.println("  5: 일기장");
-      int displayMenuNo = Prompt.inputInt("메뉴를 선택하세요[1..4](0: 종료) ");
+      int displayMenuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 종료) ");
 
       // 다른 인스턴스 메서드를 호출할 때 this에 보관된 인스턴스 주소를 사용한다.
       switch (displayMenuNo) {

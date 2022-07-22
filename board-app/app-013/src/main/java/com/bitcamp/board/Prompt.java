@@ -1,7 +1,6 @@
 /*
- * 사용자로부터 키보드 입력을 받는 도구를 구비하고 있다.
+ * 키보드 입력을 받는 도구를 구비하고 있다.
  */
-
 package com.bitcamp.board;
 
 public class Prompt {
@@ -10,13 +9,13 @@ public class Prompt {
 
   static int inputInt() {
     String str = keyboardInput.nextLine();
-    return Integer.parseInt(str);
+    return Integer.parseInt(str); //"123" ==> 123, "5" ==> 5, "ok" ==> 실행 오류!
   }
 
   static int inputInt(String title) {
     System.out.print(title);
     String str = keyboardInput.nextLine();
-    return Integer.parseInt(str);
+    return Integer.parseInt(str); 
   }
 
   static String inputString() {
@@ -28,14 +27,7 @@ public class Prompt {
     return keyboardInput.nextLine();
   }
 
-  static char inputChar(String title) {
-    System.out.print(title);
-    char ch = keyboardInput.next().charAt(0);
-    return ch;
-  }
-
-
   static void close() {
     keyboardInput.close();
   }
-} // Prompt
+}
