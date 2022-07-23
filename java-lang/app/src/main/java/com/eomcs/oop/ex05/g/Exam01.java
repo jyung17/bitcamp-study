@@ -2,10 +2,10 @@
 package com.eomcs.oop.ex05.g;
 
 public class Exam01 {
+
   public static void main(String[] args) {
     C obj = new C();
     System.out.printf("v1=%d, v2=%d, v3=%d\n", obj.v1, obj.v2, obj.v3);
-
     // 생성자 호출 순서
     // 1) C 클래스의 생성자를 호출하면,
     //    그 생성자의 첫 번째 문장이 수퍼 클래스의 생성자를 호출하는 명령이다.
@@ -27,11 +27,3 @@ public class Exam01 {
 
   }
 }
-
-
-
-
-
-
-
-

@@ -8,41 +8,40 @@ public class MemberList extends ObjectList {
 
   private int no = 0;
 
-  private int nextNo() {
-    return ++no;
-  }
-
-  @Override
-  public void add(Object obj) {
-    // TODO Auto-generated method stub
-    Member member = (Member) obj;
-    member.no = nextNo();
-    super.add(obj);
-  }
-
   @Override
   public Member get(int memberNo) {
     for (int i = 0; i < this.length; i++) {
-      Member member = (Member) this.list[i];
+      Member member = (Member) list[i];
       if (member.no == memberNo) {
         return member;
       }
     }
-    // TODO Auto-generated method stub
     return null;
   }
 
   @Override
+  public void add(Object obj) {
+    Member member = (Member) obj;
+    member.no = nextNo();
+    super.add(member);
+  }
+
+  @Override
   public boolean remove(int memberNo) {
-    int index = -1;
+    int memberIndex = -1;
     for (int i = 0; i < this.length; i++) {
-      Member member = (Member) this.list[i];
+      Member member = (Member) list[i];
       if (member.no == memberNo) {
-        index = i;
+        memberIndex = i;
         break;
       }
     }
-    // TODO Auto-generated method stub
-    return super.remove(index);
+    return super.remove(memberIndex);
+  }
+
+  private int nextNo() {
+    return ++no;
   }
 }
+
+

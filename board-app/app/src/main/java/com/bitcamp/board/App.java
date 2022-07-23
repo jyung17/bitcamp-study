@@ -1,5 +1,6 @@
 /*
- * 게시판 관리 애플리케이션 비트캠프-20220704
+ * 게시판 관리 애플리케이션
+ * 비트캠프-20220704
  */
 package com.bitcamp.board;
 
@@ -22,7 +23,7 @@ public class App {
     BoardHandler diaryHandler = new BoardHandler("일기장");
     MemberHandler memberHandler = new MemberHandler();
 
-    loop: while (true) {
+    loop:while (true) {
       // 메인 메뉴 출력
       System.out.println("메뉴:");
       System.out.println("  1: 게시판");

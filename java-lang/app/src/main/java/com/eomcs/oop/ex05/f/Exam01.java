@@ -2,6 +2,7 @@
 package com.eomcs.oop.ex05.f;
 
 public class Exam01 {
+
   public static void main(String[] args) {
     // B 클래스의 설계도에 따라 Heap 영역에 변수를 준비한다.
     // - B 클래스는 A 클래스에 기능을 덧붙인 것이라 선언했기 때문에
@@ -21,7 +22,6 @@ public class Exam01 {
     obj2.v2 = 2000;
     obj2.v1 = 1000;
     System.out.printf("v2=%d, v1=%d\n", obj2.v2, obj2.v1);
-
     // B 클래스의 인스턴스 생성 과정
     // 1) B의 수퍼 클래스가 로딩되어 있지 않다면, 수퍼 클래스(A 클래스)를 먼저 로딩한다.
     //    - 스태틱 필드 생성한 후
@@ -54,7 +54,6 @@ public class Exam01 {
 
   }
 }
-
 // 용어 정리!
 // 상속(inheritance)
 // - 기존에 만든 클래스를 자신의 코드처럼 사용하는 기법이다.
@@ -67,13 +66,3 @@ public class Exam01 {
 // - A 클래스 입장에서, A 클래스가 상속해주는 B 클래스를 말한다.
 //
 // 즉 수퍼 클래스나 서브 클래스는 상대적인 개념이다.
-
-
-
-
-
-
-
-
-
-
