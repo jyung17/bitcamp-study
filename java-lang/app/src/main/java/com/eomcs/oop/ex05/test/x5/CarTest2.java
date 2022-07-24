@@ -1,8 +1,5 @@
 package com.eomcs.oop.ex05.test.x5;
 
-import com.eomcs.oop.ex05.x5.Car;
-import com.eomcs.oop.ex05.x5.Trailer;
-
 public class CarTest2 {
 
   public static void main(String[] args) {
