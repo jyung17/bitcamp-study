@@ -27,11 +27,23 @@ public class Exam0720 {
       a = 200;
       System.out.println("A() 생성자 호출");
     }
+
+    //    public A(int value) {
+    //      a = 300;
+    //      System.out.println("A(int value) 생성자 호출");
+    //    }
+    //
+    //    public A(int value, int value2) {
+    //      a = 300;
+    //      System.out.println("A(int value, int value2) 생성자 호출");
+    //    }
   }
 
   public static void main(String[] args) {
     A obj1 = new A();
     System.out.printf("a=%d, b=%d, c=%d\n", obj1.a, obj1.b, obj1.c);
+    //    A obj2 = new A(1);
+    //    A obj3 = new A(1, 2);
   }
 }
 

@@ -1,4 +1,4 @@
-package com.eomcs.quiz.ex02.ctest;
+package com.eomcs.quiz.ex02.sol;
 
 // 출처: codefights.com
 //
@@ -8,9 +8,9 @@ package com.eomcs.quiz.ex02.ctest;
 // [2, 4, 5, 6, 4, 3, 7, 8] => [4, 3, 7, 8, 2, 4, 5, 6]
 //
 // [시간 복잡도]
-// - ?
+// - O(n): n은 배열 개수
 //
-public class Test02 {
+public class Test02x {
 
   public static void main(String[] args) {
     int[] values = {2, 4, 5, 6, 4, 3, 7, 8};
@@ -28,25 +28,30 @@ public class Test02 {
   }
 
   static void changeValuePosition(int[] values) {
-    // 이 메서드를 완성하시오!
-    int valLength = values.length / 2;
-    int j = valLength;
-    for (int i = 0; i < values.length / 2; i++) {
-      int temp = values[i];
-      values[i] = values[j];
-      values[j] = temp;
-      j++;
-    }
-
-    // 배열의 절반을 맞바꿀 것이기 때문에
+    // 배열의의 절반을 맞바꿀 것이기 때문에 
     // 배열의 절반만 반복한다.
     int halfIndex = values.length / 2;
     for (int i = 0; i < halfIndex; i++) {
-      // 맞바꿀 항복의 인덱스를 구한다.
+
+      // 맞바꿀 항목의 인덱스를 구한다.
       int target = i + halfIndex;
+
+      // 두 항목의 값을 바꾸기 전에 i 번째 항목의 값을 임시 변수에 저장해 둔다.
       int temp = values[i];
+
+      // target 인덱스의 값을 i 번째 항목에 넣는다.
       values[i] = values[target];
+
+      // target 번째 항목에 temp 에 임시 보관된 값을 저장한다.
       values[target] = temp;
     }
   }
 }
+
+
+
+
+
+
+
+

@@ -17,6 +17,17 @@ public class Exam0680 {
 
     static int b = 300;
 
+    //  static int
+    // static int
+    // static {
+    // b = 400;
+    // a = 100;
+    // a = 200;
+    // System.out.println("static {} 실행");
+    // b = 300 
+    //}
+
+
     // 변수 초기화 문장(variable initializer)을 컴파일 할 때,
     // 1) 스태틱 변수 선언에서 변수 초기화 문장을 별도의 스태틱 블록으로 분리한다.
     //

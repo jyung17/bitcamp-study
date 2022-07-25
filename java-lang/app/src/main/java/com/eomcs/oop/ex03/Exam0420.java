@@ -1,4 +1,4 @@
-// 생성자 - 파라미터를 받는 생성자 
+// 생성자 - 파라미터를 받는 생성자
 package com.eomcs.oop.ex03;
 
 public class Exam0420 {
@@ -26,8 +26,8 @@ public class Exam0420 {
     }
 
     public void compute() {
-      this.sum = this.kor + this.eng + this.math;
-      this.average = this.sum / 3f;
+      sum = kor + eng + math;
+      average = sum / 3f;
     }
   }
 
@@ -45,11 +45,11 @@ public class Exam0420 {
     // 합계와 평균을 계산하기 위해 따로 compute()를 호출할 필요가 없다.
     // 이것이 생성자를 사용하는 이유이다.
     // 생성자를 사용하면 좀 더 코드가 간결해진다.
-    System.out.printf("%s, %d, %d, %d, %d, %.1f\n",
-        s1.name, s1.kor, s1.eng, s1.math, s1.sum, s1.average);
+    System.out.printf("%s, %d, %d, %d, %d, %.1f\n", s1.name, s1.kor, s1.eng, s1.math, s1.sum,
+        s1.average);
 
-    System.out.printf("%s, %d, %d, %d, %d, %.1f\n",
-        s2.name, s2.kor, s2.eng, s2.math, s2.sum, s2.average);
+    System.out.printf("%s, %d, %d, %d, %d, %.1f\n", s2.name, s2.kor, s2.eng, s2.math, s2.sum,
+        s2.average);
   }
 }
 
@@ -57,10 +57,5 @@ public class Exam0420 {
 // => 인스턴스(객체)를 생성한 후에 사용하기 전에(제대로 쓰일 수 있도록) 
 //    유효한(적당한) 값으로 초기화시키는 작업을 수행한다.
 // 
-
-
-
-
-
 
 

@@ -15,26 +15,37 @@ public class Exam0110 {
     // => static이 붙지 않는다.
     int v1; // 4바이트 int 값을 저장할 메모리를 만들라는 명령!
     boolean v2; // true/false 논리값을 저장할 메모리를 만들라는 명령!
+    long v4;
+    String v5;
+
+    static int v3;
+
+    int x1;
+    int x2;
+    int x3;
+
     // 이 명령은 new 명령을 실행할 때 비로서 실행된다.
+    public A(int x1, int x2, int x3) {
+      this.x1 = x1;
+      this.x2 = x2;
+      this.x3 = x3;
+    }
   }
 
   public static void main(String[] args) {
     // A 클래스에 대해 new 명령을 사용하기 전에는 v1, v2 메모리는 존재하지 않는다.
     // 단지 설계도일 뿐이다.
-    A obj1 = new A(); // A 클래스에서 변수 선언 명령을 실행한다. 주의! 메서드 정의는 실행하지 않는다!
-    A obj2 = new A();
-    A obj3 = new A();
+
 
     // 이렇게 생성된 메모리를 "인스턴스", "객체"라고 부른다.
-    // 이 인스턴스의 주소를 저장하는 obj1, obj2, obj3를 "레퍼런스"라 부른다.
+    // 이 인스턴스의 주소를 저장하는 obj1, obj2, obj3를 "레퍼런스 변수"라 부른다.
     // 인스턴스가 생성될 때 만들어지는 v1, v2를 변수를 "인스턴스 변수"라 부른다.
 
-    // 인스턴스 변수는 레퍼런스를 통해 사용할 수 있다.
-    obj1.v1 = 100;
-    obj2.v1 = 200;
-    obj3.v1 = 300;
+    A obj = new A(1, 2, 3);
 
-    System.out.printf("%d, %d, %d\n", obj1.v1, obj2.v1, obj3.v1);
+
+
+    System.out.printf("%d, %d, %d\n", obj.x1, obj.x2, obj.x3);
   }
 }
 // 인스턴스 변수는 new 명령을 실행할 때 마다 생성되기 때문에

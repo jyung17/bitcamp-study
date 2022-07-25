@@ -13,6 +13,7 @@ public class Test03 {
   public static void main(String[] args) {
     int[] values = {2, 4, 8};
     System.out.println(divisorsPairs(values) == 3);
+    System.out.println(values[0] & values[1]);
 
   }
 
@@ -23,7 +24,7 @@ public class Test03 {
         result++;
       }
     }
-
     return result;
   }
 }
+
