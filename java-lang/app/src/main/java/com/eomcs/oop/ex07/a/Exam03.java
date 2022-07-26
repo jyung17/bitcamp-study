@@ -7,14 +7,15 @@ package com.eomcs.oop.ex07.a;
 // 왜?
 // - 일반 클래스는 인스턴스를 생성할 수 있다.
 // - 인스턴스로 메서드를 호출하기 때문에
-//   일반 클래스에 완전히 정의되지 않은 메서드가 있다면,
-//   호출할 때 오류가 발생할 것이다.
+// 일반 클래스에 완전히 정의되지 않은 메서드가 있다면,
+// 호출할 때 오류가 발생할 것이다.
 // - 이런 문제를 발생시키지 않기 위해
-//   일반 클래스는 추상 메서드를 갖지 않게 하였다.
+// 일반 클래스는 추상 메서드를 갖지 않게 하였다.
 //
 abstract class A3 {
   public abstract void m1();
 }
+
 
 class A3Sub extends A3 {
   @Override // 이 애노테이션은 빼도 된다.
@@ -26,6 +27,7 @@ class A3Sub extends A3 {
     System.out.println("A3Sub.m2() 호출됨!");
   }
 }
+
 
 public class Exam03 {
   public static void main(String[] args) {
@@ -48,7 +50,7 @@ public class Exam03 {
     //    obj.m2(); // 컴파일 오류!
 
     // - 물론 실제 인스턴스 타입으로 형벼환 후에는 가능한다.
-    ((A3Sub)obj).m2();
+    ((A3Sub) obj).m2();
   }
 
   static void test(A3 obj) {
@@ -71,17 +73,7 @@ public class Exam03 {
     //   일반 클래스에는 추상 메서드가 없다.
     //   그러므로 A3를 상속 받은 일반 클래스는 반드시 m1() 메서드를 구현했다는 의미다.
     // 
-
-
   }
-
 }
-
-
-
-
-
-
-
 
 
