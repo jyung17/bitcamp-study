@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Exam0123 {
 
   static class Member {
+
     String name;
     int age;
 
@@ -16,6 +17,7 @@ public class Exam0123 {
 
     // String의 equals()처럼 내용이 같은지를 비교하도록 만들고 싶다면,
     // Object에서 상속 받은 메서드를 오버라이딩 하라.
+
     @Override
     public boolean equals(Object obj) {
       if (this == obj)

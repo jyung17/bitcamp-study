@@ -2,11 +2,16 @@
 package com.eomcs.basic.ex02;
 
 public class Exam0141 {
+
   public static void main(String[] args) {
 
     Object obj = new String("Hello"); // 인스턴스 주소가 100이라 가정하자;
+    ((String) obj).charAt(0);
+    System.out.println(((String) obj).charAt(0));
+    System.out.println(((String) obj).charAt(1));
 
     String x1 = (String) obj; // x1 <--- 100
+    System.out.println(obj == x1);
 
     // obj에 대해 toString()을 호출할 때,
     // => 일단 obj 클래스에 선언된 멤버(필드와 메서드)만 사용할 수 있다.
@@ -18,6 +23,7 @@ public class Exam0141 {
     String x2 = obj.toString(); // x2 <---- 100
 
     System.out.println(x1 == x2);
+
 
     // 레퍼런스를 통해 메서드를 호출할 때
     // => 레퍼런스가 가리키는 객체의 클래스부터 메서드를 찾아 올라간다.

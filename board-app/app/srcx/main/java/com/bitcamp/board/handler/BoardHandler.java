@@ -3,11 +3,11 @@
  */
 package com.bitcamp.board.handler;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import com.bitcamp.board.dao.BoardList;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.util.Prompt;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BoardHandler {
 
@@ -37,15 +37,27 @@ public class BoardHandler {
       int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0: 이전) ");
       displayHeadline();
 
-      // 다른 인스턴스 메서드를 호출할 때 this에 보관된 인스턴스 주소를 사용한다. 
+      // 다른 인스턴스 메서드를 호출할 때 this에 보관된 인스턴스 주소를 사용한다.
       switch (menuNo) {
-        case 0: return;
-        case 1: this.onList(); break;
-        case 2: this.onDetail(); break;
-        case 3: this.onInput(); break;
-        case 4: this.onDelete(); break;
-        case 5: this.onUpdate(); break;
-        default: System.out.println("메뉴 번호가 옳지 않습니다!");
+        case 0:
+          return;
+        case 1:
+          this.onList();
+          break;
+        case 2:
+          this.onDetail();
+          break;
+        case 3:
+          this.onInput();
+          break;
+        case 4:
+          this.onDelete();
+          break;
+        case 5:
+          this.onUpdate();
+          break;
+        default:
+          System.out.println("메뉴 번호가 옳지 않습니다!");
       }
 
       displayBlankLine();
@@ -69,14 +81,19 @@ public class BoardHandler {
     // boardList 인스턴스에 들어 있는 데이터 목록을 가져온다.
     Object[] list = this.boardList.toArray();
 
-    for (Object item : list) {
-      Board board = (Board) item;
+    for (Object obj : list) {
+      Board board = (Board) obj;
       Date date = new Date(board.createdDate);
-      String dateStr = formatter.format(date); 
-      System.out.printf("%d\t%s\t%d\t%s\t%s\n",
-          board.no, board.title, board.viewCount, board.writer, dateStr);
+      String dateStr = formatter.format(date);
+      System.out.printf(
+        "%d\t%s\t%d\t%s\t%s\n",
+        board.no,
+        board.title,
+        board.viewCount,
+        board.writer,
+        dateStr
+      );
     }
-
   }
 
   private void onDetail() {
@@ -100,7 +117,6 @@ public class BoardHandler {
     System.out.printf("작성자: %s\n", board.writer);
     Date date = new Date(board.createdDate);
     System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
-
   }
 
   private void onInput() {
@@ -145,7 +161,9 @@ public class BoardHandler {
     }
 
     String newTitle = Prompt.inputString("제목?(" + board.title + ") ");
-    String newContent = Prompt.inputString(String.format("내용?(%s) ", board.content));
+    String newContent = Prompt.inputString(
+      String.format("내용?(%s) ", board.content)
+    );
 
     String input = Prompt.inputString("변경하시겠습니까?(y/n) ");
     if (input.equals("y")) {
@@ -157,7 +175,3 @@ public class BoardHandler {
     }
   }
 }
-
-
-
-

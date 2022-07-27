@@ -14,6 +14,11 @@ public class Exam0172 {
       System.out.println(s);
     }
 
+    String[] arr3 = Arrays.copyOfRange(arr, 1, 4);
+    for (String s1 : arr3) {
+      System.out.println(s1);
+    }
+
   }
 }
 
