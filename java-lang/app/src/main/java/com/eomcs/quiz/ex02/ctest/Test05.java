@@ -38,6 +38,13 @@ public class Test05 {
   static int maxFraction(int[] numerators, int[] denominators) {
     int maxFractionIndex = 0;
     // 이 메서드를 완성하시오!
+    float max = 0;
+    for (int i = 0; i < numerators.length; i++) {
+      if ((float) numerators[i] / (float) denominators[i] >= max) {
+        max = (float) numerators[i] / (float) denominators[i];
+        maxFractionIndex = i;
+      }
+    }
     return maxFractionIndex;
   }
 }
