@@ -1,18 +1,19 @@
-package com.eomcs.exception.ex2.test;
+package com.eomcs.exception.ex3.test;
 
 public class Exam0110 {
+  static void m() {
+    throw new RuntimeException("예외가 발생했습니다.!");
+  }
 
   public static void main(String[] args) {
     // TODO Auto-generated method stub
-    String op = "#";
-    int a = 100;
-    int b = 200;
-
     try {
-      int result = Calculator3.compute(op, a, b);
-      System.out.println(result);
+      m();
     } catch (RuntimeException ex) {
       System.out.println(ex.getMessage());
     }
+
+    System.out.println("시스템을 종료합니다.");
   }
+
 }

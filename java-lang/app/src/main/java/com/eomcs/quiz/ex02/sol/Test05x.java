@@ -30,7 +30,7 @@ index of the largest fraction assuming that none of the fractions are equal
 // [시간 복잡도]
 // - O(n) : n은 배열의 길이
 //
-public class Test05 {
+public class Test05x {
   public static void main(String[] args) {
     System.out.println(maxFraction(
         new int[]{5, 2, 5}, 
@@ -43,11 +43,14 @@ public class Test05 {
   }
 
   static int maxFraction(int[] numerators, int[] denominators) {
-    int maxFractionIndex = 0;
+    int maxFractionIndex = 0; // 가장 큰 분수가 0번째라고 가정하고 시작한다.
+
+    // 0 번째 다음 항목인 1 번째부터 비교를 시작한다.
     for (int i = 1; i < numerators.length; i++) {
-      if (numerators[i] * denominators[maxFractionIndex] >
-      denominators[i] * numerators[maxFractionIndex]) {
-        maxFractionIndex = i;
+      // maxFractionIndex 가 가리키는 현재의 분수 보다 i 번째 분수가 더 큰 수라면
+      if (numerators[i] * denominators[maxFractionIndex] > 
+      numerators[maxFractionIndex] * denominators[i]) {
+        maxFractionIndex = i; // maxFractionIndex의 값을 i로 바꾼다.
       }
     }
     return maxFractionIndex;

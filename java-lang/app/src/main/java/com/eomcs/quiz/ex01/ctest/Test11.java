@@ -23,25 +23,30 @@ public class Test11 {
 
   public static void main(String[] args) {
     System.out.println(differentSymbolsNaive("cabca") == 3);
-    System.out.println(differentSymbolsNaive("cabca"));
   }
 
   static int differentSymbolsNaive(String s) {
     int result = 0;
-    // 이 메서드를 완성하시오!
+    //    // 이 메서드를 완성하시오!
+    //    // 알파벳 a에서 z까지 반복한다.
+    for (int i = 0; i < 26; i++) {
+      // 문자 코드 값과 문자를 출력해 본다.
+      // System.out.printf("%1$x ==> %1$c\n", 'a' + i);
 
-    for (int i = 0; i <= 26; i++) {
-      boolean found = false;
-      for (int j = 0; j < s.length(); j++) {
-        if (s.charAt(j) == 'a' + i) {
-          found = true;
-          break;
+      // 파라미터로 주어진 문자열에서 문자를 반복해서 꺼낸다.
+      for (int x = 0; x < s.length(); x++) {
+        char c = s.charAt(x); // 문자열에서 인덱스 x의 문자를 꺼낸다.
+        if (c == i) { // 파벳의 코드 값과 문자의 코드 값이 같다
+          result++; // 개수를 한 개 증가 시킨다.
+          break; //다
         }
       }
-      if (found) {
-        result++;
-      }
     }
+    //    char_list = [0] *26
+    //        for i in range(len(string)):
+    //            char_list[string[i]-97] = 1
+    //        sum(char_list)
+
     return result;
   }
 }
