@@ -18,7 +18,7 @@ import java.lang.reflect.Array;
 //
 // 테스트2: MyLinkedListTest2
 // 11) 제네릭을 적용한다.
-// 
+//
 // 테스트3: MyLinkedListTest3
 // 12) 파라미터로 받은 배열에 값을 채워주는 toArray(E[]) 메서드를 추가한다.
 //
@@ -45,6 +45,7 @@ public class MyLinkedList<E> implements Cloneable {
   // - 여러 개의 MyLinkedList 객체가 공유하는 클래스이므로
   //   스태틱으로 Node 클래스를 설계한다.
   static class Node<E> {
+
     E value;
     Node<E> next;
 
@@ -177,7 +178,6 @@ public class MyLinkedList<E> implements Cloneable {
 
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] arr) {
-
     if (arr.length < size) {
       arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), size);
     }
@@ -193,7 +193,7 @@ public class MyLinkedList<E> implements Cloneable {
 
   // Object.clone()을 오버라이딩 할 때 'deep copy' 이용하여 스택 객체 복사하기
   // => 새 연결 리스트를 만들어 원본에 보관된 값을 복사한다.
-  // => 따라서 복사본의 Node 객체는 원본의 Node 객체와 다르다. 
+  // => 따라서 복사본의 Node 객체는 원본의 Node 객체와 다르다.
   //    복사본의 상태 변경에 원본은 영향 받지 않는다.
   //
   @SuppressWarnings("unchecked")
@@ -207,8 +207,3 @@ public class MyLinkedList<E> implements Cloneable {
     return newList;
   }
 }
-
-
-
-
-
