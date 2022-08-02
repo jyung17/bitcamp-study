@@ -2,7 +2,7 @@ package com.bitcamp.util;
 
 /**
  * Node를 이용해 값을 목록을 관리하는 일을 한다.
- * 
+ *
  * @author bitcamp
  *
  */
@@ -23,27 +23,25 @@ public class LinkedList {
     size++; // 목록의 크기를 한 개 증가시킨다.
 
     // 리스트의 끝에 노드를 붙인다.
-    // 만약, 리스트에 노드가 없다면 
+    // 만약, 리스트에 노드가 없다면
     if (tail == null) {
       head = tail = node; // 첫 노드를 등록한다.
       return;
     }
 
-
     tail.next = node; // 리스트 끝에 새 노드를 연결한다.
-    node.prev = tail; // 새 노드가 현재의 끝 노드를 가리키게 한다. 
+    node.prev = tail; // 새 노드가 현재의 끝 노드를 가리키게 한다.
 
     tail = node; // 새 노드를 끝 노드로 만든다.
   }
 
   public Object retrieve(int index) {
-
     // 인덱스의 유효 여부 검사
     if (index < 0 || index >= size) {
       throw new ListException("인덱스의 범위를 초과했습니다!");
     }
 
-    // 인덱스에 해당하는 노드를 찾을 때 head 부터 시작한다. 
+    // 인덱스에 해당하는 노드를 찾을 때 head 부터 시작한다.
     Node cursor = head;
 
     // 지정된 인덱스의 노드 주소를 알아낸다.
@@ -56,7 +54,6 @@ public class LinkedList {
   }
 
   public Object delete(int index) {
-
     // 인덱스의 유효 여부 검사
     if (index < 0 || index >= size) {
       throw new ListException("인덱스의 범위를 초과했습니다!");
@@ -87,13 +84,13 @@ public class LinkedList {
     if (cursor.prev != null) { // 맨 앞 노드가 아니라면
       cursor.prev.next = cursor.next; // 현재 노드의 다음 노드 주소를 이전 노드의 next 저장
     } else { // 맨 앞 노드라면
-      head = cursor.next; // 삭제할 다음 노드를 시작 노드로 설정한다. 
+      head = cursor.next; // 삭제할 다음 노드를 시작 노드로 설정한다.
       head.prev = null; // 시작 노드이기에 앞노드를 가리키지 않게 한다.
     }
 
     if (cursor.next != null) { // 마지막 노드가 아니라면
       cursor.next.prev = cursor.prev; // 현재 노드의 이전 노드 주소를 다음 노드의 prev 저장
-    } else { // 마지막 노드라면 
+    } else { // 마지막 노드라면
       tail = cursor.prev; // 현재 커서의 이전 노드를 마지막 노드로 설정한다.
       tail.next = null; // 마지막 노드이기에 다음 노드를 가리키지 않게 한다.
     }
@@ -126,16 +123,3 @@ public class LinkedList {
     return arr;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -28,6 +28,7 @@ interface MyInterface {
 
 }
 
+
 // 2) 인터페이스 구현
 abstract class MyInterfaceImpl implements MyInterface {
   @Override
@@ -45,6 +46,7 @@ abstract class MyInterfaceImpl implements MyInterface {
   // 추상 클래스로 선언해야 한다.
 }
 
+
 class MyInterfaceImpl2 implements MyInterface {
   @Override
   public void m1() {}
@@ -53,17 +55,15 @@ class MyInterfaceImpl2 implements MyInterface {
   public void m2() {} // OK!
 
   @Override
-  public void m3() {
-  }
+  public void m3() {}
 
   @Override
-  public void m4() {
-  }
+  public void m4() {}
 
   @Override
-  public void m7() {
-  }
+  public void m7() {}
 }
+
 
 // 3) 인터페이스 사용
 public class Exam01 {
