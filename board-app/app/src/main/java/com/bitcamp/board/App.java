@@ -3,12 +3,11 @@
  */
 package com.bitcamp.board;
 
-import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.handler.BoardHandler;
 import com.bitcamp.board.handler.MemberHandler;
 import com.bitcamp.handler.Handler;
 import com.bitcamp.util.Prompt;
-import com.bitcamp.util.Stack;
+import java.util.Stack;
 
 public class App {
 
@@ -19,7 +18,7 @@ public class App {
     welcome();
 
     // 핸들러를 담을 레퍼런스 배열을 준비한다.
-    Handler[] handlers = new Handler[] {new BoardHandler(), // 게시판
+    Handler[] handlers = new Handler[]{new BoardHandler(), // 게시판
         new BoardHandler(), // 독서록
         new BoardHandler(), // 방명록
         new BoardHandler(), // 공지사항
@@ -33,7 +32,8 @@ public class App {
     // 메뉴명을 저장할 배열을 준비한다.
     String[] menus = {"게시판", "독서록", "방명록", "공지사항", "일기장", "회원"};
 
-    loop: while (true) {
+    loop:
+    while (true) {
 
       // 메인 메뉴 출력
       System.out.printf("%s:\n", breadcrumbMenu);
