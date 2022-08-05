@@ -1,5 +1,6 @@
 /*
- * 게시판 관리 애플리케이션 비트캠프-20220704
+ * 게시판 관리 애플리케이션
+ * 비트캠프-20220704
  */
 package com.bitcamp.board;
 
@@ -7,7 +8,7 @@ import com.bitcamp.board.handler.BoardHandler;
 import com.bitcamp.board.handler.MemberHandler;
 import com.bitcamp.handler.Handler;
 import com.bitcamp.util.Prompt;
-import java.util.Stack;
+import com.bitcamp.util.Stack;
 
 public class App {
 
@@ -18,7 +19,8 @@ public class App {
     welcome();
 
     // 핸들러를 담을 레퍼런스 배열을 준비한다.
-    Handler[] handlers = new Handler[]{new BoardHandler(), // 게시판
+    Handler[] handlers = new Handler[]{
+        new BoardHandler(), // 게시판
         new BoardHandler(), // 독서록
         new BoardHandler(), // 방명록
         new BoardHandler(), // 공지사항
@@ -64,8 +66,6 @@ public class App {
       } catch (Exception ex) {
         System.out.println("입력 값이 옳지 않습니다.");
       }
-
-
     } // while
 
     System.out.println("안녕히 가세요!");
@@ -85,5 +85,10 @@ public class App {
     }
   }
 }
+
+
+
+
+
 
 

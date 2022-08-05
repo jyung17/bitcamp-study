@@ -3,38 +3,28 @@
  */
 package com.bitcamp.board.handler;
 
+import java.util.Date;
 import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.domain.Member;
 import com.bitcamp.handler.AbstractHandler;
 import com.bitcamp.util.Prompt;
-import java.util.Date;
 
 public class MemberHandler extends AbstractHandler {
 
   private MemberDao memberDao = new MemberDao();
 
   public MemberHandler() {
-    super(new String[]{"목록", "상세보기", "등록", "삭제", "변경"});
+    super(new String[] {"목록", "상세보기", "등록", "삭제", "변경"});
   }
 
   @Override
   public void service(int menuNo) {
     switch (menuNo) {
-      case 1:
-        this.onList();
-        break;
-      case 2:
-        this.onDetail();
-        break;
-      case 3:
-        this.onInput();
-        break;
-      case 4:
-        this.onDelete();
-        break;
-      case 5:
-        this.onUpdate();
-        break;
+      case 1: this.onList(); break;
+      case 2: this.onDetail(); break;
+      case 3: this.onInput(); break;
+      case 4: this.onDelete(); break;
+      case 5: this.onUpdate(); break;
     }
   }
 
@@ -47,6 +37,7 @@ public class MemberHandler extends AbstractHandler {
       System.out.printf("%s\t%s\n",
           member.email, member.name);
     }
+
   }
 
   private void onDetail() {

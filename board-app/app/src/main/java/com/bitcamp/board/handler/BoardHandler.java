@@ -3,23 +3,26 @@
  */
 package com.bitcamp.board.handler;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.handler.AbstractHandler;
 import com.bitcamp.util.Prompt;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class BoardHandler extends AbstractHandler {
+
+  // 게시글 목록을 관리할 객체 준비
+  private BoardDao boardDao = new BoardDao();
 
   public BoardHandler() {
     // 수퍼 클래스의 생성자를 호출할 때 메뉴 목록을 전달한다.
     super(new String[]{"목록", "상세보기", "등록", "삭제", "변경"});
   }
 
-  // 템플릿 메서드 패턴(template method pattern)
-  // 수퍼 클래스의 excute()에서 동작의 전체적인 흐름을 정의하고(틀을 만들고),
-  // 서브 클래스의 service()에서 구체적인 동작을 정의한다.(세부적인 항목을 구현한다.)
+  // 템플릿 메서드 패턴(template method pattern) 
+  //   - 수퍼 클래스의 execute()에서 동작의 전체적인 흐름을 정의하고(틀을 만들고),
+  //   - 서브 클래스의 service()에서 동작을 구제척으로 정의한다.(세부적인 항목을 구현한다)
   @Override
   public void service(int menuNo) {
     switch (menuNo) {
@@ -41,9 +44,6 @@ public class BoardHandler extends AbstractHandler {
     }
   }
 
-  // 게시글 목록을 관리할 객체 준비
-  private BoardDao boardDao = new BoardDao();
-
   private void onList() {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -54,8 +54,8 @@ public class BoardHandler extends AbstractHandler {
     for (Board board : boards) {
       Date date = new Date(board.createdDate);
       String dateStr = formatter.format(date);
-      System.out.printf("%d\t%s\t%d\t%s\t%s\n", board.no, board.title, board.viewCount,
-          board.writer, dateStr);
+      System.out.printf("%d\t%s\t%d\t%s\t%s\n",
+          board.no, board.title, board.viewCount, board.writer, dateStr);
     }
   }
 
@@ -86,6 +86,7 @@ public class BoardHandler extends AbstractHandler {
     System.out.printf("작성자: %s\n", board.writer);
     Date date = new Date(board.createdDate);
     System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
+
   }
 
   private void onInput() {
@@ -152,5 +153,3 @@ public class BoardHandler extends AbstractHandler {
     }
   }
 }
-
-

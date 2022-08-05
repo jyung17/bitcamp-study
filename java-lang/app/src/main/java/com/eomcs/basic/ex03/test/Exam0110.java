@@ -11,18 +11,6 @@ public class Exam0110 {
     list.add(100);
     list.add(new Date());
 
-    for (int i = 0; i < list.size(); i++) {
-      System.out.println(list.get(i));
-    }
-    System.out.println();
-
-    ArrayList<Object> list2 = new ArrayList<>();
-    list2.add("Hello");
-    list2.add(Integer.valueOf(100));
-    list2.add(100);
-    list2.add(new Date());
-    for (int i = 0; i < list.size(); i++) {
-      System.out.println(list2.get(i));
-    }
+    System.out.println(list);
   }
 }
