@@ -11,6 +11,7 @@ public class Exam0122 {
       this.name = name;
       this.age = age;
     }
+
   }
 
   public static void main(String[] args) {
@@ -24,6 +25,7 @@ public class Exam0122 {
     m1.hashCode();
     m1.equals(null);
 
+
     // 비록 m1과 m2는 같은 값을 갖고 있지만 인스턴스가 다르다.
     System.out.println(m1 == m2); // false
 
@@ -33,6 +35,7 @@ public class Exam0122 {
 
     System.out.println(m1.toString());
     System.out.println(m2.toString());
+
   }
 }
 

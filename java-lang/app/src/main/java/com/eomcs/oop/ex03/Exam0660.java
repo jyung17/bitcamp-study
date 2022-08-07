@@ -63,10 +63,13 @@ public class Exam0660 {
     System.out.println("------");
 
     // 만약 이전에 클래스가 로딩되었다면, 다시 로딩하지 않는다.
-    //    // - 즉 static 블록을 다시 실행하지 않는다!
-    new A();
+    // - 즉 static 블록을 다시 실행하지 않는다!
+    new A(); 
 
   }
 }
+
+
+
 
 

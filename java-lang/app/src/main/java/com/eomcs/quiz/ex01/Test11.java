@@ -7,13 +7,14 @@ package com.eomcs.quiz.ex01;
 // 예) "cabca" ==> 3
 //
 /*
- * Given a string, find the number of different characters in it.
- * 
- * for "cabca" output should be 3
- * 
- * [input] string s
- * 
- * a string of lowercase latin letters [output] integer
+Given a string, find the number of different characters in it.
+
+for "cabca" output should be 3
+
+[input] string s
+
+a string of lowercase latin letters
+[output] integer
  */
 //
 // [시간 복잡도]
@@ -31,4 +32,14 @@ public class Test11 {
     return result;
   }
 }
+
+
+
+
+
+
+
+
+
+
 

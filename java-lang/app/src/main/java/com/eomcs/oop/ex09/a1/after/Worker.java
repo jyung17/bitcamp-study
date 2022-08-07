@@ -4,7 +4,7 @@ package com.eomcs.oop.ex09.a1.after;
 // caller(호출자;사용자) : Exam01
 // callee(피호출자;도구) : BlueWorker, JubuWorker, WhiteWorker
 // 문법:
-// interface 사용규칙명 {...}
+//    interface 사용규칙명 {...}
 //
 public interface Worker {
 
@@ -20,4 +20,5 @@ public interface Worker {
   //    (규칙은 공개되어야 하니까!)
   //
   void execute();
+  //=> public abstract void execute();
 }

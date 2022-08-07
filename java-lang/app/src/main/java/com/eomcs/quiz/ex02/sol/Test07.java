@@ -31,7 +31,7 @@ public class Test07 {
   }
 
   static int maximalEven(int[] inputArray) {
-    int answer = inputArray[0];
+    int answer = 0;
     for (int i = 1; i < inputArray.length; i++) {
       if (inputArray[i] % 2 == 0 && inputArray[i] > answer) {
         answer = inputArray[i];

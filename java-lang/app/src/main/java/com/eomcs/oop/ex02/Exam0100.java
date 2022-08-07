@@ -1,19 +1,15 @@
 package com.eomcs.oop.ex02;
 
-
-// 0)낱개 변수 사용
+//0) 낱개 변수 사용
+//
 public class Exam0100 {
-
-  static class Score {
+  public static void main(String[] args) {
     String name;
     int kor;
     int eng;
     int math;
     int sum;
     float aver;
-  }
-
-  public static void main(String[] args) {
 
     name = "홍길동";
     kor = 100;

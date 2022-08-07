@@ -6,33 +6,26 @@ public class Exam0231 {
 
   interface ProtocolA {
     void rule0(int a);
-
     void rule1();
   }
 
   interface ProtocolB {
     int rule0();
-
     void rule2();
   }
 
-  static class ProtocolImpl implements ProtocolA, ProtocolB {
+  class ProtocolImpl implements ProtocolA, ProtocolB {
     // ProtocolA 입장에서는 rule0() 규칙 준수!
     // ProtocolB 입장에서는 rule0() 규칙을 준수하지 못했다.
     // - 리턴 타입이 다르다.
     @Override
-    public void rule0(int a) {
-      System.out.println("ProtocolA rule0");
-    }
+    public void rule0(int a) {}
 
     // ProtocolB 입장에서는 rule0() 규칙 준수!
     // ProtocolA 입장에서는 rule0() 규칙을 준수하지 못했다.
     // - 리턴 타입이 다르다.
     @Override
-    public int rule0() {
-      System.out.println("ProtocolB rule0");
-      return 0;
-    }
+    public int rule0() {return 0;}
 
     // 두 메서드를 모두 정의하면 되지 않을까?
     // - 메서드 오버로딩 문법 상 리턴 타입만 다른 메서드를
@@ -48,13 +41,12 @@ public class Exam0231 {
   }
 
   public static void main(String[] args) {
-
-    ProtocolImpl obj2 = new ProtocolImpl();
-
-    obj2.rule0(0);
-    obj2.rule0();
-
   }
 }
+
+
+
+
+
 
 

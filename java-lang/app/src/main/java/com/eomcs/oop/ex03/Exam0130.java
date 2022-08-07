@@ -22,11 +22,6 @@ public class Exam0130 {
   }
 
   public static void main(String[] args) {
-    A a = new A();
-
-    //    a.v1 = 200;
-    //    a.v2 = false;
-    System.out.printf("%d, %b\n", a.v1, a.v2);
 
     // 클래스 변수 사용법
     // 클래스명.스태틱변수명 = 값;
@@ -35,7 +30,6 @@ public class Exam0130 {
     A.v2 = true;
 
     System.out.printf("%d, %b\n", A.v1, A.v2);
-    System.out.printf("%d, %b\n", a.v1, a.v2);
   }
 }
 

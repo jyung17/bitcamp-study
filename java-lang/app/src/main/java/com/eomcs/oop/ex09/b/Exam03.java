@@ -11,7 +11,7 @@ interface MyInterface3 {
   //   새 메서드를 추가할 때 유용한다.
   // - 인터페이스에서 미리 구현한 메서드이기 때문에
   //   클래스에서 구현을 생략할 수 있다.
-  // - 반대로 구현을 강제할 수 없다는 것이 단점이다.    
+  // - 반대로 구현을 강제할 수 없다는 것이 단점이다.
   default void m2() {
     System.out.println("MyInterface3.m2()");
     // 어차피 새 메서드는 새 프로젝트의 구현체가 오버라이딩 할 것이니
@@ -23,10 +23,7 @@ interface MyInterface3 {
   default void m3() {
     System.out.println("MyInterface3.m3()");
   };
-
-  default void m4() {}
 }
-
 
 // 2) 인터페이스 구현
 class MyInterface3Impl implements MyInterface3 {
@@ -47,16 +44,6 @@ class MyInterface3Impl implements MyInterface3 {
   // => m3() 는 이 클래스에서 오버라이딩을 하지 않았다.
 }
 
-
-class MyInterface3_1Impl implements MyInterface3 {
-
-  @Override
-  public void m1() {
-    // TODO Auto-generated method stub
-  }
-}
-
-
 public class Exam03 {
 
   public static void main(String[] args) {
@@ -65,7 +52,6 @@ public class Exam03 {
     obj.m1();
     obj.m2();
     obj.m3();
-    obj.m4();
   }
 
 }

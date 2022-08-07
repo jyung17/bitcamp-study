@@ -1,14 +1,21 @@
-// 제네릭(Generic) 문법 정리 - 제네릭 파라미터 
+// 제네릭(Generic) 문법 정리 - 제네릭 파라미터
 package com.eomcs.generic.ex02;
 
 import java.util.ArrayList;
 
 public class Exam0220 {
 
-  static class A {}
-  static class B1 extends A {}
-  static class B2 extends A {}
-  static class C extends B1 {}
+  static class A {
+  }
+  static class B1 extends A {
+  }
+  static class B2 extends A {
+  }
+  static class C extends B1 {
+  }
+  static class D {
+
+  }
   /*
    *   Object
    *     |
@@ -30,6 +37,7 @@ public class Exam0220 {
     //    m1(new ArrayList<B1>()); // OK
     //    m1(new ArrayList<B2>()); // OK
     m1(new ArrayList<C>()); // OK
+    m2(new ArrayList<D>());
     System.out.println("실행 완료!");
   }
 
@@ -57,13 +65,26 @@ public class Exam0220 {
     System.out.println(list.get(2));
     System.out.println(list.get(3));
     System.out.println(list.get(4));
+    System.out.println("--------------");
+  }
+
+  static void m2(ArrayList list) {
+    list.add(new Object());
+    list.add(new A());
+    list.add(new B1());
+    list.add(new B2());
+    list.add(new C());
+    list.add(new D());
+
+    System.out.println(list.get(0));
+    System.out.println(list.get(1));
+    System.out.println(list.get(2));
+    System.out.println(list.get(3));
+    System.out.println(list.get(4));
+    System.out.println(list.get(5));
+    System.out.println("--------------");
+
   }
 }
-
-
-
-
-
-
 
 

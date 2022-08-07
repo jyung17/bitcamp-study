@@ -172,3 +172,60 @@ export PATH=${JAVA_HOME}/bin:$PATH
   - 016. 예외를 처리하는 방법 1
   - 017. 예외를 처리하는 방법 2
   - 018. 예외를 발생시키는 방법 
+
+### 20일 
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test11: 알파벳 카운트
+  - ex01.Test12: 주어진 점이 원에 있는지 여부
+- 예외를 다루는 방법(eomcs-java-lang: com.eomcs.exception.*)
+- board-app 프로젝트 수행 
+  - 019. 사용자 정의 예외를 다루는 방법 
+
+### 21일 
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test13: 배수의 합 구하기 
+  - ex01.Test14: 10진수 순서 뒤집기
+  - ex02.Test06: 분수의 가분부(Improper) 여부 검사
+- board-app 프로젝트 수행 
+  - 020. 자료구조를 구현하고 다루는 방법: Linked List 구현 및 사용
+  - 021. 공통 코드(필드,메서드)를 공유하는 방법 : 연관(association)  
+
+### 22일 
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test15: 반복 문자열 여부 검사하기
+  - ex02.Test07: 배열에서 가장 큰 짝수 알아내기
+- board-app 프로젝트 수행 
+  - 022. 자료구조를 구현하고 다루는 방법: Linked List 구현 및 사용
+    - 021 버전에 LinkedList 적용
+  - 023. 메서드 사용법을 규격화하여 객체 사용 방법을 일관성 있게 만들기: 인터페이스
+  - 024. List 규격에 맞춰 LinkedList 구현하고 적용하기
+- 인터페이스 사용법(eomcs-java-lang: com.eomcs.oop.ex09.*)
+
+### 23일 
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test16: 윤년 구하기
+  - ex02.Test08: 배열로 주어진 좌표를 점핑하는 수 구하기
+- board-app 프로젝트 수행 
+  - 025. 추상 클래스를 활용하여 인터페이스의 일부를 미리 구현하기
+  - 026. 중첩 클래스 문법을 이용하여 클래스 사용 범위를 제한하기
+  - 027. 스택 자료 구조를 활용하여 브래드크럼 메뉴 만들기
+  - 028. 인터페이스를 이용하여 핸들러의 사용법을 규격화 하기
+- 인터페이스 사용법(eomcs-java-lang: com.eomcs.oop.ex09.*)(계속)
+
+### 24일 
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test17: 
+  - ex01.Test18: 
+- board-app 프로젝트 수행 
+  - 029. 추상 클래스를 사용하여 핸들러의 공통 기능 구현하기: 템플릿 메서드 패턴 적용
+  - 030. List가 특정 타입의 목록만 다루게 하는 방법: 제네릭 문법 적용
+  - 031. 기존 List 구현체를 자바 컬렉션 API로 교체하기: java.util 패키지의 클래스 사용
+
+### 25일 
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test19: 
+  - ex01.Test20: 
+- Iterator 패턴과 중첩 클래스 사용법(eomcs-java-lang: com.eomcs.design_pattern.iterator.*)
+
+## 구글 미트
+https://meet.google.com/uou-bbtj-qzf

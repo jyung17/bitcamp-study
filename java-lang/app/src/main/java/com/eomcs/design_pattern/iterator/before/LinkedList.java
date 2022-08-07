@@ -1,10 +1,5 @@
-// 제네릭 적용하기
 package com.eomcs.design_pattern.iterator.before;
 
-// LinkedList에 보관되는 값의 타입을 E 라고 가정한다.
-// => E 타입이라고 가정하고 코드를 작성한다.
-// => E가 무슨 타입인지는 LinkedList를 사용할 때 결정된다.
-//
 public class LinkedList<E> {
 
   protected Node<E> head;
@@ -17,10 +12,6 @@ public class LinkedList<E> {
     size = 0;
   }
 
-  // LinkedList는 add() 할 때 마다 노드를 만들어 값을 저장하기 때문에 
-  // ArrayList 처럼 한 번에 큰 메모리를 준비할 필요가 없다.
-  // => 그러나 값 이외에 다음 노드와 이전 노드의 주소를 담기 위해 추가로 메모리를 사용한다.
-  //
   public void add(E value) {
     tail.value = value;
 
@@ -44,8 +35,6 @@ public class LinkedList<E> {
     return size;
   }
 
-  // ArrayList와 달리 해당 인덱스를 찾아 가려면 링크를 따라가야 하기 때문에 
-  // 조회 속도가 느리다.
   public E get(int index) {
     if (index < 0 || index >= size)
       return null;
@@ -67,7 +56,7 @@ public class LinkedList<E> {
 
     Node<E> cursor = head;
 
-    int i = 0;
+    int i = 0; 
     while (cursor != tail) {
       arr[i++] = cursor.value;
       cursor = cursor.next;
@@ -77,7 +66,7 @@ public class LinkedList<E> {
   }
 
   public E set(int index, E value) {
-    if (index < 0 || index >= size)
+    if (index < 0 || index >= size) 
       return null;
 
     Node<E> cursor = head;
@@ -98,8 +87,6 @@ public class LinkedList<E> {
     return old;
   }
 
-  // 값을 삽입하는 경우에는 ArrayList 방식 보다 효율적이다.
-  // 사입 위치에 있는 노드를 찾은 후에 새 노드를 앞, 뒤 노드에 연결하면 된다.
   public int insert(int index, E value) {
     if (index < 0 || index >= size)
       return -1;
@@ -171,21 +158,33 @@ public class LinkedList<E> {
     return old;
   }
 
-  // Node가 다루는 값의 타입을 제네릭(generic)으로 선언한다.
-  // => 즉 Node가 다루는 데이터의 타입을 E라고 명명하고 코드를 작성한다.
-  // => Node 클래스를 사용하는 시점에 E가 무슨 타입인지 결정될 것이다.
   private static class Node<E> {
 
     E value;
     Node<E> prev;
     Node<E> next;
 
-    Node() {}
+    Node() {
+    }
 
     Node(E value) {
       this.value = value;
     }
   }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

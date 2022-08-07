@@ -7,10 +7,12 @@ import java.util.Scanner;
 public class Exam0111 {
 
   static Board read() {
+
     Scanner keyScan = null;
 
     try {
       keyScan = new Scanner(System.in);
+
       Board board = new Board();
 
       System.out.print("번호> ");
@@ -27,8 +29,8 @@ public class Exam0111 {
 
       return board;
 
-    } finally {
-      // 정상으로 실행하든 예외가 발생하든지 간에 무조건 close()를 실행한다.
+    } finally { 
+      // 정상적으로 실행하든 예외가 발생하든지 간에 무조건 close()를 실행한다.
       keyScan.close();
       System.out.println("Scanner 자원을 해제시켰다.");
     }

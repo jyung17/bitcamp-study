@@ -34,7 +34,6 @@ public class Exam0220 {
       // 따라서 로컬 변수가 아닌 인스턴스 변수를 가리키고 싶으면 this를 붙여야 한다.
     }
   }
-
   public static void main(String[] args) {
     // 클래스 메서드는 인스턴스 주소 없이 클래스 이름으로 호출한다.
     // 그래서 클래스 메서드는 this라는 내장 변수가 없는 것이다.
@@ -58,7 +57,11 @@ public class Exam0220 {
     obj2.m2();
     obj2.m3();
     obj2.m4(100);
+
   }
 }
+
+
+
 
 

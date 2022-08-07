@@ -17,4 +17,5 @@ public class CarTest2 {
     trailer2.run();
     trailer2.stop();
   }
+
 }

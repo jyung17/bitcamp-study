@@ -25,12 +25,11 @@ interface MyInterface {
   //  private void m5(); // 컴파일 오류!
   //  protected void m6(); // 컴파일 오류!
   void m7(); // 이건 (default) 아니라, public 이 생략된 것이다.
-
 }
-
 
 // 2) 인터페이스 구현
 abstract class MyInterfaceImpl implements MyInterface {
+
   @Override
   public void m1() {}
 
@@ -40,14 +39,13 @@ abstract class MyInterfaceImpl implements MyInterface {
   //  protected void m2() {} // 컴파일 오류!
   //  void m2() {} // 컴파일 오류!
   public void m2() {} // OK!
-
   // 인터페이스의 모든 메서드를 구현해야 한다.
   // 한 개라도 빠뜨린다면 concrete 클래스가 될 수 없다.
   // 추상 클래스로 선언해야 한다.
 }
 
-
 class MyInterfaceImpl2 implements MyInterface {
+
   @Override
   public void m1() {}
 
@@ -64,7 +62,6 @@ class MyInterfaceImpl2 implements MyInterface {
   public void m7() {}
 }
 
-
 // 3) 인터페이스 사용
 public class Exam01 {
 
@@ -76,12 +73,10 @@ public class Exam01 {
     // - 인터페이스를 구현한 클래스의 객체라면
     //   언제든 해당 인터페이스의 레퍼런스에 담을 수 있다.
     obj = new MyInterfaceImpl2();
-
     // 인터페이스는 규칙이기 때문에
     // 구체적인 구현 내용이 없다.
     // 그래서 인스턴스를 생성할 수 없다.
     //
     //    obj = new MyInterface(); // 컴파일 오류!
   }
-
 }

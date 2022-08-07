@@ -22,29 +22,9 @@ public class Exam0691 {
   }
 
   public static void main(String[] args) {
-    System.out.println(A.a);
-    System.out.println(B.b);
+    System.out.println(A.a); // ?
+    System.out.println(B.b); // ?
 
-
-    /*
-     * static int a;
-     * static {
-     *  a = 7;
-     *  System.out.println("A.static{}");
-     *  a += B.b;
-     * }
-     * static int b;
-     * static  {
-     * b = 22;
-     * System.out.println("B.static{}");
-     * b += A.a;
-     * }
-     * 
-     * A.static{}
-     * B.static{}
-     * b = 29;
-     * A = 36;
-     */
     // 클래스 로딩 절차
     // 1) 클래스를 Method Area에 로딩한다.
     // 2) 스태틱 변수를 만든다.

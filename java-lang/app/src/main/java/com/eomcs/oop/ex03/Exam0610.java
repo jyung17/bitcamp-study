@@ -30,14 +30,14 @@ public class Exam0610 {
   public static void main(String[] args) throws Exception {
 
     // 클래스가 로딩되는 경우,
-    // 1) 스태틱 필드나 스태틱 메서드를 사용할 때 
+    // 1) 스태틱 필드나 스태틱 메서드를 사용할 때
     // 2) 인스턴스를 생성할 때(new 명령을 실행할 때)
     //
     // 주의!
     // - 각각의 클래스는 딱 한 번만 로딩된다.
     // - 레퍼런스를 선언할 때는 클래스가 로딩되지 않는다.
     // - 그래서 스태틱 초기화 블록(static initializer)이 실행되지 않는다.
-    A obj1 = new A();
+    A obj1;
     A obj2;
 
     System.out.println("종료!");

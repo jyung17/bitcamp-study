@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class Exam0510 {
+
   static void m(int i) throws Exception, RuntimeException, SQLException, IOException {
     if (i == 0)
       throw new Exception();
@@ -20,7 +21,7 @@ public class Exam0510 {
     try {
       m(4);
       System.out.println("try");
-      return;
+      return; 
     } catch (RuntimeException | SQLException | IOException e) {
       System.out.println("catch 1");
 

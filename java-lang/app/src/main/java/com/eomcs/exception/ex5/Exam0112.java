@@ -1,4 +1,4 @@
-// 예외 처리 전 -3) try-with-resources 를 이용하여 자원 해제를 자동화 하기
+// 예외 처리 전 - 3) try-with-resources 를 이용하여 자원 해제를 자동화 하기
 package com.eomcs.exception.ex5;
 
 import java.sql.Date;
@@ -23,7 +23,7 @@ public class Exam0112 {
       board.setCreatedDate(Date.valueOf(keyScan.nextLine()));
 
       return board;
-    }
+    } 
   }
 
   public static void main(String[] args) {

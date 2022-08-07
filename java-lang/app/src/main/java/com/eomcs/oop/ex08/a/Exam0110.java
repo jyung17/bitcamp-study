@@ -1,4 +1,4 @@
-// # 캡슐화 문법 사용 전 - 개발자가 클래스를 작성한 사람의 의도대로 정상적으로 사용할 때
+//# 캡슐화 문법 사용 전 - 개발자가 클래스를 작성한 사람의 의도대로 정상적으로 사용할 때
 package com.eomcs.oop.ex08.a;
 
 class Score {
@@ -14,7 +14,6 @@ class Score {
     this.aver = this.sum / 3f;
   }
 }
-
 
 public class Exam0110 {
   public static void main(String[] args) {
@@ -36,10 +35,19 @@ public class Exam0110 {
     // - 그래서 인스턴스 메서드를 "연산자(operator)"라 부른다.
     s1.compute();
 
-    System.out.printf("%s, %d, %d, %d, %d, %.1f\n", s1.name, s1.kor, s1.eng, s1.math, s1.sum,
-        s1.aver);
+    System.out.printf("%s, %d, %d, %d, %d, %.1f\n",
+        s1.name, s1.kor, s1.eng, s1.math, s1.sum, s1.aver);
 
   }
 }
+
+
+
+
+
+
+
+
+
 
 
