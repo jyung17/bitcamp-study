@@ -11,20 +11,43 @@ import com.bitcamp.util.Prompt;
 
 public class MemberHandler extends AbstractHandler {
 
-  private MemberDao memberDao = new MemberDao();
+  String filename;
 
-  public MemberHandler() {
-    super(new String[] {"목록", "상세보기", "등록", "삭제", "변경"});
+  private MemberDao memberDao;
+
+  public MemberHandler(String filename) {
+    super(new String[]{"목록", "상세보기", "등록", "삭제", "변경"});
+    memberDao = new MemberDao(filename);
+    try {
+      memberDao.load(); // 해당 부분에서 예외처리하지 않는 이유
+    } catch (Exception e) {
+      System.out.printf("%s 파일이 존재하지 않습니다.\n", filename);
+      //System.out.printf("파일 입출력 중 오류 발생! - %s\n", e.getMessage());
+    }
   }
 
   @Override
   public void service(int menuNo) {
-    switch (menuNo) {
-      case 1: this.onList(); break;
-      case 2: this.onDetail(); break;
-      case 3: this.onInput(); break;
-      case 4: this.onDelete(); break;
-      case 5: this.onUpdate(); break;
+    try {
+      switch (menuNo) {
+        case 1:
+          this.onList();
+          break;
+        case 2:
+          this.onDetail();
+          break;
+        case 3:
+          this.onInput();
+          break;
+        case 4:
+          this.onDelete();
+          break;
+        case 5:
+          this.onUpdate();
+          break;
+      }
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
   }
 
@@ -34,17 +57,16 @@ public class MemberHandler extends AbstractHandler {
     Member[] members = this.memberDao.findAll();
 
     for (Member member : members) {
-      System.out.printf("%s\t%s\n",
-          member.email, member.name);
+      System.out.printf("%s\t%s\n", member.email, member.name);
     }
 
   }
 
-  private void onDetail() {
+  private void onDetail() throws Exception {
     String email = Prompt.inputString("조회할 회원 이메일? ");
 
     Member member = this.memberDao.findByEmail(email);
-
+    memberDao.save();
     if (member == null) {
       System.out.println("해당 이메일의 회원이 없습니다!");
       return;
@@ -56,7 +78,7 @@ public class MemberHandler extends AbstractHandler {
     System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", date);
   }
 
-  private void onInput() {
+  private void onInput() throws Exception {
     Member member = new Member();
 
     member.name = Prompt.inputString("이름? ");
@@ -65,8 +87,8 @@ public class MemberHandler extends AbstractHandler {
     member.createdDate = System.currentTimeMillis();
 
     this.memberDao.insert(member);
-
-    System.out.println("회워을 등록했습니다.");
+    memberDao.save();
+    System.out.println("회원을 등록했습니다.");
   }
 
   private void onDelete() {
@@ -79,7 +101,7 @@ public class MemberHandler extends AbstractHandler {
     }
   }
 
-  private void onUpdate() {
+  private void onUpdate() throws Exception {
     String email = Prompt.inputString("변경할 회원 이메일? ");
 
     Member member = this.memberDao.findByEmail(email);
@@ -96,13 +118,12 @@ public class MemberHandler extends AbstractHandler {
     if (input.equals("y")) {
       member.name = newName;
       member.email = newEmail;
+      this.memberDao.save();
       System.out.println("변경했습니다.");
     } else {
       System.out.println("변경 취소했습니다.");
     }
   }
 }
-
-
 
 
