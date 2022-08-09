@@ -22,7 +22,6 @@ public class MemberHandler extends AbstractHandler {
       memberDao.load(); // 해당 부분에서 예외처리하지 않는 이유
     } catch (Exception e) {
       System.out.printf("%s 파일이 존재하지 않습니다.\n", filename);
-      //System.out.printf("파일 입출력 중 오류 발생! - %s\n", e.getMessage());
     }
   }
 
@@ -59,7 +58,6 @@ public class MemberHandler extends AbstractHandler {
     for (Member member : members) {
       System.out.printf("%s\t%s\n", member.email, member.name);
     }
-
   }
 
   private void onDetail() throws Exception {
@@ -86,15 +84,16 @@ public class MemberHandler extends AbstractHandler {
     member.password = Prompt.inputString("암호? ");
     member.createdDate = System.currentTimeMillis();
 
-    this.memberDao.insert(member);
+    memberDao.insert(member);
     memberDao.save();
     System.out.println("회원을 등록했습니다.");
   }
 
-  private void onDelete() {
+  private void onDelete() throws Exception {
     String email = Prompt.inputString("삭제할 회원 이메일? ");
 
     if (memberDao.delete(email)) {
+      memberDao.save();
       System.out.println("삭제하였습니다.");
     } else {
       System.out.println("해당 이메일의 회원이 없습니다!");

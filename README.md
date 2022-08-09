@@ -136,3 +136,143 @@ export PATH=${JAVA_HOME}/bin:$PATH
   - ex01.Test02/02_2/02_3: XOR 연산자의 특징
 - 클래스 사용법(eomcs-java-lang: com.eomcs.oop.ex02.\*)(계속)
   - 클래스 문법 활용: 메서드를 묶어서 분류
+  - 스태틱 필드와 인스턴스 필드의 용도
+  - 인스턴스 메서드가 필요한 이유
+- board-app 프로젝트 수행
+  - 9. 리팩토링: 함수 추출 및 함수 옮기기
+
+### 14일
+
+- board-app 프로젝트 수행
+  - 10. 스태틱 필드의 한계
+  - 11. 인스턴스 필드와 인스턴스 메서드, 생성자 사용법
+  - 12. 인스턴스 목록을 다루는 코드를 분리: High Cohesion 구현(재사용성 강화)
+
+### 15일
+
+- board-app 프로젝트 수행
+  - 13. 회원관리 기능 추가: CRUD 구현
+  - 14. 패키지를 이용하여 클래스를 분류하는 방법 + 접근 제어 조정
+  - 15. 공통 코드(필드,메서드)를 공유하는 방법 : 상속
+
+### 16일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex02.Test01/02/03: 배열 다루기
+- 클래스 사용법(eomcs-java-lang: com.eomcs.oop.ex03.\*)
+  - 스태틱 필드와 인스턴스 필드
+  - 스태틱 메서드와 인스턴스 메서드, this 내장 변수
+  - 생성자와 this()
+  - 스태틱 초기화 블록, 스태틱 변수 초기화 문장
+  - 인스턴스 초기화 블록, 인스턴스 변수 초기화 문장
+
+### 17일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test07: 팩토리얼 다루기
+  - ex02.Test04: 배열 다루기
+- 클래스 사용법(eomcs-java-lang: com.eomcs.oop.ex05.\*)
+  - 상속을 통한 기능 확장법
+  - UML: 클래스 간의 5가지 관계
+  - 기타 기능 확장법
+
+### 18일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test08: 비트 연산자 다루기(2진수의 곱셈)
+- board-app 프로젝트 수행
+  - 15. 공통 코드(필드,메서드)를 공유하는 방법 : 상속 (다시 연습)
+- String 클래스 사용법(eomcs-java-lang: com.eomcs.basic.ex02.\*)
+
+### 19일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test09: 산술 진행에서 n번째 항목의 값 알아내기
+  - ex01.Test10: n개의 숫자로 원을 구성할 때 서로 마주하는 숫자를 알아내기
+  - ex02.Test05: 분수들 중에서 가장 큰 수를 알아내기
+- board-app 프로젝트 수행
+  - 16. 예외를 처리하는 방법 1
+  - 17. 예외를 처리하는 방법 2
+  - 18. 예외를 발생시키는 방법
+
+### 20일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test11: 알파벳 카운트
+  - ex01.Test12: 주어진 점이 원에 있는지 여부
+- 예외를 다루는 방법(eomcs-java-lang: com.eomcs.exception.\*)
+- board-app 프로젝트 수행
+  - 19. 사용자 정의 예외를 다루는 방법
+
+### 21일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test13: 배수의 합 구하기
+  - ex01.Test14: 10진수 순서 뒤집기
+  - ex02.Test06: 분수의 가분부(Improper) 여부 검사
+- board-app 프로젝트 수행
+  - 20. 자료구조를 구현하고 다루는 방법: Linked List 구현 및 사용
+  - 21. 공통 코드(필드,메서드)를 공유하는 방법 : 연관(association)
+
+### 22일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test15: 반복 문자열 여부 검사하기
+  - ex02.Test07: 배열에서 가장 큰 짝수 알아내기
+- board-app 프로젝트 수행
+  - 22. 자료구조를 구현하고 다루는 방법: Linked List 구현 및 사용
+    - 021 버전에 LinkedList 적용
+  - 23. 메서드 사용법을 규격화하여 객체 사용 방법을 일관성 있게 만들기: 인터페이스
+  - 24. List 규격에 맞춰 LinkedList 구현하고 적용하기
+- 인터페이스 사용법(eomcs-java-lang: com.eomcs.oop.ex09.\*)
+
+### 23일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test16: 윤년 구하기
+  - ex02.Test08: 배열로 주어진 좌표를 점핑하는 수 구하기
+- board-app 프로젝트 수행
+  - 25. 추상 클래스를 활용하여 인터페이스의 일부를 미리 구현하기
+  - 26. 중첩 클래스 문법을 이용하여 클래스 사용 범위를 제한하기
+  - 27. 스택 자료 구조를 활용하여 브래드크럼 메뉴 만들기
+  - 28. 인터페이스를 이용하여 핸들러의 사용법을 규격화 하기
+- 인터페이스 사용법(eomcs-java-lang: com.eomcs.oop.ex09.\*)(계속)
+
+### 24일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test17:
+  - ex01.Test18:
+- board-app 프로젝트 수행
+  - 29. 추상 클래스를 사용하여 핸들러의 공통 기능 구현하기: 템플릿 메서드 패턴 적용
+  - 30. List가 특정 타입의 목록만 다루게 하는 방법: 제네릭 문법 적용
+  - 31. 기존 List 구현체를 자바 컬렉션 API로 교체하기: java.util 패키지의 클래스 사용
+
+### 25일
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test19:
+  - ex01.Test20:
+- Iterator 패턴과 중첩 클래스 사용법(eomcs-java-lang: com.eomcs.design_pattern.iterator.\*)
+
+### 26일(8/8)
+
+- 아침 특강(com.eomcs.quiz)
+  - ex01.Test21:
+  - ex01.Test22:
+- board-app 프로젝트 수행
+  - 31. 데이터 조회 로직을 객체화 하기: Iterator 패턴 적용
+  - 32. 기존 List 구현체를 자바 컬렉션 API로 교체하기: java.util 패키지의 클래스 사용
+  - 33. 입출력 API를 사용하여 데이터를 파일로 저장하기: 바이너리 저장
+
+### 27일(8/9)
+
+- 아침 특강(com.eomcs.quiz)
+  - ex02.Test09:
+  - ex02.Test10:
+- board-app 프로젝트 수행
+  - 33. 입출력 API를 사용하여 데이터를 파일로 저장하기: 바이너리 저장
+
+## 구글 미트
+
+https://meet.google.com/uou-bbtj-qzf

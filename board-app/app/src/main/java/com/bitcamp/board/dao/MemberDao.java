@@ -1,5 +1,7 @@
 package com.bitcamp.board.dao;
 
+import com.bitcamp.util.DataInputStream;
+import com.bitcamp.util.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Iterator;
@@ -19,106 +21,34 @@ public class MemberDao {
   }
 
   public void load() throws Exception {
-    FileInputStream in = new FileInputStream(filename);
+    try (DataInputStream in = new DataInputStream(new FileInputStream(filename))) {
+      int size = in.readInt();
 
-    int size = (in.read() << 24) + (in.read() << 16) + (in.read() << 8) + in.read();
+      for (int i = 0; i < size; i++) {
+        Member member = new Member();
+        member.no = in.readInt();
+        member.name = in.readUTF();
+        member.email = in.readUTF();
+        member.password = in.readUTF();
+        member.createdDate = in.readLong();
 
-    for (int i = 0; i < size; i++) {
-      Member member = new Member();
-
-      int value = 0;
-      value += in.read() << 24;
-      value += in.read() << 16;
-      value += in.read() << 8;
-      value += in.read();
-      member.no = value;
-
-      int len = 0;
-      len += (in.read() << 24) + (in.read() << 16) + (in.read() << 8) + in.read();
-      byte[] bytes = new byte[len];
-
-      in.read(bytes);
-      member.email = new String(bytes, "UTF-8");
-
-      len = 0;
-      len += (in.read() << 24) + (in.read() << 16) + (in.read() << 8) + in.read();
-      bytes = new byte[len];
-      in.read(bytes);
-      member.name = new String(bytes, "UTF-8");
-
-      len = 0;
-      len += (in.read() << 24) + (in.read() << 16) + (in.read() << 8) + in.read();
-      bytes = new byte[len];
-      in.read(bytes);
-      member.password = new String(bytes, "UTF-8");
-
-      member.createdDate =
-          (((long) in.read()) << 56) +
-              (((long) in.read()) << 48) +
-              (((long) in.read()) << 40) +
-              (((long) in.read()) << 32) +
-              (((long) in.read()) << 24) +
-              (((long) in.read()) << 16) +
-              (((long) in.read()) << 8) +
-              in.read();
-
-      list.add(member);
-    }
-    in.close();
+        list.add(member);
+      }
+    } // try() ===> try 블록을 벗어나기 전에 in.class()가 자동으로 실행된다.
   }
 
   public void save() throws Exception {
-    FileOutputStream out = new FileOutputStream(filename);
-    out.write(list.size() >> 24); // 0x00000012|345678 => 12
-    out.write(list.size() >> 24); // 0x00000012|345678 => 12
-    out.write(list.size() >> 16); // 0x00001234|5678 => 34
-    out.write(list.size() >> 8); // 0x00123456|78 => 56
-    out.write(list.size()); // 0x12345678| => 78
+    try (DataOutputStream out = new DataOutputStream(new FileOutputStream(filename))) {
 
-    for (Member member : list) {
-      System.out.println("-------------------");
-      System.out.printf("%08x\n", member.no);
-      out.write(member.no >> 24); // 0x00000012|345678 => 12
-      out.write(member.no >> 16); // 0x00001234|5678 => 34
-      out.write(member.no >> 8); // 0x00123456|78 => 56
-      out.write(member.no); // 0x12345678| => 78
-
-      System.out.printf("%s\n", member.email);
-      byte[] bytes = member.email.getBytes("UTF-8");
-      System.out.println(bytes);
-      out.write(bytes.length >> 24);
-      out.write(bytes.length >> 16);
-      out.write(bytes.length >> 8);
-      out.write(bytes.length);
-      out.write(bytes);
-
-      System.out.printf("%s\n", member.name);
-      bytes = member.name.getBytes("UTF-8");
-      out.write(bytes.length >> 24);
-      out.write(bytes.length >> 16);
-      out.write(bytes.length >> 8);
-      out.write(bytes.length);
-      out.write(bytes);
-
-      System.out.printf("%s\n", member.password);
-      System.out.println(member.password.getBytes("UTF-8"));
-      out.write(bytes.length >> 24);
-      out.write(bytes.length >> 16);
-      out.write(bytes.length >> 8);
-      out.write(bytes.length);
-      out.write(bytes);
-
-      System.out.printf("%016x\n", member.createdDate);
-      out.write((int) (member.createdDate >> 56));
-      out.write((int) (member.createdDate >> 48));
-      out.write((int) (member.createdDate >> 40));
-      out.write((int) (member.createdDate >> 32));
-      out.write((int) (member.createdDate >> 24));
-      out.write((int) (member.createdDate >> 16));
-      out.write((int) (member.createdDate >> 8));
-      out.write((int) (member.createdDate));
-    }
-    out.close();
+      out.writeInt(list.size());
+      for (Member member : list) {
+        out.writeInt(member.no);
+        out.writeUTF(member.name);
+        out.writeUTF(member.email);
+        out.writeUTF(member.password);
+        out.writeLong(member.createdDate);
+      }
+    } // tyr() ==> try 블록을 벗어나기전에 out.close()가 자동으로 실행된다.
   }
 
   public void insert(Member member) {
