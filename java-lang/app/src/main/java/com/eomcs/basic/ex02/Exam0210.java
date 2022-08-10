@@ -2,18 +2,53 @@
 package com.eomcs.basic.ex02;
 
 public class Exam0210 {
+  //  static void print(long value) {
+  //    System.out.printf("%d", value);
+  //  }
+  //
+  //  static void print(double value) {
+  //    System.out.printf("%f", value);
+  //  }
+  //
+  //  static void print(boolean value) {
+  //    System.out.printf("%b", value);
+  //  }
+
+  static void print(Object value) {
+    System.out.printf("%s\n", value);
+  }
+
   public static void main(String[] args) {
+
+    byte b = 100;
+    short s = 32000;
+    int i = 1112345678;
+    long l = 9000000000000000L;
+    float f = 3.14f;
+    double d = 12345.67898;
+    boolean bool = true;
+    char ch = '가';
+
+
+    print(new Byte(b));
+    print(Byte.valueOf(b));
+    print(b);
+    print(new Short(s));
+    print(new Integer(i));
+
     // 자바는 primitive type의 data 를 객체처럼 다룰 수 있도록
     // 각 타입에 대응하는 클래스를 제공한다.
     // 예)
-    Byte b = new Byte((byte)100);               // ==> byte
-    Short s = new Short((short)20000);          // ==> short
-    Integer i = new Integer(3000000);           // ==> int
-    Long l = new Long(60000000000L);            // ==> long
-    Float f = new Float(3.14f);                 // ==> float
-    Double d = new Double(3.14159);             // ==> double
-    Boolean bool = new Boolean(true);           // ==> boolean
-    Character c = new Character((char)0x41);    // ==> char
+    //    Byte b = new Byte((byte) 100); // ==> byte
+    //    Short s = new Short((short) 20000); // ==> short
+    //    Integer i = new Integer(3000000); // ==> int
+    //    Long l = new Long(60000000000L); // ==> long
+    //    Float f = new Float(3.14f); // ==> float
+    //    Double d = new Double(3.14159); // ==> double
+    //    Boolean bool = new Boolean(true); // ==> boolean
+    //    Character c = new Character((char) 0x41); // ==> char
+
+
 
     // 이렇게 primitive data type에 대응하여 만든 클래스를
     // primitive data를 포장하는 객체라고 해서
@@ -30,21 +65,16 @@ public class Exam0210 {
     // - 사용하지 않는 것이 좋다고 결정되었고, 가까운 장래에 제거될 것이라는 의미.
     //
 
-
     // Wrapper 클래스의 인스턴스를 생성할 때는 생성자 대신 클래스 메서드를 사용하라.
-    Byte b2 = Byte.valueOf((byte)100);
-    Short s2 = Short.valueOf((short)20000);
+    Byte b2 = Byte.valueOf((byte) 100);
+    Short s2 = Short.valueOf((short) 20000);
     Integer i2 = Integer.valueOf(3000000);
     Long l2 = Long.valueOf(60000000000L);
     Float f2 = Float.valueOf(3.14f);
     Double d2 = Double.valueOf(3.14159);
     Boolean bool2 = Boolean.valueOf(true);
-    Character c2 = Character.valueOf((char)0x41);
+    Character c2 = Character.valueOf((char) 0x41);
   }
 }
-
-
-
-
 
 
