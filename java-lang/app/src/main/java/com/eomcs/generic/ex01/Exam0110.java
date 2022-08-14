@@ -1,4 +1,4 @@
-// 제네릭(generic) 적용 전 - Object를 이용한 다형적 변수 사용
+// 제 네릭(generic) 적용 전 - Object를 이용한 다형적 변수 사용
 package com.eomcs.generic.ex01;
 
 import java.util.Calendar;

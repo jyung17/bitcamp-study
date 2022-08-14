@@ -32,7 +32,7 @@ public class BoardHandler {
   }
 
   // 제목을 입력 받는 생성자
-  BoardHandler(String title) {
+  public BoardHandler(String title) {
     this.boards = new Board[DEFAULT_SIZE];
     this.title = title;
   }
@@ -137,7 +137,7 @@ public class BoardHandler {
   }
 
   void onInput() {
-    System.out.printf("[%s 등록]\n", this.title);
+    System.out.printf("[%s 등록]\n", title);
 
     // 배열의 크기를 초과하면 배열 크기를 50% 증가시킨다.
     if (this.boardCount == this.boards.length) {

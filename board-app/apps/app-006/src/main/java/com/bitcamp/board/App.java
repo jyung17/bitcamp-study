@@ -67,7 +67,6 @@ public class App {
       System.out.printf("%d\t%s\t%d\t%s\t%s\n",
         no[i], title[i], viewCount[i], writer[i], dateStr);
     }
-    
   }
 
   static void processBoardDetail() {
