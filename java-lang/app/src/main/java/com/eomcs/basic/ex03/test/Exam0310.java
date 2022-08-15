@@ -1,7 +1,8 @@
-// 목록 조회: 제네릭 적용
-package com.eomcs.basic.ex03;
+package com.eomcs.basic.ex03.test;
 
-public class Exam0311 {
+import java.util.Arrays;
+
+public class Exam0310 {
 
   static class MyList<E> {
     Object[] list = new Object[5];
@@ -18,6 +19,26 @@ public class Exam0311 {
 
     public int size() {
       return size;
+    }
+
+    public Object[] toArray() {
+      Object[] arr = new Object[size];
+      for (int i = 0; i < size; i++) {
+        arr[i] = list[i];
+      }
+      return arr;
+    }
+
+    @SuppressWarnings("unchecked")
+    public E[] toArray(E[] arr) {
+      if (arr.length >= size) {
+        for (int i = 0; i < size; i++) {
+          arr[i] = (E) list[i];
+        }
+        return arr;
+      } else {
+        return (E[]) Arrays.copyOf(list, size, arr.getClass());
+      }
     }
   }
 
@@ -40,10 +61,10 @@ public class Exam0311 {
     list.add(m1);
     list.add(m2);
     list.add(m3);
-    //list.add(new String("Hello!")); // 컴파일 오류!
 
-    for (int i = 0; i < list.size(); i++) {
-      Member m = list.get(i);
+    Member[] arr = list.toArray(new Member[list.size()]);
+
+    for (Member m : arr) {
       System.out.printf("이름: %s, 나이: %d\n", m.name, m.age);
     }
   }

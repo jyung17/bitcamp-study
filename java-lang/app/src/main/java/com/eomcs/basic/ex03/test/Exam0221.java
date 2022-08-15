@@ -1,12 +1,10 @@
-// 목록 조회: java.util.Collection의 forEach() 사용법
-package com.eomcs.basic.ex03;
+package com.eomcs.basic.ex03.test;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
+import java.util.Iterator;
 
-public class Exam0241 {
+public class Exam0221 {
   public static void main(String[] args) {
-
     class Member {
       String name;
       int age;
@@ -59,16 +57,13 @@ public class Exam0241 {
     list.add(m2);
     list.add(m3);
 
-    Consumer<Member> action = new Consumer<>() {
-      @Override
-      public void accept(Member m) {
-        System.out.printf("이름: %s, 나이: %d\n", m.name, m.age);
-      }
-    };
+    // ArrayList의 값을 꺼내주는 일을 할 객체를 얻는다.
+    Iterator<Member> iterator = list.iterator();
 
-    list.forEach(action);
-
+    // Iterator(데이터 꺼내주는 일을 하는 객체)에게 데이터를 달라고 요청한다.
+    while (iterator.hasNext()) {
+      Member m = iterator.next();
+      System.out.printf("이름: %s, 나이: %d\n", m.name, m.age);
+    }
   }
 }
-
-

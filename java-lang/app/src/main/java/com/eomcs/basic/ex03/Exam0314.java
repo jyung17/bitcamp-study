@@ -25,6 +25,7 @@ public class Exam0314 {
           System.out.println("hasNext()");
           return cursor < size;
         }
+
         @Override
         public E next() {
           System.out.println("next()");
@@ -95,8 +96,5 @@ public class Exam0314 {
     }
   }
 }
-
-
-
 
 

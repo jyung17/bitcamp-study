@@ -40,7 +40,6 @@ public class Exam0312 {
   }
 
   public static void main(String[] args) {
-
     Member m1 = new Member("홍길동", 20);
     Member m2 = new Member("임꺽정", 30);
     Member m3 = new Member("유관순", 17);
