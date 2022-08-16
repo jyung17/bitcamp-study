@@ -14,8 +14,10 @@ public class BoardHandler extends AbstractHandler {
   private DataOutputStream out;
 
   public BoardHandler(String dataName, DataInputStream in, DataOutputStream out) {
+
     // 수퍼 클래스의 생성자를 호출할 때 메뉴 목록을 전달한다.
     super(new String[] {"목록", "상세보기", "등록", "삭제", "변경"});
+
     this.dataName = dataName;
     this.in = in;
     this.out = out;
@@ -25,21 +27,11 @@ public class BoardHandler extends AbstractHandler {
   public void service(int menuNo) {
     try {
       switch (menuNo) {
-        case 1:
-          this.onList();
-          break;
-        case 2:
-          this.onDetail();
-          break;
-        case 3:
-          this.onInput();
-          break;
-        case 4:
-          this.onDelete();
-          break;
-        case 5:
-          this.onUpdate();
-          break;
+        case 1: this.onList(); break;
+        case 2: this.onDetail(); break;
+        case 3: this.onInput(); break;
+        case 4: this.onDelete(); break;
+        case 5: this.onUpdate(); break;
       }
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -51,6 +43,7 @@ public class BoardHandler extends AbstractHandler {
       out.writeUTF(dataName);
       out.writeUTF("findAll");
       System.out.println(in.readUTF());
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -62,9 +55,9 @@ public class BoardHandler extends AbstractHandler {
     //
     //    for (Board board : boards) {
     //      Date date = new Date(board.createdDate);
-    //      String dateStr = formatter.format(date);
-    //      System.out.printf("%d\t%s\t%d\t%s\t%s\n", board.no, board.title, board.viewCount,
-    //          board.writer, dateStr);
+    //      String dateStr = formatter.format(date); 
+    //      System.out.printf("%d\t%s\t%d\t%s\t%s\n",
+    //          board.no, board.title, board.viewCount, board.writer, dateStr);
     //    }
 
   }
@@ -74,6 +67,7 @@ public class BoardHandler extends AbstractHandler {
       out.writeUTF(dataName);
       out.writeUTF("findByNo");
       System.out.println(in.readUTF());
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -111,6 +105,7 @@ public class BoardHandler extends AbstractHandler {
       out.writeUTF(dataName);
       out.writeUTF("insert");
       System.out.println(in.readUTF());
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -134,6 +129,7 @@ public class BoardHandler extends AbstractHandler {
       out.writeUTF(dataName);
       out.writeUTF("delete");
       System.out.println(in.readUTF());
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -160,6 +156,7 @@ public class BoardHandler extends AbstractHandler {
       out.writeUTF(dataName);
       out.writeUTF("update");
       System.out.println(in.readUTF());
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -194,5 +191,7 @@ public class BoardHandler extends AbstractHandler {
     //    }
   }
 }
+
+
 
 

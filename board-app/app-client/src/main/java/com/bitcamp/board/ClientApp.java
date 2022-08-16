@@ -1,12 +1,12 @@
 package com.bitcamp.board;
 
+import com.bitcamp.board.handler.BoardHandler;
+import com.bitcamp.handler.Handler;
+import com.bitcamp.util.Prompt;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Stack;
-import com.bitcamp.board.handler.BoardHandler;
-import com.bitcamp.handler.Handler;
-import com.bitcamp.util.Prompt;
 
 public class ClientApp {
 
@@ -15,23 +15,25 @@ public class ClientApp {
 
   public static void main(String[] args) {
     System.out.println("[게시글 관리 클라이언트]");
-
-    // 네트워크 준비
-    // => 정상적으로 연결되었으면 Socket 객체를 리턴한다.
-    try (Socket socket = new Socket("127.0.0.1", 8888);
+    try (
+        // 네트워크 준비
+        // => 정상적으로 연결되었으면 Socket 객체를 리턴한다.
+        Socket socket = new Socket("127.0.0.1", 8888);
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream());) {
+
       System.out.println("연결되었음!");
 
       welcome();
 
       // 핸들러를 담을 레퍼런스 배열을 준비한다.
-      Handler[] handlers = new Handler[] {new BoardHandler("board", in, out), // 게시판
+      Handler[] handlers = new Handler[]{
+          new BoardHandler("board", in, out), // 게시판
           new BoardHandler("reading", in, out), // 독서록
           new BoardHandler("visit", in, out), // 방명록
           new BoardHandler("notice", in, out), // 공지사항
           new BoardHandler("daily", in, out) // 일기장
-          //          new MemberHandler("member", in, out) // 회원
+          //new MemberHandler("member", in, out) // 회원
       };
 
       // "메인" 메뉴의 이름을 스택에 등록한다.
@@ -40,7 +42,8 @@ public class ClientApp {
       // 메뉴명을 저장할 배열을 준비한다.
       String[] menus = {"게시판", "독서록", "방명록", "공지사항", "일기장", "회원"};
 
-      loop: while (true) {
+      loop:
+      while (true) {
 
         printTitle();
         printMenus(menus);
@@ -69,8 +72,9 @@ public class ClientApp {
         } catch (Exception ex) {
           System.out.println("입력 값이 옳지 않습니다.");
         }
-      } // while
 
+
+      } // while
       Prompt.close();
 
       System.out.println("연결을 끊었음!");
@@ -97,7 +101,7 @@ public class ClientApp {
 
   protected static void printTitle() {
     StringBuilder builder = new StringBuilder();
-    for (String title : ClientApp.breadcrumbMenu) {
+    for (String title : breadcrumbMenu) {
       if (!builder.isEmpty()) {
         builder.append(" > ");
       }
