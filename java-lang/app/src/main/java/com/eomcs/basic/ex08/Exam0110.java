@@ -8,8 +8,8 @@ public class Exam0110 {
     // java.util.Map 구현체
     // - HashMap, Hashtable 이 있다.
     // - key를 가지고 value을 저장하고 꺼낸다.
-    //
-    HashMap<String,Member> map = new HashMap<>();
+    // 
+    HashMap<String, Member> map = new HashMap<>();
 
     // put(key,value) : 맵에 값 저장하기
     // - key 객체에 대해 hashCode()를 호출하여 정수 값을 얻는다.
@@ -44,10 +44,5 @@ public class Exam0110 {
   }
 
 }
-
-
-
-
-
 
 

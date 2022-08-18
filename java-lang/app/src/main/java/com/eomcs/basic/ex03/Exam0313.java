@@ -65,7 +65,12 @@ public class Exam0313 {
     list.add(m2);
     list.add(m3);
 
+
+    Member[] arr2 = new Member[list.size()];
+    list.toArray(arr2);
     Member[] arr = list.toArray(new Member[list.size()]);
+    Member[] arr0 = list.toArray(new Member[0]);
+
 
     for (Member m : arr) {
       System.out.printf("이름: %s, 나이: %d\n", m.name, m.age);

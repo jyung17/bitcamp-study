@@ -5,10 +5,21 @@ package com.eomcs.oop.ex12;
 public class Exam0510 {
 
   static class MyCalculator {
-    public static int plus(int a, int b) {return a + b;}
-    public static int minus(int a, int b) {return a - b;}
-    public static int multiple(int a, int b) {return a * b;}
-    public static int divide(int a, int b) {return a / b;}
+    public static int plus(int a, int b) {
+      return a + b;
+    }
+
+    public static int minus(int a, int b) {
+      return a - b;
+    }
+
+    public static int multiple(int a, int b) {
+      return a * b;
+    }
+
+    public static int divide(int a, int b) {
+      return a / b;
+    }
   }
 
   interface Calculator {
@@ -28,6 +39,11 @@ public class Exam0510 {
 
     // 2) 람바 문법 활용
     Calculator obj2 = (x, y) -> x * y;
+    System.out.println(obj2.compute(10, 15));
+    Calculator obj3 = (x, y) -> x + y;
+    System.out.println(obj3.compute(10, 15));
+
+    System.out.println("-----");
 
     // 3) 기존에 작성한 클래스의 스태틱 메서드를 재활용하기
     // => 인터페이스의 메서드 규격과 일치하는 메서드가 있다면,

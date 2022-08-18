@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class Exam0320 {
   public static void main(String[] args) {
 
-    HashMap<String,Member> map = new HashMap<>();
+    HashMap<String, Member> map = new HashMap<>();
     map.put("s01", new Member("홍길동", 20));
     map.put("s02", new Member("임꺽정", 30));
     map.put("s03", new Member("유관순", 16));

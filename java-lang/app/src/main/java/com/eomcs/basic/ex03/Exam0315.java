@@ -19,6 +19,7 @@ public class Exam0315 {
         public boolean hasNext() {
           return cursor < size;
         }
+
         @Override
         public E next() {
           return MyList.this.get(cursor++);
@@ -88,8 +89,5 @@ public class Exam0315 {
     }
   }
 }
-
-
-
 
 

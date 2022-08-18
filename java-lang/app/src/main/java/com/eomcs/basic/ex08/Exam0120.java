@@ -74,7 +74,6 @@ public class Exam0120 {
     //   hashCode()의 리턴 값이 같게 오버라이딩 하라!
     //   또한 equals()의 리턴 값이 true가 되게 오버라이딩 하라!
   }
-
 }
 
 

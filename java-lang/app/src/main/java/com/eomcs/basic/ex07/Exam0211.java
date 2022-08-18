@@ -23,6 +23,10 @@ public class Exam0211 {
     // - 입력한 값의 타입으로 배열을 만들어 파라미터 넘겨라.
     String[] arr = new String[set.size()];
     set.toArray(arr);
+    //
+    //    String[] arr2 = set.toArray(new String[set.size()]);
+    //
+    //    String[] arr3 = set.toArray(new String[0]);
 
     for (String value : arr) {
       System.out.print(value + ", ");
@@ -31,6 +35,5 @@ public class Exam0211 {
   }
 
 }
-
 
 

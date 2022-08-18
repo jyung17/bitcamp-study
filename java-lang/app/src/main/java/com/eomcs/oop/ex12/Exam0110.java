@@ -16,7 +16,7 @@ public class Exam0110 {
     Player p1 = new Player() {
       @Override
       public void play() {
-        System.out.println("익명 클래스");
+        System.out.println("P1 익명 클래스");
       }
     };
     p1.play();
@@ -24,9 +24,8 @@ public class Exam0110 {
     // 람다 문법으로 인터페이스 구현하기
     // => 메서드 한 개짜리 인터페이스를 좀 더 간결하게 구현하기 위해 만든 문법이다.
     // => 뻔한 코드 생략!
-    Player p2 = () -> System.out.println("익명 클래스");
+    Player p2 = () -> System.out.println("P2 익명 클래스");
     p2.play();
-
   }
 }
 

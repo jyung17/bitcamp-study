@@ -21,5 +21,3 @@ public class Exam0140 {
     //    p3.play("임꺽정", 30);
   }
 }
-
-
