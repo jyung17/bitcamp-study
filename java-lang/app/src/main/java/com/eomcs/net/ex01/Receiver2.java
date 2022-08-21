@@ -34,7 +34,6 @@ public class Receiver2 {
     serverSocket.close();
     keyScan.close();
   }
-
 }
 
 

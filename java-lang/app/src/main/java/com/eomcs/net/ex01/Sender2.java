@@ -31,7 +31,6 @@ public class Sender2 {
     socket.close();
     keyScan.close();
   }
-
 }
 
 
