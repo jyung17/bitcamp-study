@@ -14,15 +14,12 @@ public class Receiver5 {
 
   public static void main(String[] args) throws Exception {
     System.out.println("서버 실행 중...");
-
     ServerSocket serverSocket = new ServerSocket(8888);
     Socket socket = serverSocket.accept();
     System.out.println("클라이언트가 연결됨.");
 
-    PrintStream out = new PrintStream(
-        new BufferedOutputStream(socket.getOutputStream()));
-    DataInputStream in = new DataInputStream(
-        new BufferedInputStream(socket.getInputStream()));
+    PrintStream out = new PrintStream(new BufferedOutputStream(socket.getOutputStream()));
+    DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
     System.out.println("클라이언트로부터 데이터 수신 중...");
 
@@ -34,8 +31,7 @@ public class Receiver5 {
 
     //3) 파일 데이터 읽기
     File file = new File("temp/ok_" + filename);
-    BufferedOutputStream fileOut = new BufferedOutputStream( 
-        new FileOutputStream(file));
+    BufferedOutputStream fileOut = new BufferedOutputStream(new FileOutputStream(file));
 
     for (long i = 0; i < filesize; i++) {
       fileOut.write(in.read());
@@ -54,8 +50,5 @@ public class Receiver5 {
   }
 
 }
-
-
-
 
 

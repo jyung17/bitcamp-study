@@ -9,7 +9,6 @@ public class Exam0210 {
     // File 클래스
     // => 파일이나 디렉토리 정보를 관리
     // => 파일이나 디렉토리를 생성,삭제,변경
-
     // 현재 파일 정보 조회
     //
     File file1 = new File("./src/main/java/Hello2.java");
@@ -31,7 +30,6 @@ public class Exam0210 {
     System.out.printf("존재여부: %b\n", file1.exists());
     System.out.printf("실행가능여부: %b\n", file1.canExecute());
   }
-
 }
 
 
