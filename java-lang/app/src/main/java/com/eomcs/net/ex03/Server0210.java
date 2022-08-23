@@ -15,6 +15,7 @@ public class Server0210 {
 
       System.out.println("클라이언트의 연결을 기다리고 있음.");
 
+      // 텍스트 전송시 추천
       try (Socket socket = serverSocket.accept(); // blocking : 클라이언트가 대기열에 들어올 때까지
           BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
           PrintWriter out = new PrintWriter(socket.getOutputStream())) {

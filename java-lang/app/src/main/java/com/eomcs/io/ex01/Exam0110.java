@@ -32,7 +32,6 @@ public class Exam0110 {
     System.out.printf("존재여부: %b\n", currentDir.exists());
     System.out.printf("실행가능여부: %b\n", currentDir.canExecute());
   }
-
 }
 
 

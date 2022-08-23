@@ -15,7 +15,7 @@ public class Exam0110 {
     // - 파일 경로가 절대 경로가 아니면
     //   - 리눅스,유닉스: / 로 시작하지 않으면,
     //   - 윈도우: c:\, d:\ 등으로 시작하지 않으면,
-    //   현재 디렉토리가 기준이 된다.
+    //   현재 디렉토리가 기준이 된다. 
     FileOutputStream out = new FileOutputStream("temp/test1.data");
 
     // 2) 1바이트를 출력한다.
@@ -23,15 +23,15 @@ public class Exam0110 {
     //    파라미터의 타입이 int라고 해서 4바이트를 출력하는 것이 아니다.
     //    오직 맨 끝 1바이트만 출력한다.
     out.write(0x7a6b5c4d); // 출력하는 값은 0x4d 이다.
-    out.write(2);     // 0x00000002
-    out.write(40);    // 0x00000028
-    out.write(100);   // 0x00000064
-    out.write(101);   // 0x00000065
-    out.write(102);   // 0x00000066
-    out.write(127);   // 0x0000007f
-    out.write(255);   // 0x000000ff
-    out.write('A');   // 0x0041
-    out.write('가');  // 0xac00
+    out.write(2); // 0x00000002
+    out.write(40); // 0x00000028
+    out.write(100); // 0x00000064
+    out.write(101); // 0x00000065
+    out.write(102); // 0x00000066
+    out.write(127); // 0x0000007f
+    out.write(255); // 0x000000ff
+    out.write('A'); // 0x0041
+    out.write('가'); // 0xac00
 
     // 3) 출력 도구를 닫는다.
     // - OS에서 관리하는 자원 중에서 한정된 개수를 갖는 자원에 대해
@@ -60,9 +60,7 @@ public class Exam0110 {
     //   사용하고 난 후 자원을 해제시는 close()를 반드시 호출하라.
     //
     System.out.println("데이터 출력 완료!");
-
   }
-
 }
 
 // 파일 입출력 API 주요 클래스 (java.io 패키지)
