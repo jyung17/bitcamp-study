@@ -21,7 +21,7 @@ public class CalculatorServer {
 
         while (true) {
           String request = in.readLine();
-          sendResponse(out, request); // 클라리언트에게 응답한다.
+          sendResponse(out, request); // 클라이언트에게 응답한다.
         }
       }
 

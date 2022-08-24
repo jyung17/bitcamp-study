@@ -15,7 +15,6 @@ public class CalcServer {
   // => Map<clientID, result>
   static Map<Long, Integer> resultMap = new HashMap<>();
 
-
   // 클라이언트와 대화하는 부분을 별도의 코드로 분리하여 실행한다.
   static class RequestHandler extends Thread {
 
@@ -66,7 +65,7 @@ public class CalcServer {
             result *= value;
             break;
           case "/":
-            Thread.sleep(10000);
+            Thread.sleep(30000);
             result /= value;
             break;
         }

@@ -25,7 +25,6 @@ public class CalculatorClient {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
   }
 }
 

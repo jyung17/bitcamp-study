@@ -30,12 +30,12 @@ public class Client0210 {
 
     // 보낼 데이터를 패킷에 담는다.
     // => 패킷 = 데이터 + 데이터크기 + 받는이의 주소 + 받는이의 포트번호
-    DatagramPacket packet = new DatagramPacket(
-        bytes, // 데이터가 저장된 바이트 배열
+    DatagramPacket packet = new DatagramPacket(bytes, // 데이터가 저장된 바이트 배열
         bytes.length, // 전송할 데이터 개수
         InetAddress.getByName("localhost"), // 데이터를 받을 상대편 주소
         port // 포트번호
-        );
+    );
+    System.out.println(InetAddress.getByName("localhost"));
 
     // 데이터 전송
     socket.send(packet);
