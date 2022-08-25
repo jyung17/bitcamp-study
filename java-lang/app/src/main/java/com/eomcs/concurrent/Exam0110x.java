@@ -4,12 +4,16 @@ package com.eomcs.concurrent;
 public class Exam0110x {
 
   public static void main(String[] args) {
-
     int count = 1000;
 
-    for (int i = 0; i < 1000; i++) {
-      System.out.println("==> " + i);
-    }
+    new Thread() {
+      @Override
+      public void run() {
+        for (int i = 0; i < count; i++) {
+          System.out.println("==> " + i);
+        }
+      }
+    }.start();
 
     for (int i = 0; i < 1000; i++) {
       System.out.println(">>> " + i);
