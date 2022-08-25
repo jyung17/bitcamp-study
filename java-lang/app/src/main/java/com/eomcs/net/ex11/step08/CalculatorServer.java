@@ -46,10 +46,18 @@ public class CalculatorServer {
       int result = 0;
 
       switch (op) {
-        case "+": result = a + b; break;
-        case "-": result = a - b; break;
-        case "*": result = a * b; break;
-        case "/": result = a / b; break;
+        case "+":
+          result = a + b;
+          break;
+        case "-":
+          result = a - b;
+          break;
+        case "*":
+          result = a * b;
+          break;
+        case "/":
+          result = a / b;
+          break;
         default:
           return String.format("%s 연산자를 지원하지 않습니다.", op);
       }

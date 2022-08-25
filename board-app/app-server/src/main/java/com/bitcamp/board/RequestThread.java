@@ -6,8 +6,6 @@ import java.net.Socket;
 import java.util.Map;
 import com.bitcamp.servlet.Servlet;
 
-// 클라이언트 요청을 별도의 실행으로 다루는 클래스
-// 별도의 실행으로 다루는 클래스
 public class RequestThread extends Thread {
   private Socket socket;
   private Map<String, Servlet> servletMap;
@@ -42,5 +40,4 @@ public class RequestThread extends Thread {
       e.printStackTrace();
     }
   }
-
 }

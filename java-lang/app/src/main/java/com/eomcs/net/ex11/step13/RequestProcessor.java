@@ -25,6 +25,7 @@ public class RequestProcessor extends Thread {
 
       // 웹브라우저가 보낸 첫 줄에는 데이터가 포함되어 있기 때문에 따로 추출한다.
       String requestLine = in.readLine();
+      System.out.println(requestLine);
 
       // 나머지 요청과 관련된 헤더 정보(부가 정보)는 현재는 사용할 일이 없기 때문에 버린다.
       while (true) {
@@ -33,7 +34,7 @@ public class RequestProcessor extends Thread {
         }
       }
 
-      sendHttpResponse(out, compute(requestLine)); 
+      sendHttpResponse(out, compute(requestLine));
 
     } catch (Exception e) {
       System.out.printf("클라이언트 요청 처리 중 오류 발생! - %s\n", e.getMessage());
@@ -63,10 +64,18 @@ public class RequestProcessor extends Thread {
       int result = 0;
 
       switch (op) {
-        case "+": result = a + b; break;
-        case "-": result = a - b; break;
-        case "*": result = a * b; break;
-        case "/": result = a / b; break;
+        case "+":
+          result = a + b;
+          break;
+        case "-":
+          result = a - b;
+          break;
+        case "*":
+          result = a * b;
+          break;
+        case "/":
+          result = a / b;
+          break;
         default:
           return "해당 연산자를 지원하지 않습니다.";
       }
@@ -79,17 +88,20 @@ public class RequestProcessor extends Thread {
 
   private String getOperator(String name) {
     switch (name) {
-      case "/plus": return "+";
-      case "/minus": return "-";
-      case "/multiple": return "*";
-      case "/devide": return "/";
+      case "/plus":
+        return "+";
+      case "/minus":
+        return "-";
+      case "/multiple":
+        return "*";
+      case "/devide":
+        return "/";
       default:
         return "?";
     }
   }
 
   private void sendHttpResponse(PrintStream out, String message) throws Exception {
-
     out.println("HTTP/1.1 200 OK");
     out.println("Content-Type: text/plain;charset=UTF-8");
     out.println();
