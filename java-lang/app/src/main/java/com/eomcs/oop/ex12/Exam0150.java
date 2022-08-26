@@ -28,7 +28,4 @@ public class Exam0150 {
     //    Calculator c4 = (a, b) -> System.out.println(a + ",", b); // 컴파일 오류!
     //    System.out.println(c4.compute(10, 20));
   }
-
 }
-
-

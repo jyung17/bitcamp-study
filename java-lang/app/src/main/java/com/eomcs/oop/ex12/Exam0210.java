@@ -2,7 +2,6 @@
 package com.eomcs.oop.ex12;
 
 public class Exam0210 {
-
   // 추상 메서드가 한 개짜리 인터페이스여야 한다.
   interface Player {
     void play();

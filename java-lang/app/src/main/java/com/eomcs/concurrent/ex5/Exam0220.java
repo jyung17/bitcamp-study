@@ -33,30 +33,30 @@ public class Exam0220 {
     // => 여러 스레드가 동시에 실행해도 문제가 없는 코드 블록을
     //    "스레드 안전(thread safe)"라 부른다.
     //
-    //
+    // 같은 변수를 여러 스레드가 동시에 사용할때...
     synchronized public long withdraw(long money) {
       long b = this.balance;
 
-      delay();  // CPU를 뺏길 기회를 제공
+      delay(); // CPU를 뺏길 기회를 제공
 
       b -= money;
 
-      delay();  // CPU를 뺏길 기회를 제공
+      delay(); // CPU를 뺏길 기회를 제공
 
       if (b < 0)
         return 0;
 
-      delay();  // CPU를 뺏길 기회를 제공
+      delay(); // CPU를 뺏길 기회를 제공
 
       this.balance = b;
 
-      delay();  // CPU를 뺏길 기회를 제공
+      delay(); // CPU를 뺏길 기회를 제공
 
       return money;
     }
 
     private void delay() {
-      int delayCount = (int)(Math.random() * 1000);
+      int delayCount = (int) (Math.random() * 1000);
       for (int i = 0; i < delayCount; i++)
         Math.asin(45.765); // CPU를 뺏길 기회를 제공
     }

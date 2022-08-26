@@ -45,7 +45,6 @@ public class Exam0220 {
     long endTime = System.currentTimeMillis();
     System.out.printf("main = %d\n", endTime - startTime);
   }
-
 }
 
 
