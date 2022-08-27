@@ -64,6 +64,7 @@ public class Exam0520 {
     };
 
     System.out.println(c1.compute(200, 17));
+    System.out.println(c01.compute(200, 17));
   }
 }
 
