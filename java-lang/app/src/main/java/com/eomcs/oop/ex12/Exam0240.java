@@ -11,7 +11,6 @@ public class Exam0240 {
     // 인터페이스가 아닌 추상 클래스는 람다 구현의 대상이 아니다!
     //    Player p = () -> System.out.println("Player..."); // 컴파일 오류!
   }
-
 }
 
 

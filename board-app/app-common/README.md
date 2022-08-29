@@ -14,4 +14,4 @@
 - com.bitcamp.board.dao.MemberDaoProxy 클래스 추가
   - 서버 개발자가 만들어준 클래스를 추가한다.
 - com.bitcamp.board.handler.MemberHandler 클래스 변경
-  - 직접 통신하는 대신에 MemberDaoProxy 클래스를 사용한다.
+  - 직접 통신하는 대신에 MemberDaoProxy 클래스를 사용한다..
