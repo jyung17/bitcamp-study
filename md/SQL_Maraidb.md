@@ -24,8 +24,6 @@ mariadb 실행
 
 `brew services stop mariadb`
 
-01_0829복습
-
 # DDL
 
 ### 테이블 변경
@@ -43,13 +41,9 @@ create table test1 (
   sum int,
   aver int
 );
-```
 
-```sql
 alter table test1 add column no int;
-
 alter table test1 add column age int;
-
 alter table test1 add column no2 int, add column age2 int;
 ```
 
@@ -190,6 +184,57 @@ insert into test1(name,class,working) values('ooo','java101','N');
 select no, name, class from test1 where working = 'Y';
 ```
 
+- 직장인만 조회한 결과를 가상 테이블로 만들기
+
+```sql
+create view worker
+  as select no, name, class from test1 where working = 'Y';
+```
+
+- view가 참조하는 테이블에 데이터를 입력한 후 view를 조회하면?
+- 새로 추가된 컬럼이 함께 조회된다.
+- 뷰를 조회할 때 마다 매번 select 문장을 실행한다.
+- 미리 결과를 만들어 놓는 것이 아니다.
+- 일종의 조회 함수 역할을 한다.
+- 목적은 복잡한 조회를 가상의 테이블로 표현할 수 있어 SQL문이 간결해진다.
+
+```sql
+insert into test1(name, class, working) values('ppp','java101','Y');
+select * from worker;
+```
+
+### 뷰 삭제
+
+```sql
+drop view worker;
+```
+
+## 제약 조건 조회
+
+- 테이블의 제약 조건 조회
+
+```sql
+select table_name, constraint_name, constraint_type from information_schema.table_constraints;
+```
+
+- 테이블의 키 컬럼 정보 조회
+
+```sql
+select table_name, column_name, constraint_name from information_schema.key_column_usage;
+```
+
+- 테이블과 컬럼의 키 제약 조건 조회
+
+```sql
+select
+  t2.table_name,
+  t2.column_name,
+  t2.constraint_name,
+  t1.constraint_type
+from information_schema.table_constraints t1
+  inner join information_schema.key_column_usage t2 on t2.constraint_name=t1.constraint_name;
+```
+
 # DML(Data Maniqulation Language)
 
 데이터 등록, 변경, 삭제를 다루는 SQL 문법
@@ -302,10 +347,17 @@ autocommit=ON이면 데이터를 변경하는 쿼리(insert, update, delete)가 
 
 ```sql
 set autocomit=false;
-show variables like 'autocomit%';
+show variables like 'autocommit%';
 ```
 
-06_commit_rollback_DQL_select
+https://mariadb.com/kb/en/start-transaction/
+
+```sql
+/* The START TRANSACTION or BEGIN statement begins a new transaction. */
+start transaction;
+commit;
+rollback;
+```
 
 # DQL(Data Query Language)
 
@@ -365,4 +417,81 @@ select no, name, tel from test1;
 
 /* 가상의 컬럼 값을 조회하기*/
 select no, concat(name,'(',class,')') from test1;
+```
+
+### 조회하는 컬럼에 별명 붙이기
+
+- 별명을 붙이지 않으면 원래의 컬럼명이 조회 결과의 컬럼으로 사용된다.
+- 위의 예제처럼 복잡한 식으로 표현한 컬럼인 경우 컬럼명도 그 식이 된다.
+- 이런 경우 별명을 붙이면 조회 결과를 보기 쉽다.
+
+```sql
+
+```
+
+### 조회할 때 조건 지정하기
+
+## 연산자
+
+### OR, AND, NOT
+
+- OR : 두 조건 중에서 참인 것이 있으면 조회 결과 포함시킨다.
+- AND : 두 조건 모두 참일 때만 조회 결과에 포함시킨다.
+- NOT :
+
+### like
+
+- 문자열을 비교할 때 사용한다.
+
+```sql
+/* class 이름이 java로 시작하는 모든 학생 조회하기
+ * => % : 0개 이상의 문자
+ */
+select *
+from test1
+where class like 'java%';
+
+/* class 이름에 java를 포함한 모든 학생 조회하기
+   이 경우 조회 속도가 느리다.*/
+select *
+from test1
+where class like '%java%';
+
+/* class 이름이 101로 끝나는 반의 모든 학생 조회하기 */
+select *
+from test1
+where class like '%101';
+
+/* 학생의 이름에서 첫번째 문자가 s이고 두번째 문자가 0인 학생 중에서
+   딱 세자의 이름을 가진 학생을 모두 조회하라!*/
+
+/* => %는 0자 이상을 의미하기 때문에 이 조건에 맞지 않다.*/
+select *
+from test1
+where name like 's0%';
+
+/* => _는 딱 1자를 의미한다.*/
+select *
+from test1
+where name like 's0_';
+```
+
+## FK(foreign key) 제약 조건 설정
+
+- 다른 테이블의 데이터와 연관된 데이터를 저장할 때 무효한 데이터가 입력되지 않도록 제어하는 문법.
+- 다른 테이블의 데이터가 참조하는 데이터를 임의의 지우지 못하도록 제어하는 문법.
+- 그래서 데이터의 무결성(data integrity; 결함이 없는 상태)을 유지하게 도와주는 문법이다.
+
+다른 테이블의 PK를 참조하는 컬럼으로 선언한다.
+
+```sql
+alter table test2
+add constraint test2_bno_fk foreign key (bno) references test1(no);
+
+/* 기존에 테이블에 무효한 데이터가 있을 수 있기 때문에 먼저 테이블의 데이터를 지운다.*/
+delete from test2;
+
+/* */
+
+alter table test2 add constraint test2_bno_fk foreign key (bno) references test1(no);
 ```
