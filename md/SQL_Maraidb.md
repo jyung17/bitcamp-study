@@ -491,7 +491,149 @@ add constraint test2_bno_fk foreign key (bno) references test1(no);
 /* 기존에 테이블에 무효한 데이터가 있을 수 있기 때문에 먼저 테이블의 데이터를 지운다.*/
 delete from test2;
 
-/* */
-
+/*ㅁ */
 alter table test2 add constraint test2_bno_fk foreign key (bno) references test1(no);
+```
+
+- foreign key 확인 방법
+
+```sql
+/* 데이터베이스 */
+ select * from information_schema.table_constraints where constraint_schema = '데이터베이스명';
+
+select * from information_schema.table_constraints where constraint_schema = 'studydb';
+
+/* 테이블 */
+select * from information_schema.table_constraints where table_name = '테이블명';
+
+select * from information_schema.table_constraints where table_name = 'memb';
+```
+
+# 0901 Exam06.sql, Exam07.sql, Exam08.sql
+
+# Select
+
+```sql
+/* distinct 와 all */
+
+/* 모든 데이터를 가져온다.*/
+select all loc from room;
+
+/* all은 생략할 수 있다*/
+select loc from room;
+
+/* 중복 값을 한 개만 추출할 때 distinct 를 붙인다.*/
+select distinct loc from room;
+
+/* 컬럼이 2 개 이상일 때
+    그 컬럼들의 값이 중복될 경우만 한 개로 간주한다.*/
+select distinct loc, name from room;
+```
+
+### order by
+
+```sql
+
+```
+
+### as
+
+### union 과 union all
+
+```sql
+/* union 과 union all */
+
+/* select 결과 합치기
+   union : 중복 값 자동 제거*/
+select distinct bank from stnt
+union
+select distinct bank from tcher;
+
+/* union all: 중복 값 제거 안함*/
+select distinct bank from stnt
+union all
+select distinct bank from tcher;
+
+
+/* 차집합
+   mysql 은 차집합 문법을 지원하지 않는다.
+   따라서 다음과 기존의 SQL 문법을 사용해서 처리해야 한다.
+*/
+
+/* 오라클 구문 */
+select bank from stnt
+MINUS
+select bank from tcher;
+
+/* mysql NOT IN 사용 */
+select distinct bank
+from stnt
+where not bank in (select distinct bank from tcher);
+
+/* mysql LEFT JOIN 사용 */
+select distinct stnt.bank from stnt LEFT JOIN tcher USING (bank) where tcher.bank IS NULL;
+
+/* 교집합
+   mysql 은 교집합 문법을 지원하지 않는다.
+   따라서 다음과 기존의 SQL 문법을 사용해서 처리해야 한다.
+*/
+select distinct bank
+from stnt
+where bank in (select distinct bank from tcher);
+```
+
+### JOIN
+
+- cross join(=Cartesian product)
+
+```sql
+/* cross join : 두 테이블의 데이터를 1:1로 모두 연결한다.*/
+select mno, name from memb;
+select mno, work, bank from stnt;
+
+/* => mno가 어떤 테이블의 컬럼인지 지정하지 않으면 실행 오류!*/
+select mno, name, mno, work, bank
+from memb cross join stnt;
+
+/* => select  컬럼이 두 테이블 모두 있을 경우,
+         컬럼명 앞에 테이블명을 명시하여 구분하라!*/
+select memb.mno, name, stnt.mno, work, bank
+from memb cross join stnt;
+
+select memb.mno member_no, name, stnt.mno student_no, work, bank
+from memb cross join stnt;
+
+/* 예전 문법 */
+select memb.mno member_no, name, stnt.mno student_no, work, bank
+from memb, stnt;
+
+/* => 컬럼명 앞에 테이블명을 붙이면 너무 길다.
+         테이블에 별명을 부여하고
+         그 별명을 사용하여 컬럼을 지정하라. */
+select m.mno, name, s.mno, work, bank
+from memb as m cross join stnt s;
+
+select m.mno, name, s.mno, work, bank
+from memb m cross join stnt s;
+
+/* 예전 문법 */
+select m.mno, name, s.mno, work, bank
+from memb m, stnt as s;
+```
+
+- netural join
+
+```sql
+/* => 컬럼명 앞에 테이블명을 붙이면 너무 길다.
+         테이블에 별명을 부여하고
+         그 별명을 사용하여 컬럼을 지정하라. */
+select m.mno, name, s.mno, work, bank
+from memb as m cross join stnt s;
+
+select m.mno, name, s.mno, work, bank
+from memb m cross join stnt s;
+
+/* 예전 문법 */
+select m.mno, name, s.mno, work, bank
+from memb m, stnt as s;
 ```
