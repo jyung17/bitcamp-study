@@ -621,8 +621,6 @@ select m.mno, name, s.mno, work, bank
 from memb m, stnt as s;
 ```
 
-- netural join
-
 ```sql
 /* => 컬럼명 앞에 테이블명을 붙이면 너무 길다.
          테이블에 별명을 부여하고
@@ -637,3 +635,5 @@ from memb m cross join stnt s;
 select m.mno, name, s.mno, work, bank
 from memb m, stnt as s;
 ```
+
+- netural join
