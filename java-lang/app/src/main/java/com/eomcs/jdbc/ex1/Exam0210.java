@@ -25,11 +25,11 @@ public class Exam0210 {
       // username : DBMS 사용자 아이디
       // password : DBMS 사용자 암호
       //
-      con = DriverManager.getConnection(
-          "jdbc:mariadb://localhost:3306/studydb", // jdbcURL
+      con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", // jdbcURL
           "study", // username
           "1111" // password
-          );
+      );
+
       // => DriverManager는 등록된 java.sql.Driver 구현체 중에서
       //    jdbc url에 지정된 DBMS의 Driver 객체를 찾는다.
       //    예) MariaDB: org.mariadb.jdbc.Driver 클래스의 객체

@@ -44,8 +44,8 @@ DROP TABLE IF EXISTS ems_member RESTRICT;
 CREATE TABLE ems_application (
   apno  INTEGER  NOT NULL COMMENT '수강신청번호', -- 수강신청번호
   lno   INTEGER  NOT NULL COMMENT '강의번호', -- 강의번호
-  cdate DATETIME NOT NULL COMMENT '신청일', -- 신청일
-  mno   INTEGER  NOT NULL COMMENT '회원번호' -- 회원번호
+  mno   INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
+  cdate DATETIME NOT NULL COMMENT '신청일' -- 신청일
 )
 COMMENT '수강신청';
 
@@ -89,8 +89,7 @@ CREATE TABLE ems_teacher (
   account  VARCHAR(20)  NOT NULL COMMENT '계좌번호', -- 계좌번호
   hour_pay INTEGER      NOT NULL COMMENT '시강료', -- 시강료
   ano      INTEGER      NOT NULL COMMENT '기본주소번호', -- 기본주소번호
-  det_addr VARCHAR(255) NOT NULL COMMENT '상세주소', -- 상세주소
-  sno      INTEGER      NULL     COMMENT '학교번호' -- 학교번호
+  det_addr VARCHAR(255) NOT NULL COMMENT '상세주소' -- 상세주소
 )
 COMMENT '강사';
 
@@ -153,10 +152,9 @@ ALTER TABLE ems_manager
 
 -- 학생
 CREATE TABLE ems_student (
-  stno     INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
-  sno      INTEGER      NOT NULL COMMENT '학교번호', -- 학교번호
+  mno      INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
   work     BOOLEAN      NOT NULL COMMENT '재직여부', -- 재직여부
-  ano      INTEGER      NOT NULL COMMENT '기본주소번호', -- 기본주소번호
+  ano      INTEGER      NULL     COMMENT '기본주소번호', -- 기본주소번호
   det_addr VARCHAR(255) NULL     COMMENT '상세주소', -- 상세주소
   bno      INTEGER      NULL     COMMENT '은행번호', -- 은행번호
   account  VARCHAR(20)  NULL     COMMENT '계좌번호' -- 계좌번호
@@ -167,7 +165,7 @@ COMMENT '학생';
 ALTER TABLE ems_student
   ADD CONSTRAINT PK_ems_student -- 학생 기본키
     PRIMARY KEY (
-      stno -- 회원번호
+      mno -- 회원번호
     );
 
 -- 학교
@@ -219,7 +217,7 @@ ALTER TABLE ems_department
 -- 직위
 CREATE TABLE ems_position (
   pno   INTEGER     NOT NULL COMMENT '직위번호', -- 직위번호
-  title VARCHAR(50) NULL     COMMENT '직위명' -- 직위명
+  title VARCHAR(50) NOT NULL COMMENT '직위명' -- 직위명
 )
 COMMENT '직위';
 
@@ -242,7 +240,7 @@ ALTER TABLE ems_position
 -- 은행
 CREATE TABLE ems_bank (
   bno   INTEGER     NOT NULL COMMENT '은행번호', -- 은행번호
-  title VARCHAR(50) NULL     COMMENT '은행명' -- 은행명
+  title VARCHAR(50) NOT NULL COMMENT '은행명' -- 은행명
 )
 COMMENT '은행';
 
@@ -271,7 +269,7 @@ CREATE TABLE ems_center (
   det_addr VARCHAR(255) NOT NULL COMMENT '상세주소', -- 상세주소
   tel      VARCHAR(30)  NOT NULL COMMENT '대표전화', -- 대표전화
   fax      VARCHAR(30)  NULL     COMMENT '팩스', -- 팩스
-  hompage  VARCHAR(255) NULL     COMMENT '홈페이지' -- 홈페이지
+  homepage VARCHAR(255) NULL     COMMENT '홈페이지' -- 홈페이지
 )
 COMMENT '교육센터';
 
@@ -316,9 +314,9 @@ CREATE TABLE ems_member (
   email    VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
   password VARCHAR(100) NOT NULL COMMENT '암호', -- 암호
   tel      VARCHAR(30)  NOT NULL COMMENT '휴대전화', -- 휴대전화
+  grade    VARCHAR(50)  NULL     COMMENT '최종학력', -- 최종학력
   sno      INTEGER      NULL     COMMENT '학교번호', -- 학교번호
-  majro    VARCHAR(50)  NULL     COMMENT '전공', -- 전공
-  grade    VARCHAR(50)  NULL     COMMENT '최종학력' -- 최종학력
+  major    VARCHAR(50)  NULL     COMMENT '전공' -- 전공
 )
 COMMENT '회원';
 
@@ -367,7 +365,7 @@ ALTER TABLE ems_application
       mno -- 회원번호
     )
     REFERENCES ems_student ( -- 학생
-      stno -- 회원번호
+      mno -- 회원번호
     );
 
 -- 강의
@@ -388,16 +386,6 @@ ALTER TABLE ems_lecture
     )
     REFERENCES ems_manager ( -- 매니저
       mno -- 회원번호
-    );
-
--- 강사
-ALTER TABLE ems_teacher
-  ADD CONSTRAINT FK_ems_school_TO_ems_teacher -- 학교 -> 강사
-    FOREIGN KEY (
-      sno -- 학교번호
-    )
-    REFERENCES ems_school ( -- 학교
-      sno -- 학교번호
     );
 
 -- 강사
@@ -492,16 +480,6 @@ ALTER TABLE ems_manager
 
 -- 학생
 ALTER TABLE ems_student
-  ADD CONSTRAINT FK_ems_school_TO_ems_student -- 학교 -> 학생
-    FOREIGN KEY (
-      sno -- 학교번호
-    )
-    REFERENCES ems_school ( -- 학교
-      sno -- 학교번호
-    );
-
--- 학생
-ALTER TABLE ems_student
   ADD CONSTRAINT FK_ems_bank_TO_ems_student -- 은행 -> 학생
     FOREIGN KEY (
       bno -- 은행번호
@@ -524,7 +502,7 @@ ALTER TABLE ems_student
 ALTER TABLE ems_student
   ADD CONSTRAINT FK_ems_member_TO_ems_student -- 회원 -> 학생
     FOREIGN KEY (
-      stno -- 회원번호
+      mno -- 회원번호
     )
     REFERENCES ems_member ( -- 회원
       mno -- 회원번호

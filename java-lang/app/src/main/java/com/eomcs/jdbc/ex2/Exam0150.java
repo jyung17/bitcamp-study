@@ -33,8 +33,7 @@ public class Exam0150 {
       //          "delete from x_board_file where board_id = " + no);
 
       // => 게시글 삭제
-      int count = stmt.executeUpdate(
-          "delete from x_board where board_id = " + no);
+      int count = stmt.executeUpdate("delete from x_board where board_id = " + no);
 
       if (count == 0) {
         System.out.println("해당 번호의 게시물이 존재하지 않습니다.");

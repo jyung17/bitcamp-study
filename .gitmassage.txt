@@ -1,0 +1,20 @@
+# commit message template
+# Subject은 대문자로 시작
+# body과 footer는 선택 사항
+##################
+# type: Subject
+
+# Body
+
+# footer
+##################
+# feat: 새로운 기능과 관련된 것을 의미
+# fix: 오류와 같은 것을 수정
+# add: 추가
+# remove: 삭제
+# simplify: 단순화
+# update: 보완
+# implement: 구현
+# prevent: 방지
+# move: 이동
+# rename: 이름변경

@@ -20,6 +20,7 @@ create table x_board_file (
   file_path varchar(255) not null,
   board_id int not null,
   constraint fk_board_file foreign key (board_id) references x_board(board_id) /* on delete cascade */
+  /* board_id -> x_board(board_id)를 참조 */₩
 );
 
 -- 게시물 데이터 입력 
@@ -75,8 +76,9 @@ select
   created_date
 from 
   x_board
-order by board_id desc;
+order by board_id desc; /* 게시글은 최신글 순으로 조회하기 위해 order by board_id desc; */
 
+/* 상세조회 */
 select
   board_id,
   title,
@@ -89,6 +91,7 @@ where
   board_id = 3;
 
 -- 데이터 변경
+-- 3번 게시글의 조회수 증가
 update x_board set
   view_count = view_count + 1,
   created_date = now()

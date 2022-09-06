@@ -24,12 +24,13 @@ public class Exam0220 {
       contents = keyboard.nextLine();
     }
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
+    try (
+        Connection con = DriverManager
+            .getConnection("jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
 
         // PreparedStatement는 미리 SQL 문장을 준비하여 값을 삽입하는 기법이다.
-        PreparedStatement stmt = con.prepareStatement(
-            "update x_board set title = ?, contents = ? where board_id = ?")) {
+        PreparedStatement stmt =
+            con.prepareStatement("update x_board set title = ?, contents = ? where board_id = ?")) {
 
       // SQL 문장을 준비할 때, 값이 들어 갈 자리에 ? 로 표시한다.
       // ? 를 "in-parameter"라 부른다.

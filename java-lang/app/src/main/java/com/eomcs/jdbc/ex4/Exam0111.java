@@ -30,7 +30,7 @@ public class Exam0111 {
         // 입력 후 PK 값을 리턴 받고 싶다면,
         // PreparedStatement 객체를 얻을 때 다음과 같은 옵션을 지정하라!
         // => prepareStatement(sql, 자동생성된 PK 값 리턴 여부)
-        //
+        // => Statement.RETURN_GENERATED_KEYS : INSERT문을 실행할 때 자동으로 생성되는 키를 검색
         PreparedStatement stmt = con.prepareStatement( 
             "insert into x_board(title,contents) values(?,?)", 
             Statement.RETURN_GENERATED_KEYS);) {

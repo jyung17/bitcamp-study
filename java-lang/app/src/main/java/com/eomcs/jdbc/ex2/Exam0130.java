@@ -31,7 +31,8 @@ public class Exam0130 {
         "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
-            "select * from x_board where board_id = " + no)) {
+            "select title, contents, created_date, view_count from x_board where board_id = "
+                + no)) {
 
       if (rs.next()) {
         // 레코드에서 컬럼 값을 꺼낼 때 컬럼 번호를 지정하는 것 보다

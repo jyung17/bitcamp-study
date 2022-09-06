@@ -9,7 +9,6 @@ public class C extends PlugIn {
 
   @Override
   public void f1(String name) {
-
     // 생성자에서 받은 객체에 대해 먼저 기능을 실행한다.
     origin.f1(name);
 
