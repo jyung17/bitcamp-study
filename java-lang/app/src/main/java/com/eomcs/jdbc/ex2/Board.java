@@ -21,14 +21,12 @@ public class Board implements Serializable {
   Date registeredDate;
   int viewCount;
 
-  // 개발하는 동안 객체의 값을 확인할 수 있도록 toString()을 오버라이딩 한다.
   @Override
   public String toString() {
     return "Board [no=" + no + ", title=" + title + ", content=" + content + ", registeredDate="
         + registeredDate + ", viewCount=" + viewCount + "]";
   }
 
-  // 셋터와 겟터 생성
   public int getNo() {
     return no;
   }
@@ -68,5 +66,7 @@ public class Board implements Serializable {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
+
+
 
 }

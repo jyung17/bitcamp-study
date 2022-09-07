@@ -22,18 +22,14 @@ public class ClientApp {
 
     // 핸들러를 담을 컬렉션을 준비한다.
     ArrayList<Handler> handlers = new ArrayList<>();
-    handlers.add(new BoardHandler("board", ip, port));
-    handlers.add(new BoardHandler("reading", ip, port));
-    handlers.add(new BoardHandler("visit", ip, port));
-    handlers.add(new BoardHandler("notice", ip, port));
-    handlers.add(new BoardHandler("daily", ip, port));
-    handlers.add(new MemberHandler("member", ip, port));
+    handlers.add(new BoardHandler());
+    handlers.add(new MemberHandler());
 
     // "메인" 메뉴의 이름을 스택에 등록한다.
     breadcrumbMenu.push("메인");
 
     // 메뉴명을 저장할 배열을 준비한다.
-    String[] menus = {"게시판", "독서록", "방명록", "공지사항", "일기장", "회원"};
+    String[] menus = {"게시판", "회원"};
 
     loop: while (true) {
 
