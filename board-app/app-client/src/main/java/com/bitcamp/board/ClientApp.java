@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.Stack;
+import com.bitcamp.board.dao.MariaDBBoardDao;
+import com.bitcamp.board.dao.MariaDBMemberDao;
 import com.bitcamp.board.handler.BoardHandler;
 import com.bitcamp.board.handler.MemberHandler;
 import com.bitcamp.handler.Handler;
@@ -22,10 +24,14 @@ public class ClientApp {
 
       welcome();
 
+      // DAO 객체를 준비한다.
+      MariaDBBoardDao boardDao = new MariaDBBoardDao(con);
+      MariaDBMemberDao memberDao = new MariaDBMemberDao(con);
+
       // 핸들러를 담을 컬렉션을 준비한다.
       ArrayList<Handler> handlers = new ArrayList<>();
-      handlers.add(new BoardHandler(con));
-      handlers.add(new MemberHandler(con));
+      handlers.add(new BoardHandler(boardDao));
+      handlers.add(new MemberHandler(memberDao));
 
       // "메인" 메뉴의 이름을 스택에 등록한다.
       breadcrumbMenu.push("메인");
