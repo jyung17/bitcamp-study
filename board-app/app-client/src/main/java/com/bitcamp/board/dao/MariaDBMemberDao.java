@@ -10,12 +10,15 @@ import com.bitcamp.board.domain.Member;
 
 public class MariaDBMemberDao {
 
+  Connection con;
+
+  public MariaDBMemberDao() throws Exception {
+    con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
+  }
+
   public int insert(Member member) throws Exception {
-    try (
-        Connection con =
-            DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-        PreparedStatement pstmt = con
-            .prepareStatement("insert into app_member(name,email,pwd) values(?, ?, sha2(?,256))")) {
+    try (PreparedStatement pstmt =
+        con.prepareStatement("insert into app_member(name,email,pwd) values(?, ?, sha2(?,256))")) {
       pstmt.setString(1, member.name);
       pstmt.setString(2, member.email);
       pstmt.setString(3, member.password);
@@ -27,8 +30,6 @@ public class MariaDBMemberDao {
   public Member findByNo(int no) throws Exception {
     //try() {} 할때 () <- Java.lang.AutoCloseable 타입의 변수만 가능
     try (
-        Connection con =
-            DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
         PreparedStatement pstmt =
             con.prepareStatement("select mno,name,email,cdt from app_member where mno=" + no);
         ResultSet rs = pstmt.executeQuery()) {
@@ -47,11 +48,8 @@ public class MariaDBMemberDao {
   }
 
   public int update(Member member) throws Exception {
-    try (
-        Connection con =
-            DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-        PreparedStatement pstmt = con.prepareStatement(
-            "update app_member set name=?, email=?, pwd=sha2(?,256) where mno=?")) {
+    try (PreparedStatement pstmt = con
+        .prepareStatement("update app_member set name=?, email=?, pwd=sha2(?,256) where mno=?")) {
       pstmt.setString(1, member.name);
       pstmt.setString(2, member.email);
       pstmt.setString(3, member.password);
@@ -62,10 +60,7 @@ public class MariaDBMemberDao {
   }
 
   public int delete(int no) throws Exception {
-    try (
-        Connection con =
-            DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-        PreparedStatement pstmt1 = con.prepareStatement("delete from app_board where mno=?");
+    try (PreparedStatement pstmt1 = con.prepareStatement("delete from app_board where mno=?");
         PreparedStatement pstmt2 = con.prepareStatement("delete from app_member where mno=?")) {
 
       //con.setAutoCommit(false);
@@ -81,10 +76,7 @@ public class MariaDBMemberDao {
   }
 
   public List<Member> findAll() throws Exception {
-    try (
-        Connection con =
-            DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-        PreparedStatement pstmt = con.prepareStatement("select mno,name,email from app_member");
+    try (PreparedStatement pstmt = con.prepareStatement("select mno,name,email from app_member");
         ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Member> list = new ArrayList<>();

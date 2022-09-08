@@ -37,12 +37,14 @@ public class Exam0110 {
         "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
 
         // 게시글 입력 처리 객체
-        PreparedStatement boardStmt = con.prepareStatement(
-            "insert into x_board(title,contents) values(?,?)");
+        PreparedStatement boardStmt =
+            con.prepareStatement("insert into x_board(title,contents) values(?,?)");
 
-        // 첨부파일 입력 처리 객체
-        PreparedStatement fileStmt = con.prepareStatement(
-            "insert into x_board_file(file_path,board_id) values(?,?)")) {
+    // 첨부파일 입력 처리 객체
+    ) {
+
+      PreparedStatement fileStmt =
+          con.prepareStatement("insert into x_board_file(file_path,board_id) values(?,?)");
 
       // 게시글 입력
       boardStmt.setString(1, title);
@@ -68,6 +70,8 @@ public class Exam0110 {
         //
         fileStmt.executeUpdate();
         fileCount++;
+
+        fileStmt.close();
       }
       System.out.printf("%d 개 첨부파일 입력 성공!", fileCount);
     }
