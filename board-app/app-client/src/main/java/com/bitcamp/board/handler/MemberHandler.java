@@ -11,9 +11,9 @@ import com.bitcamp.util.Prompt;
 
 public class MemberHandler extends AbstractHandler {
 
-  private MemberDao memberDao;
+  private MemberDao memberDao; // <- 의존 객체
 
-  public MemberHandler(MemberDao memberDao) {
+  public MemberHandler(MemberDao memberDao) { // <- 의존 객체
     super(new String[] {"목록", "상세보기", "등록", "삭제", "변경"});
 
     this.memberDao = memberDao;
