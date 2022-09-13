@@ -12,9 +12,12 @@ import java.util.Stack;
 // 2) 여러 클라이언트를 순차적으로 처리
 // 3) 스레드를 이용하여 여러 클라이언트를 동시 접속 처리
 // 4) 클라이언트가 보낸 요청 값을 받아서 그대로 돌려준다.
-//
-public class ServerApp04 {
+// 5) 요청/응답을 무한 반복한다.
+// 6) quit 명령을 보내면 연결 끊기
 
+public class ServerApp06 {
+
+  // breadcrumb 메뉴를 저장할 스택을 준비
   public static Stack<String> breadcrumbMenu = new Stack<>();
 
   public static void main(String[] args) {
@@ -34,15 +37,17 @@ public class ServerApp04 {
             PrintWriter tempOut = new PrintWriter(strOut);
 
             welcome(tempOut);
-
-            // 클라이언트로 출력하기
             out.writeUTF(strOut.toString());
 
-            // 클라이언트가 보낸 값을 그대로 돌려준다
-            String request = in.readUTF();
-            out.writeUTF(request);
+            while (true) {
+              String request = in.readUTF();
+              if (request.equals("quit")) {
+                break;
+              }
+              out.writeUTF(request);
+            }
 
-            System.out.println("클라이언트에게 응답!");
+            System.out.println("클라이언트와 접속 종료!");
 
           } catch (Exception e) {
             System.out.println("클라이언트와 통신하는 중 오류 발생!");
