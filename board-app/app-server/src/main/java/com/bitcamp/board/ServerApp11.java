@@ -6,13 +6,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.ArrayList;
-import com.bitcamp.board.dao.BoardDao;
-import com.bitcamp.board.dao.MariaDBBoardDao;
-import com.bitcamp.board.dao.MariaDBMemberDao;
-import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.handler.BoardHandler;
 import com.bitcamp.board.handler.MemberHandler;
 import com.bitcamp.handler.Handler;
@@ -32,9 +26,9 @@ import com.bitcamp.util.BreadCrumb;
 // 10) Breadcrumb 기능을 객체로 분리한다.
 // - BreadCrum 클래스를 정의한다.
 // 11) 코드 리팩토링
-// - execute() 메서드 정의: main() 메서드의 코드를 옮긴다.
-//
-public class ServerApp {
+// - execute() 메서드 정의: main() 메서드의 코드를
+
+public class ServerApp11 {
 
   // 메인 메뉴 목록 준비
   private String[] menus = {"게시판", "회원"};
@@ -44,28 +38,14 @@ public class ServerApp {
   // extract mthod 자주 사용되는코드 반복적으로 사용되는 코드 주석을 부터야하는 코드
   // 차라리 뺴서 별도 메서드로 구현하는게 유지보수하는거에 좋다.
   public static void main(String[] args) {
-    try {
-      ServerApp app = new ServerApp(8888);
-      app.execute();
-
-    } catch (Exception e) {
-      System.out.println("서버 실행 중 오류 발생!");
-    }
+    ServerApp11 app = new ServerApp11(8888);
+    app.execute();
   }
 
-  public ServerApp(int port) throws Exception {
+  public ServerApp11(int port) {
     this.port = port;
-
-    // DAO 가 사용할 커넥션 객체 준비
-    Connection con =
-        DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-
-    // DAO 객체를 준비한다.
-    BoardDao boardDao = new MariaDBBoardDao(con);
-    MemberDao memberDao = new MariaDBMemberDao(con);
-
-    handlers.add(new BoardHandler(boardDao));
-    handlers.add(new MemberHandler(memberDao));
+    handlers.add(new BoardHandler(null));
+    handlers.add(new MemberHandler(null));
   }
 
   public void execute() {
@@ -78,7 +58,7 @@ public class ServerApp {
         System.out.println("클라이언트 접속!");
         // 클라이언트 연결을 기다리고있다가 연결되는 순간
         // socket을 리턴하면 그 socket을 가지고 serviceprocessor를 만든 이후에
-        // new Thread에 주면 ServiceProcessor을 별도의 스레드로 실행한다. .start();
+        // new Thread에 주면 ServiceProcessor을 별도의 스레드로 실행한다. .start();      
 
         // -> serverSocket.accept()
         //      -> new ServiceProcessor(serverSocket.accept())
@@ -89,6 +69,56 @@ public class ServerApp {
       e.printStackTrace();
     }
   }
+
+  /*
+    public static void main2(String[] args) {
+      try (// DAO가 사용할 커넥션 객체 준비
+          Connection con =
+              DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111")) {
+        System.out.println("[게시글 관리 클라이언트]");
+  
+        welcome();
+  
+        // DAO 객체를 준비한다.
+        MariaDBBoardDao boardDao = new MariaDBBoardDao(con);
+        MariaDBMemberDao memberDao = new MariaDBMemberDao(con);
+  
+  
+        // "메인" 메뉴의 이름을 스택에 등록한다.
+        breadcrumbMenu.push("메인");
+  
+        // 메뉴명을 저장할 배열을 준비한다.
+        
+  
+        loop: while (true) {
+  
+          printTitle();
+          printMenus(menus);
+          System.out.println();
+  
+          try {
+            
+  
+            // 메뉴에 진입할 때 breadcrumb 메뉴바에 그 메뉴를 등록한다.
+            breadcrumbMenu.push(menus[mainMenuNo - 1]);
+  
+  
+            breadcrumbMenu.pop();
+  
+          } catch (Exception ex) {
+            System.out.println("입력 값이 옳지 않습니다.");
+          }
+  
+        } // while
+        Prompt.close();
+  
+        System.out.println("종료!");
+      } catch (Exception e) {
+        System.out.println("시스템 오류 발생!");
+        e.printStackTrace();
+      }
+    }
+  */
 
   //인스턴스에서 인스턴스 맴버를 사용하지않으면 인스턴스로 만들 필요가없다 -> static
   static void welcome(DataOutputStream out) throws Exception {
@@ -113,8 +143,6 @@ public class ServerApp {
   private void printMainMenus(DataOutputStream out) throws Exception {
     try (StringWriter strOut = new StringWriter(); PrintWriter tempOut = new PrintWriter(strOut)) {
 
-      tempOut.println(BreadCrumb.getBreadCrumbOfCurrentThread().toString());
-
       for (int i = 0; i < menus.length; i++) {
         // 인스턴스 맴버, 같은 인스턴스맴버끼리는 인스턴스 변수를 사용할 수 있다.
         tempOut.printf("  %d: %s\n", i + 1, menus[i]);
@@ -137,15 +165,11 @@ public class ServerApp {
       handlers.get(menuNo - 1).execute(in, out);
       breadcrumb.pickUp();
 
-      // 하위 메뉴에서 빠져 나오면 현재의 메뉴 경로를 출력한다.
-      out.writeUTF(breadcrumb.toString());
     } catch (Exception e) {
       error(out, e);
     }
   }
 
-  // 중첩클래스의 장점
-  // 맴버 클래스의 메소드와 변수를 다 사용할 수 있음.
   private class ServiceProcessor implements Runnable {
 
     Socket socket;

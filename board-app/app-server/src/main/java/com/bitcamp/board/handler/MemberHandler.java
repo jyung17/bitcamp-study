@@ -3,6 +3,10 @@
  */
 package com.bitcamp.board.handler;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.domain.Member;
@@ -20,23 +24,23 @@ public class MemberHandler extends AbstractHandler {
   }
 
   @Override
-  public void service(int menuNo) {
+  public void service(int menuNo, DataInputStream in, DataOutputStream out) {
     try {
       switch (menuNo) {
         case 1:
-          this.onList();
+          this.onList(in, out);
           break;
         case 2:
-          this.onDetail();
+          this.onDetail(in, out);
           break;
         case 3:
-          this.onInput();
+          this.onInput(in, out);
           break;
         case 4:
-          this.onDelete();
+          this.onDelete(in, out);
           break;
         case 5:
-          this.onUpdate();
+          this.onUpdate(in, out);
           break;
       }
     } catch (Exception e) {
@@ -44,77 +48,95 @@ public class MemberHandler extends AbstractHandler {
     }
   }
 
-  private void onList() throws Exception {
-    List<Member> members = memberDao.findAll();
+  private void onList(DataInputStream in, DataOutputStream out) throws Exception {
+    try (StringWriter strOut = new StringWriter(); PrintWriter tempOut = new PrintWriter(strOut)) {
+      List<Member> members = memberDao.findAll();
 
-    System.out.println("번호\t이름\t이메일");
+      tempOut.println("번호\t이름\t이메일");
 
-    for (Member member : members) {
-      System.out.printf("%d\t%s\t%s\n", member.no, member.name, member.email);
-    }
-  }
-
-  private void onDetail() throws Exception {
-    int no = Prompt.inputInt("조회할 회원 번호? ");
-
-    Member member = memberDao.findByNo(no);
-
-    if (member == null) {
-      System.out.println("해당 번호의 회원이 없습니다!");
-      return;
-    }
-
-    System.out.printf("이름: %s\n", member.name);
-    System.out.printf("이메일: %s\n", member.email);
-    System.out.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", member.createdDate);
-  }
-
-  private void onInput() throws Exception {
-    Member member = new Member();
-
-    member.name = Prompt.inputString("이름? ");
-    member.email = Prompt.inputString("이메일? ");
-    member.password = Prompt.inputString("암호? ");
-
-    memberDao.insert(member);
-    System.out.println("회원을 등록했습니다.");
-  }
-
-  private void onDelete() throws Exception {
-    int no = Prompt.inputInt("삭제할 회원 번호? ");
-
-    if (memberDao.delete(no) == 1) {
-      System.out.println("삭제하였습니다.");
-    } else {
-      System.out.println("해당 번호의 회원이 없습니다!");
-    }
-  }
-
-  private void onUpdate() throws Exception {
-    int no = Prompt.inputInt("변경할 회원 번호? ");
-
-    Member member = memberDao.findByNo(no);
-
-    if (member == null) {
-      System.out.println("해당 번호의 회원이 없습니다!");
-      return;
-    }
-
-    member.name = Prompt.inputString("이름?(" + member.name + ") ");
-    member.email = Prompt.inputString("이메일?(" + member.email + ") ");
-    member.password = Prompt.inputString("암호?");
-
-    String input = Prompt.inputString("변경하시겠습니까?(y/n) ");
-
-    if (input.equals("y")) {
-      if (memberDao.update(member) == 1) {
-        System.out.println("변경했습니다.");
-      } else {
-        System.out.println("변경 실패입니다!");
+      for (Member member : members) {
+        tempOut.printf("%d\t%s\t%s\n", member.no, member.name, member.email);
       }
 
-    } else {
-      System.out.println("변경 취소했습니다.");
+      out.writeUTF(strOut.toString());
+    }
+  }
+
+  private void onDetail(DataInputStream in, DataOutputStream out) throws Exception {
+    try (StringWriter strOut = new StringWriter(); PrintWriter tempOut = new PrintWriter(strOut)) {
+      Prompt prompt = new Prompt(in, out);
+      int no = prompt.inputInt("조회할 회원 번호? ");
+
+      Member member = memberDao.findByNo(no);
+
+      if (member == null) {
+        out.writeUTF("해당 번호의 회원이 없습니다!");
+        return;
+      }
+
+      tempOut.printf("이름: %s\n", member.name);
+      tempOut.printf("이메일: %s\n", member.email);
+      tempOut.printf("등록일: %tY-%1$tm-%1$td %1$tH:%1$tM\n", member.createdDate);
+      out.writeUTF(strOut.toString());
+    }
+  }
+
+  private void onInput(DataInputStream in, DataOutputStream out) throws Exception {
+    try (StringWriter strOut = new StringWriter(); PrintWriter tempOut = new PrintWriter(strOut)) {
+      Prompt prompt = new Prompt(in, out);
+      Member member = new Member();
+
+      member.name = prompt.inputString("이름? ");
+      member.email = prompt.inputString("이메일? ");
+      member.password = prompt.inputString("암호? ");
+
+      memberDao.insert(member);
+      out.writeUTF("회원을 등록했습니다.");
+    }
+  }
+
+  private void onDelete(DataInputStream in, DataOutputStream out) throws Exception {
+    try (StringWriter strOut = new StringWriter(); PrintWriter tempOut = new PrintWriter(strOut)) {
+      Prompt prompt = new Prompt(in, out);
+      int no = prompt.inputInt("삭제할 회원 번호? ");
+
+      if (memberDao.delete(no) == 1) {
+        out.writeUTF("삭제하였습니다.");
+      } else {
+        out.writeUTF("해당 번호의 회원이 없습니다!");
+      }
+    }
+  }
+
+  private void onUpdate(DataInputStream in, DataOutputStream out) throws Exception {
+    try (StringWriter strOut = new StringWriter(); PrintWriter tempOut = new PrintWriter(strOut)) {
+      Prompt prompt = new Prompt(in, out);
+
+      int no = prompt.inputInt("변경할 회원 번호? ");
+
+      Member member = memberDao.findByNo(no);
+
+      if (member == null) {
+        out.writeUTF("해당 번호의 회원이 없습니다!");
+        return;
+      }
+
+      member.name = prompt.inputString("이름?(" + member.name + ") ");
+      member.email = prompt.inputString("이메일?(" + member.email + ") ");
+      member.password = prompt.inputString("암호?");
+
+      String input = prompt.inputString("변경하시겠습니까?(y/n) ");
+
+      if (input.equals("y")) {
+        if (memberDao.update(member) == 1) {
+          out.writeUTF("변경했습니다.");
+        } else {
+          out.writeUTF("변경 실패입니다!");
+        }
+
+      } else {
+        out.writeUTF("변경 취소했습니다.");
+      }
     }
   }
 }
