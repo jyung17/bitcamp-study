@@ -10,59 +10,51 @@ import java.io.StringWriter;
 import java.util.List;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
-import com.bitcamp.handler.AbstractHandler;
 import com.bitcamp.util.Prompt;
 
-public class BoardHandler extends AbstractHandler {
+public class BoardHandler {
 
   private BoardDao boardDao;
 
   public BoardHandler(BoardDao boardDao) {
-    super(new String[] {"목록", "상세보기", "등록", "삭제", "변경"});
-
     this.boardDao = boardDao;
   }
 
-  @Override
-  public void service(int menuNo, DataInputStream in, DataOutputStream out) {
-    try {
-      switch (menuNo) {
-        case 1:
-          this.onList(in, out);
-          break;
-        case 2:
-          this.onDetail(in, out);
-          break;
-        case 3:
-          this.onInput(in, out);
-          break;
-        case 4:
-          this.onDelete(in, out);
-          break;
-        case 5:
-          this.onUpdate(in, out);
-          break;
-      }
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+  public void List(PrintWriter out) throws Exception {
+
+    out.println("<!DOCTYPE html>");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<meta charset=\"UTF-8\">");
+    out.println("<title>bitcamp</title>");
+    out.println("</head>");
+    out.println("<body>");
+    out.println("<h1>게시글</h1>");
+    out.println("<table border='1'>");
+    out.println("  <tr>");
+    out.println("    <th>번호</th>");
+    out.println("    <th>제목</th>");
+    out.println("    <th>조회수</th>");
+    out.println("    <th>작성자</th>");
+    out.println("    <th>등록일</th>");
+    out.println("  </tr>");
+
+    List<Board> boards = boardDao.findAll();
+    for (Board board : boards) {
+      out.println("<tr>");
+      out.printf("  <td>%d</td>", board.no);
+      out.printf("  <td>%s</td>", board.title);
+      out.printf("  <td>%d</td>", board.viewCount);
+      out.printf("  <td>%d</td>", board.memberNo);
+      out.printf("  <td>%s</td>", board.createdDate);
+      out.printf("</tr>");
     }
+    out.println("</table>");
+    out.println("</body>");
+    out.println("</html>");
   }
 
-  private void onList(DataInputStream in, DataOutputStream out) throws Exception {
-    try (StringWriter strOut = new StringWriter(); PrintWriter tempOut = new PrintWriter(strOut);) {
-      List<Board> boards = boardDao.findAll();
-
-      tempOut.println("번호 제목 조회수 작성자 등록일");
-      for (Board board : boards) {
-        tempOut.printf("%d\t%s\t%d\t%d\t%s\n", board.no, board.title, board.viewCount,
-            board.memberNo, board.createdDate);
-      }
-
-      out.writeUTF(strOut.toString());
-    }
-  }
-
-  private void onDetail(DataInputStream in, DataOutputStream out) throws Exception {
+  public void Detail(PrintWriter out) throws Exception {
     Prompt prompt = new Prompt(in, out);
 
     int boardNo = 0;
