@@ -8,6 +8,8 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.HashMap;
+import java.util.Map;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MariaDBBoardDao;
 import com.bitcamp.board.dao.MariaDBMemberDao;
@@ -45,21 +47,38 @@ public class MiniWebServer {
       public void handle(HttpExchange exchange) throws IOException {
         System.out.println("클라이언트가 요청함!");
         URI requestUri = exchange.getRequestURI();
+
         String path = requestUri.getPath();
+        String query = requestUri.getQuery();
 
         byte[] bytes = null;
 
         try (StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter)) {
 
+          Map<String, String> paramMap = new HashMap<>();
+          if (query != null && query.length() > 0) { // 예) no=1&title=aaaa&content=bbb
+            String[] entries = query.split("&");
+            for (String entry : entries) { // 예) no=1
+              String[] kv = entry.split("=");
+              paramMap.put(kv[0], kv[1]);
+            }
+          }
+
+          System.out.println(paramMap);
+
           if (path.equals("/")) {
-            welcomeHandler.service(printWriter);
+            welcomeHandler.service(paramMap, printWriter);
           } else if (path.equals("/board/list")) {
-            boardHandler.List(printWriter);
+            boardHandler.List(paramMap, printWriter);
           } else if (path.equals("/board/detail")) {
-            boardHandler.Detail(printWriter);
+            boardHandler.Detail(paramMap, printWriter);
+          } else if (path.equals("/board/update")) {
+            boardHandler.Update(paramMap, printWriter);
+          } else if (path.equals("/board/delete")) {
+            boardHandler.Delete(paramMap, printWriter);
           } else {
-            errorHandler.error(printWriter);
+            errorHandler.error(paramMap, printWriter);
           }
 
           bytes = stringWriter.toString().getBytes("UTF-8");
