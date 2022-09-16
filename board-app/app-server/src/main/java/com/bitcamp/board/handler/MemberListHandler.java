@@ -8,15 +8,17 @@ import java.util.List;
 import java.util.Map;
 import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.domain.Member;
+import com.bitcamp.servlet.Servlet;
 
-public class MemberListHandler {
+public class MemberListHandler implements Servlet {
   private MemberDao memberDao; // <- 의존 객체
 
   public MemberListHandler(MemberDao memberDao) { // <- 의존 객체
     this.memberDao = memberDao;
   }
 
-  public void List(Map<String, String> paramMap, PrintWriter out) throws Exception {
+  @Override
+  public void service(Map<String, String> paramMap, PrintWriter out) throws Exception {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");

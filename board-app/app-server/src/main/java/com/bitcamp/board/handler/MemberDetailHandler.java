@@ -7,8 +7,9 @@ import java.io.PrintWriter;
 import java.util.Map;
 import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.domain.Member;
+import com.bitcamp.servlet.Servlet;
 
-public class MemberDetailHandler {
+public class MemberDetailHandler implements Servlet {
 
   private MemberDao memberDao; // <- 의존 객체
 
@@ -16,7 +17,8 @@ public class MemberDetailHandler {
     this.memberDao = memberDao;
   }
 
-  public void Detail(Map<String, String> paramMap, PrintWriter out) throws Exception {
+  @Override
+  public void service(Map<String, String> paramMap, PrintWriter out) throws Exception {
 
     out.println("<!DOCTYPE html>");
     out.println("<html>");
