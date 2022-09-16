@@ -14,6 +14,16 @@ public class WelcomeHandler {
     out.println("<body>");
     out.println("<h1>환영합니다!</h1>");
     out.println("<p>비트캠프 게시판 관리 시스템 프로젝트 입니다.</p>");
+    out.println("<form action='/board/list'>");
+    out.println("<p>");
+    out.println("<button type='submit'>게시판</button>");
+    out.println("</p>");
+    out.println("</form>");
+    out.println("<form action='/member/list'>");
+    out.println("<p>");
+    out.println("<button type='submit'>회원</button>");
+    out.println("</p>");
+    out.println("</form>");
     out.println("</body>");
     out.println("</html>");
   }
