@@ -15,9 +15,19 @@ import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MariaDBBoardDao;
 import com.bitcamp.board.dao.MariaDBMemberDao;
 import com.bitcamp.board.dao.MemberDao;
-import com.bitcamp.board.handler.BoardHandler;
+import com.bitcamp.board.handler.BoardAddHandler;
+import com.bitcamp.board.handler.BoardDeleteHandler;
+import com.bitcamp.board.handler.BoardDetailHandler;
+import com.bitcamp.board.handler.BoardFormHandler;
+import com.bitcamp.board.handler.BoardListHandler;
+import com.bitcamp.board.handler.BoardUpdateHandler;
 import com.bitcamp.board.handler.ErrorHandler;
-import com.bitcamp.board.handler.MemberHandler;
+import com.bitcamp.board.handler.MemberAddHandler;
+import com.bitcamp.board.handler.MemberDeleteHandler;
+import com.bitcamp.board.handler.MemberDetailHandler;
+import com.bitcamp.board.handler.MemberFormHandler;
+import com.bitcamp.board.handler.MemberListHandler;
+import com.bitcamp.board.handler.MemberUpdateHandler;
 import com.bitcamp.board.handler.WelcomeHandler;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -44,8 +54,20 @@ public class MiniWebServer {
 
     WelcomeHandler welcomeHandler = new WelcomeHandler();
     ErrorHandler errorHandler = new ErrorHandler();
-    BoardHandler boardHandler = new BoardHandler(boardDao);
-    MemberHandler memberHandler = new MemberHandler(memberDao);
+    BoardFormHandler boardFormHandler = new BoardFormHandler();
+    BoardAddHandler boardAddHandler = new BoardAddHandler(boardDao);
+    BoardListHandler boardListHandler = new BoardListHandler(boardDao);
+    BoardDetailHandler boardDetailHandler = new BoardDetailHandler(boardDao);
+    BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardDao);
+    BoardUpdateHandler boardUpdateHandler = new BoardUpdateHandler(boardDao);
+
+    MemberFormHandler memberFormHandler = new MemberFormHandler();
+    MemberAddHandler memberAddHandler = new MemberAddHandler(memberDao);
+    MemberListHandler memberListHandler = new MemberListHandler(memberDao);
+    MemberDetailHandler memberDetailHandler = new MemberDetailHandler(memberDao);
+    MemberDeleteHandler memberDeleteHandler = new MemberDeleteHandler(memberDao);
+    MemberUpdateHandler memberUpdateHandler = new MemberUpdateHandler(memberDao);
+
     //
     class MyhttpHandler implements HttpHandler {
       @Override
@@ -79,30 +101,30 @@ public class MiniWebServer {
           if (path.equals("/")) {
             welcomeHandler.service(paramMap, printWriter);
           } else if (path.equals("/board/list")) {
-            boardHandler.List(paramMap, printWriter);
+            boardListHandler.List(paramMap, printWriter);
           } else if (path.equals("/board/detail")) {
-            boardHandler.Detail(paramMap, printWriter);
+            boardDetailHandler.Detail(paramMap, printWriter);
           } else if (path.equals("/board/update")) {
-            boardHandler.Update(paramMap, printWriter);
+            boardUpdateHandler.Update(paramMap, printWriter);
           } else if (path.equals("/board/delete")) {
-            boardHandler.Delete(paramMap, printWriter);
+            boardDeleteHandler.Delete(paramMap, printWriter);
           } else if (path.equals("/board/form")) {
-            boardHandler.form(paramMap, printWriter);
+            boardFormHandler.form(paramMap, printWriter);
           } else if (path.equals("/board/add")) {
-            boardHandler.add(paramMap, printWriter);
+            boardAddHandler.add(paramMap, printWriter);
 
           } else if (path.equals("/member/list")) {
-            memberHandler.List(paramMap, printWriter);
+            memberListHandler.List(paramMap, printWriter);
           } else if (path.equals("/member/detail")) {
-            memberHandler.Detail(paramMap, printWriter);
+            memberDetailHandler.Detail(paramMap, printWriter);
           } else if (path.equals("/member/update")) {
-            memberHandler.Update(paramMap, printWriter);
+            memberUpdateHandler.Update(paramMap, printWriter);
           } else if (path.equals("/member/delete")) {
-            memberHandler.Delete(paramMap, printWriter);
+            memberDeleteHandler.Delete(paramMap, printWriter);
           } else if (path.equals("/member/form")) {
-            memberHandler.form(paramMap, printWriter);
+            memberFormHandler.form(paramMap, printWriter);
           } else if (path.equals("/member/add")) {
-            memberHandler.add(paramMap, printWriter);
+            memberAddHandler.add(paramMap, printWriter);
           } else {
             errorHandler.error(paramMap, printWriter);
           }
