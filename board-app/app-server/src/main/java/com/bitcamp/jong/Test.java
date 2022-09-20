@@ -1,18 +1,13 @@
 package com.bitcamp.jong;
 
 import static org.reflections.scanners.Scanners.TypesAnnotated;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import org.reflections.Reflections;
-import com.bitcamp.servlet.Servlet;
 import com.bitcamp.servlet.annotation.WebServlet;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
 public class Test {
 
@@ -35,7 +30,6 @@ public class Test {
         reflections.get(TypesAnnotated.with(WebServlet.class).asClass());
     System.out.println("servlets: " + servletsClassInfoList);
 
-
     for (Class<?> servletClassInfo : servletsClassInfoList) {
       // 서블릿 클래스의 붙은 WebServelt 애노테이션으로부터 path를 꺼낸다.
       String servletPath = servletClassInfo.getAnnotation(WebServlet.class).value();
@@ -50,6 +44,7 @@ public class Test {
       System.out.println("params: " + params);
       System.out.println("params[0].getType(): " + params[0].getType());
       System.out.println(params[0].getType() == Const.class);
+      System.out.println(params[0].getType() == BoardDao.class);
       //      servletMap.put(servletPath, constructor.newInstance(constt));
     }
     //

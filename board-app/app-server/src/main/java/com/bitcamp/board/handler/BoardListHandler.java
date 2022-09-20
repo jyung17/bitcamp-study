@@ -64,4 +64,3 @@ public class BoardListHandler implements Servlet {
   }
 }
 
-
