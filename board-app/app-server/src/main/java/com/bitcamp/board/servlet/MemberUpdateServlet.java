@@ -1,7 +1,7 @@
 /*
- * 게시글 메뉴 처리 클래스
+ * 회원 메뉴 처리 클래스
  */
-package com.bitcamp.board.sevlet;
+package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,22 +12,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.dao.BoardDao;
-import com.bitcamp.board.dao.MariaDBBoardDao;
-import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.dao.MariaDBMemberDao;
+import com.bitcamp.board.dao.MemberDao;
+import com.bitcamp.board.domain.Member;
 
-@WebServlet(value = "/board/add")
-public class BoardAddServlet extends HttpServlet {
+@WebServlet(value = "/member/update")
+public class MemberUpdateServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
+  private MemberDao memberDao; // <- 의존 객체
 
-  private BoardDao boardDao;
-
-  public BoardAddServlet() throws Exception {
+  public MemberUpdateServlet() throws Exception { // <- 의존 객체
     Class.forName("org.mariadb.jdbc.Driver");
     Connection con =
         DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-    boardDao = new MariaDBBoardDao(con);
+    memberDao = new MariaDBMemberDao(con);
   }
 
   @Override
@@ -37,7 +36,6 @@ public class BoardAddServlet extends HttpServlet {
     resp.setContentType("text/html; charset=UTF-8");
 
     PrintWriter out = resp.getWriter();
-
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
@@ -46,24 +44,23 @@ public class BoardAddServlet extends HttpServlet {
     out.println("<meta http-equiv='refresh' content='3; url=list'>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글 입력</h1>");
+    out.println("<h1>회원 변경</h1>");
 
-    Board board = new Board();
-    board.title = req.getParameter("title");
-    board.content = req.getParameter("content");
-    board.memberNo = Integer.parseInt(req.getParameter("writerNo"));
+    Member member = new Member();
+    member.no = Integer.parseInt(req.getParameter("no"));
+    member.name = req.getParameter("name");
+    member.email = req.getParameter("email");
+    member.password = req.getParameter("password");
 
     try {
-
-      if (boardDao.insert(board) == 0) {
-        out.println("<p>게시글 등록할 수 없습니다.</p>");
+      if (memberDao.update(member) == 0) {
+        out.println("<p>해당 번호의 회원 없습니다.</p>");
       } else {
-        out.println("<p>게시글 등록 했습니다.</p>");
+        out.println("<p>해당 회원을 변경했습니다.</p>");
       }
     } catch (Exception e) {
       out.println("<p>실행 중 오류 발생!</p>");
     }
-
     out.println("</body>");
     out.println("</html>");
   }

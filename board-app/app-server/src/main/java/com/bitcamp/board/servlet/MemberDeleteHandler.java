@@ -1,7 +1,7 @@
 /*
- * 게시글 메뉴 처리 클래스
+ * 회원 메뉴 처리 클래스
  */
-package com.bitcamp.board.sevlet;
+package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,21 +12,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.dao.BoardDao;
-import com.bitcamp.board.dao.MariaDBBoardDao;
-import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.dao.MariaDBMemberDao;
+import com.bitcamp.board.dao.MemberDao;
 
-@WebServlet(value = "/board/update")
-public class BoardUpdateServlet extends HttpServlet {
+@WebServlet(value = "/member/delete")
+public class MemberDeleteHandler extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  private BoardDao boardDao;
+  private MemberDao memberDao; // <- 의존 객체
 
-  public BoardUpdateServlet() throws Exception {
+  public MemberDeleteHandler() throws Exception { // <- 의존 객체
     Class.forName("org.mariadb.jdbc.Driver");
     Connection con =
         DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-    boardDao = new MariaDBBoardDao(con);
+    memberDao = new MariaDBMemberDao(con);
   }
 
   @Override
@@ -36,7 +35,6 @@ public class BoardUpdateServlet extends HttpServlet {
     resp.setContentType("text/html; charset=UTF-8");
 
     PrintWriter out = resp.getWriter();
-
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
@@ -45,18 +43,15 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("<meta http-equiv='refresh' content='3; url=list'>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글 변경</h1>");
+    out.println("<h1>회원 삭제</h1>");
 
-    Board board = new Board();
-    board.no = Integer.parseInt(req.getParameter("no"));
-    board.title = req.getParameter("title");
-    board.content = req.getParameter("content");
+    int no = Integer.parseInt(req.getParameter("no"));
 
     try {
-      if (boardDao.update(board) == 0) {
-        out.println("<p>해당 번호의 게시글이 없습니다.</p>");
+      if (memberDao.delete(no) == 0) {
+        out.println("<p>해당 번호의 회원이 없습니다.</p>");
       } else {
-        out.println("<p>해당 게시글을 변경했습니다.</p>");
+        out.println("<p>해당 회원을 삭제했습니다.</p>");
       }
     } catch (Exception e) {
       out.println("<p>실행 중 오류 발생!</p>");

@@ -1,7 +1,7 @@
 /*
- * 회원 메뉴 처리 클래스
+ * 게시글 메뉴 처리 클래스
  */
-package com.bitcamp.board.sevlet;
+package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,21 +12,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.dao.MariaDBMemberDao;
-import com.bitcamp.board.dao.MemberDao;
-import com.bitcamp.board.domain.Member;
+import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.dao.MariaDBBoardDao;
+import com.bitcamp.board.domain.Board;
 
-@WebServlet(value = "/member/detail")
-public class MemberDetailServlet extends HttpServlet {
+@WebServlet(value = "/board/detail")
+public class BoardDetailServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  private MemberDao memberDao; // <- 의존 객체
 
-  public MemberDetailServlet() throws Exception { // <- 의존 객체
+  private BoardDao boardDao;
+
+  public BoardDetailServlet() throws Exception {
     Class.forName("org.mariadb.jdbc.Driver");
     Connection con =
         DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-    memberDao = new MariaDBMemberDao(con);
+    boardDao = new MariaDBBoardDao(con);
   }
 
   @Override
@@ -44,13 +45,13 @@ public class MemberDetailServlet extends HttpServlet {
     out.println("<title>bitcamp</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 상세 정보</h1>");
+    out.println("<h1>게시글 상세 정보</h1>");
 
-    int memberNo = Integer.parseInt(req.getParameter("no"));
+    int boardNo = Integer.parseInt(req.getParameter("no"));
     try {
-      Member member = memberDao.findByNo(memberNo);
+      Board board = boardDao.findByNo(boardNo);
 
-      if (member == null) {
+      if (board == null) {
         out.println("<p>해당 번호의 게시글이 없습니다.</p>");
       } else {
         out.println("<form action='update'>");
@@ -58,29 +59,32 @@ public class MemberDetailServlet extends HttpServlet {
         out.println("  <tr>");
         out.printf(
             "    <th>번호</th><td><input name='no' type='number' value='%d' readonly='false'></td>",
-            member.no);
+            board.no);
         out.println("  </tr>");
         out.println("  <tr>");
-        out.printf("    <th>이름</th><td><input name='name' type='text' value='%s'></td>",
-            member.name);
+        out.printf("    <th>제목</th><td><input name='title' type='text' value='%s'></td>",
+            board.title);
         out.println("  </tr>");
         out.println("  <tr>");
-        out.printf("    <th>이메일</th><td><input name='email' type='text' value='%s'></td>",
-            member.email);
+        out.printf(
+            "    <th>내용</th><td><textarea name='content' rows='10' cols='60'>%s</textarea></td>",
+            board.content);
         out.println("  </tr>");
         out.println("  <tr>");
-        out.println("    <th>패스워드</th><td><input name='password' type='password'></td>");
+        out.printf("    <th>조회수</th><td>%d</td>", board.viewCount);
         out.println("  </tr>");
         out.println("  <tr>");
-        out.printf("    <th>등록일</th><td>%s</td>", member.createdDate);
+        out.printf("    <th>작성자</th><td>%d</td>", board.memberNo);
+        out.println("  </tr>");
+        out.println("  <tr>");
+        out.printf("    <th>등록일</th><td>%s</td>", board.createdDate);
         out.println("  </tr>");
         out.println("</table>");
         out.println("<p>");
         out.println("  <button type='submit'>변경</button>");
-        out.printf("  <a href='delete?no=%d'>삭제</a>", member.no);
+        out.printf("  <a href='delete?no=%d'>삭제</a>", board.no);
         out.println("</p>");
         out.println("</form>");
-
       }
     } catch (Exception e) {
       out.println("<p>실행 중 오류 발생!</p>");
@@ -88,6 +92,7 @@ public class MemberDetailServlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
+
 }
 
 

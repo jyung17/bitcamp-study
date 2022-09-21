@@ -1,7 +1,7 @@
 /*
- * 회원 메뉴 처리 클래스
+ * 게시글 메뉴 처리 클래스
  */
-package com.bitcamp.board.sevlet;
+package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,21 +12,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.dao.MariaDBMemberDao;
-import com.bitcamp.board.dao.MemberDao;
-import com.bitcamp.board.domain.Member;
+import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.dao.MariaDBBoardDao;
 
-@WebServlet(value = "/member/add")
-public class MemberAddServlet extends HttpServlet {
+@WebServlet(value = "/board/delete")
+public class BoardDeleteServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  private MemberDao memberDao; // <- 의존 객체
+  private BoardDao boardDao;
 
-  public MemberAddServlet() throws Exception { // <- 의존 객체
+  public BoardDeleteServlet() throws Exception {
     Class.forName("org.mariadb.jdbc.Driver");
     Connection con =
         DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-    memberDao = new MariaDBMemberDao(con);
+    boardDao = new MariaDBBoardDao(con);
   }
 
   @Override
@@ -44,23 +43,19 @@ public class MemberAddServlet extends HttpServlet {
     out.println("<meta http-equiv='refresh' content='3; url=list'>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 입력</h1>");
+    out.println("<h1>게시글 삭제</h1>");
 
-    Member member = new Member();
-    member.name = req.getParameter("name");
-    member.email = req.getParameter("email");
-    member.password = req.getParameter("password");
+    int no = Integer.parseInt(req.getParameter("no"));
 
     try {
-      if (memberDao.insert(member) == 0) {
-        out.println("<p>회원을 등록할 수 없습니다.</p>");
+      if (boardDao.delete(no) == 0) {
+        out.println("<p>해당 번호의 게시글이 없습니다.</p>");
       } else {
-        out.println("<p>회원을 등록 했습니다.</p>");
+        out.println("<p>해당 게시글을 삭제했습니다.</p>");
       }
     } catch (Exception e) {
       out.println("<p>실행 중 오류 발생!</p>");
     }
-
     out.println("</body>");
     out.println("</html>");
   }

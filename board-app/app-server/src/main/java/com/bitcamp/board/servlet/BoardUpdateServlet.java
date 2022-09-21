@@ -1,7 +1,7 @@
 /*
  * 게시글 메뉴 처리 클래스
  */
-package com.bitcamp.board.sevlet;
+package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MariaDBBoardDao;
+import com.bitcamp.board.domain.Board;
 
-@WebServlet(value = "/board/delete")
-public class BoardDeleteServlet extends HttpServlet {
+@WebServlet(value = "/board/update")
+public class BoardUpdateServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
   private BoardDao boardDao;
 
-  public BoardDeleteServlet() throws Exception {
+  public BoardUpdateServlet() throws Exception {
     Class.forName("org.mariadb.jdbc.Driver");
     Connection con =
         DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
@@ -35,6 +36,7 @@ public class BoardDeleteServlet extends HttpServlet {
     resp.setContentType("text/html; charset=UTF-8");
 
     PrintWriter out = resp.getWriter();
+
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
@@ -43,15 +45,18 @@ public class BoardDeleteServlet extends HttpServlet {
     out.println("<meta http-equiv='refresh' content='3; url=list'>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글 삭제</h1>");
+    out.println("<h1>게시글 변경</h1>");
 
-    int no = Integer.parseInt(req.getParameter("no"));
+    Board board = new Board();
+    board.no = Integer.parseInt(req.getParameter("no"));
+    board.title = req.getParameter("title");
+    board.content = req.getParameter("content");
 
     try {
-      if (boardDao.delete(no) == 0) {
+      if (boardDao.update(board) == 0) {
         out.println("<p>해당 번호의 게시글이 없습니다.</p>");
       } else {
-        out.println("<p>해당 게시글을 삭제했습니다.</p>");
+        out.println("<p>해당 게시글을 변경했습니다.</p>");
       }
     } catch (Exception e) {
       out.println("<p>실행 중 오류 발생!</p>");

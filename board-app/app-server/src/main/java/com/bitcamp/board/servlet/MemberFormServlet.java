@@ -1,7 +1,7 @@
 /*
- * 게시글 메뉴 처리 클래스
+ * 회원 메뉴 처리 클래스
  */
-package com.bitcamp.board.sevlet;
+package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,15 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(value = "/board/form")
-public class BoardFormServlet extends HttpServlet {
+@WebServlet(value = "/member/form")
+public class MemberFormServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
     resp.setContentType("text/html; charset=UTF-8");
 
     PrintWriter out = resp.getWriter();
@@ -31,18 +30,18 @@ public class BoardFormServlet extends HttpServlet {
     out.println("<title>bitcamp</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>게시글 입력</h1>");
+    out.println("<h1>회원 등록</h1>");
 
     out.println("<form action='add'>");
     out.println("<table border='1'>");
     out.println("  <tr>");
-    out.println("    <th>제목</th><td><input name='title' type='text' size='60'></td>");
+    out.println("    <th>이름</th><td><input name='name' type='text' size='60'></td>");
     out.println("  </tr>");
     out.println("  <tr>");
-    out.println("    <th>내용</th><td><textarea name='content' rows='10' cols='60'></textarea></td>");
+    out.println("    <th>이메일</th><td><input name='email' type='email' size='60'></td>");
     out.println("  </tr>");
     out.println("  <tr>");
-    out.println("    <th>작성자</th><td><input name='writerNo' type='number' size='5'></td>");
+    out.println("    <th>패스워드</th><td><input name='password' type='password' size='10'></td>");
     out.println("  </tr>");
     out.println("</table>");
     out.println("<p>");
@@ -53,7 +52,6 @@ public class BoardFormServlet extends HttpServlet {
 
     out.println("</body>");
     out.println("</html>");
-
   }
 }
 
