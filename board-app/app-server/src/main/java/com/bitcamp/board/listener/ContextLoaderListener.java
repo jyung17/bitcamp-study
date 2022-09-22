@@ -1,25 +1,20 @@
-package com.bitcamp.board.servlet;
+package com.bitcamp.board.listener;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import com.bitcamp.board.dao.MariaDBBoardDao;
 import com.bitcamp.board.dao.MariaDBMemberDao;
 
-// 이 서블릿은 다른 서블릿이 사용할 객체를 준비하는 일을 한다.
-@WebServlet(value = "/init", loadOnStartup = 1) // loadOnStartup = 1 서버가 시작할떄 자동으로 시작 되게
-public class AppInitServlet extends HttpServlet {
-
-  private static final long serialVersionUID = 1L;
-
+// 웹 애플리케이션이 시작되었을 때 공유할 자원을 준비시키거나 해제하는 일을 한다.
+@WebListener
+public class ContextLoaderListener implements ServletContextListener {
   @Override
-  public void init() throws ServletException {
-    // 톰캣서버가 init(ServletConfig) 호출하면 init() 호출된다.
-
-    System.out.println("공유 자원을 준비 중!");
+  public void contextInitialized(ServletContextEvent sce) {
+    System.out.println("공유 자원을 준비 중!!");
 
     try {
       Class.forName("org.mariadb.jdbc.Driver");
@@ -34,13 +29,11 @@ public class AppInitServlet extends HttpServlet {
       //  - 생성자 다음에 호출되는 init()가 호출될 때 ServletConfig 객체가 주입된다.
       // 왜? 아직 ServletContext 객체가 준비되지 않았기 때문이다.
       // 그래서 생성자 다음에 호출되는 init()에서 getServletContext()를 호출해야 한다.
-      ServletContext ctx = this.getServletContext();
+      ServletContext ctx = sce.getServletContext();
       ctx.setAttribute("boardDao", new MariaDBBoardDao(con));
       ctx.setAttribute("memberDao", new MariaDBMemberDao(con));
     } catch (Exception e) {
-      throw new ServletException(e);
+      e.printStackTrace();
     }
   }
-  // 이 서블릿의 역할은 다른 서블릿이 사용할 자원을 준비하는 것이기 때문에 
-  // 굳이 요청을 처리하는 메서드를 정의할 필요가 없다.
 }
