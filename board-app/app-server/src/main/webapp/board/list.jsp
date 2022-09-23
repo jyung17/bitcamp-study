@@ -3,10 +3,12 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.bitcamp.board.dao.BoardDao"%>
 <%@ page import="com.bitcamp.board.domain.Board"%>
- 
+
 <%!BoardDao boardDao;
 
-  public void init() throws ServletException {
+// init(ServletConfig)메서드에 코드를 넣고 싶으면
+// 다음과 같이 JspPage.jspInit() 메서드를 오버라이딩 하라!
+  public void jspInit() {
     boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
   }%>
 
