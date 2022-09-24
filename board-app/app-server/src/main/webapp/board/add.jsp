@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>bitcamp</title>
-<meta http-equiv='refresh' content='3; url=list'>
+<meta http-equiv='refresh' content='2; url=list'>
 </head>
 <body>
 <h1>게시글 입력-JSP</h1>
