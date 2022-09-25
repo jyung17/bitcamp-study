@@ -1,7 +1,6 @@
 <%@page import="com.bitcamp.board.domain.Member"%>
 <%@page import="com.bitcamp.board.dao.MemberDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE html>
@@ -11,25 +10,28 @@
 <title>bitcamp</title>
 </head>
 <body>
-<h1>회원 등록-JSP</h1>
+  <h1>회원 등록-JSP</h1>
 
-<form action='add'>
-<table border='1'>
-  <tr>
-    <th>이름</th><td><input name='name' type='text' size='60'></td>
-  </tr>
-  <tr>
-    <th>이메일</th><td><input name='email' type='email' size='60'></td>
-  </tr>
-  <tr>
-    <th>패스워드</th><td><input name='password' type='password' size='10'></td>
-  </tr>
-</table>
-<p>
-  <button type='submit'>등록</button>
-  <a href='list'>목록</a>
-</p>
-</form>
+  <form action='add'>
+    <table border='1'>
+      <tr>
+        <th>이름</th>
+        <td><input name='name' type='text' size='60'></td>
+      </tr>
+      <tr>
+        <th>이메일</th>
+        <td><input name='email' type='email' size='60'></td>
+      </tr>
+      <tr>
+        <th>패스워드</th>
+        <td><input name='password' type='password' size='10'></td>
+      </tr>
+    </table>
+    <p>
+      <button type='submit'>등록</button>
+      <a href='list'>목록</a>
+    </p>
+  </form>
 
 </body>
 </html>

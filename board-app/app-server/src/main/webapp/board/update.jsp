@@ -1,7 +1,6 @@
 <%@page import="com.bitcamp.board.domain.Board"%>
 <%@page import="com.bitcamp.board.dao.BoardDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%!
   BoardDao boardDao;
@@ -10,8 +9,8 @@
     boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
   }
   %>
-  
-  
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +19,9 @@
 <meta http-equiv='refresh' content='2; url=list'>
 </head>
 <body>
-<h1>게시글 변경-JSP</h1>
+  <h1>게시글 변경-JSP</h1>
 
-<%
+  <%
     Board board = new Board();
     board.no = Integer.parseInt(request.getParameter("no"));
     board.title = request.getParameter("title");
@@ -31,17 +30,17 @@
     try {
       if (boardDao.update(board) == 0) {
 %>
-    <p>해당 번호의 게시글이 없습니다.</p>
-<%
+  <p>해당 번호의 게시글이 없습니다.</p>
+  <%
       } else {
 %>
-    <p>해당 게시글을 변경했습니다.</p>
-<%
+  <p>해당 게시글을 변경했습니다.</p>
+  <%
       }
     } catch (Exception e) {
 %>
   <p>실행 중 오류 발생!</p>
-<%
+  <%
     }
 %>
 </body>

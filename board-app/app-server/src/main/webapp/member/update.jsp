@@ -1,7 +1,6 @@
-<%@page import="com.bitcamp.board.domain.Member"%>
-<%@page import="com.bitcamp.board.dao.MemberDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+<%@ page import="com.bitcamp.board.domain.Member"%>
+<%@ page import="com.bitcamp.board.dao.MemberDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%!MemberDao memberDao;
 
@@ -18,7 +17,7 @@
 </head>
 <body>
   <h1>회원 변경-JSP</h1>
-<%
+  <%
     Member member = new Member();
     member.no = Integer.parseInt(request.getParameter("no"));
     member.name = request.getParameter("name");
@@ -29,17 +28,15 @@
       if (memberDao.update(member) == 0) {
 %>
   <p>해당 번호의 회원 없습니다.</p>
-<%
+  <%
       } else {
 %>
-    <p>해당 회원을 변경했습니다.</p>
+  <p>해당 회원을 변경했습니다.</p>
 <%
       }
     } catch (Exception e) {
 %>
   <p>실행 중 오류 발생!</p>
-<%
-    }
-%>
+<% } %>
 </body>
 </html>
