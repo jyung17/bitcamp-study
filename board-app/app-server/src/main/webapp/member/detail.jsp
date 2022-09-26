@@ -1,14 +1,5 @@
 <%@page import="com.bitcamp.board.domain.Member"%>
-<%@page import="com.bitcamp.board.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%!MemberDao memberDao;
-
-  public void jspInit() {
-    memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-  }%>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -17,18 +8,11 @@
 <title>bitcamp</title>
 </head>
 <body>
-  <h1>회원 상세 정보</h1>
+  <h1>회원 상세 정보-(JSP-Servlet)</h1>
 
-  <%
-  int memberNo = Integer.parseInt(request.getParameter("no"));
-  try {
-    Member member = memberDao.findByNo(memberNo);
-    if (member == null) {
-  %>
-  <p>해당 번호의 게시글이 없습니다.</p>
-  <%
-  } else {
-  %>
+<%
+  Member member = (Member) request.getAttribute("member");
+%>
   <form action='update'>
     <table border='1'>
       <tr>
@@ -57,13 +41,5 @@
       <a href='delete?no=<%=member.no%>'>삭제</a>
     </p>
   </form>
-  <%
-  }
-  } catch (Exception e) {
-  %>
-  <p>실행 중 오류 발생!</p>
-  <%
-  }
-  %>
 </body>
 </html>
