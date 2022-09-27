@@ -1,4 +1,3 @@
-<%@page import="com.bitcamp.board.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -8,24 +7,21 @@
 <title>bitcamp</title>
 </head>
 <body>
-  <h1>회원 상세 정보-(JSP-Servlet)</h1>
+  <h1>회원 상세 정보-(JSP + Servlet + EL)</h1>
 
-<%
-  Member member = (Member) request.getAttribute("member");
-%>
   <form action='update'>
     <table border='1'>
       <tr>
         <th>번호</th>
-        <td><input name='no' type='number' value='<%=member.no%>' readonly='false'></td>
+        <td><input name='no' type='number' value='${member.no}' readonly='false'></td>
       </tr>
       <tr>
         <th>이름</th>
-        <td><input name='name' type='text' value='<%=member.name%>'></td>
+        <td><input name='name' type='text' value='${member.name}'></td>
       </tr>
       <tr>
         <th>이메일</th>
-        <td><input name='email' type='text' value='<%=member.email%>'></td>
+        <td><input name='email' type='text' value='${member.email}'></td>
       </tr>
       <tr>
         <th>패스워드</th>
@@ -33,12 +29,12 @@
       </tr>
       <tr>
         <th>등록일</th>
-        <td><%=member.createdDate%></td>
+        <td>${member.createdDate}</td>
       </tr>
     </table>
     <p>
       <button type='submit'>변경</button>
-      <a href='delete?no=<%=member.no%>'>삭제</a>
+      <a href='delete?no=${member.no}'>삭제</a>
     </p>
   </form>
 </body>

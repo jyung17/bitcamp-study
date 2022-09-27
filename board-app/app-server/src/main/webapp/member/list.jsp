@@ -16,7 +16,7 @@ tr:hover {
 </style>
 </head>
 <body>
-  <h1>회원-(JSP-Servlet)</h1>
+  <h1>회원-(JSP + Servlet + EL)</h1>
   <a href='form'>새 회원</a>
   <table border='1'>
     <tr>
@@ -27,11 +27,12 @@ tr:hover {
 <%
 List<Member> members = (List<Member>) request.getAttribute("members");
 for (Member member : members) {
+pageContext.setAttribute("member", member);
 %>
     <tr>
-      <td><%=member.no%></td>
-      <td><a href='detail?no=<%=member.no%>'><%=member.name%></a></td>
-      <td><%=member.email%></td>
+      <td>${member.no}</td>
+      <td><a href='detail?no=${member.no}'>${member.name}</a></td>
+      <td>${member.email}</td>
     </tr>
 <%
 }

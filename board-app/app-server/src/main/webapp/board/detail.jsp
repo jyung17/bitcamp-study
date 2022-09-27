@@ -14,6 +14,11 @@
     <tr>
       <th>번호</th>
       <td><input name='no' type='number' value='${board.no}' readonly='false'></td>
+      <%--
+      out.write("<td><input name='no' type='number' value='");
+      out.write(((Board)request.getAttribute("board")).getNo());
+      out.write("' readonly='false'></td>");
+       --%>
     </tr>
     <tr>
       <th>제목</th>
