@@ -28,6 +28,14 @@ application.setAttribute("name", "김구");
 
 <hr>
 
+<c:remove var="name" scope="application"/>
+1: ${pageScope.name}<br>
+2: ${requestScope.name}<br>
+3: ${sessionScope.name}<br>
+4: ${applicationScope.name}<br>
+
+<hr>
+
 <c:remove var="name" scope="page"/>
 1: ${pageScope.name}<br>
 2: ${requestScope.name}<br>
