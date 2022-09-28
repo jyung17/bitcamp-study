@@ -28,19 +28,19 @@ public class BoardAddController extends HttpServlet {
 
     try {
       Board board = new Board();
-      board.title = request.getParameter("title");
-      board.content = request.getParameter("content");
+      board.setTitle(request.getParameter("title"));
+      board.setContent(request.getParameter("content"));
 
       // 로그인 사용자 정보는 파라미터로 받아서는 안된다.
       // 반드시 세션에서 꺼내 써야한다.
       // 왜? 클라언트가 로그인 사용자 정보가 아닌 다른 사용자 정보를 보낼 수 있기 때문이다.
 
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
-      System.out.println("request.getSession(): " + request.getSession());
-      System.out.println("request.getSession().getAttribute(\"loginMember\") : "
-          + request.getSession().getAttribute("loginMember"));
-      board.memberNo = loginMember.getNo();
-      System.out.println("loginMember.getNo() : " + loginMember.getNo());
+      //      System.out.println("request.getSession(): " + request.getSession());
+      //      System.out.println("request.getSession().getAttribute(\"loginMember\") : "
+      //          + request.getSession().getAttribute("loginMember"));
+      board.setWriter(loginMember);
+      //      System.out.println("loginMember.getNo() : " + loginMember.getNo());
 
       if (boardDao.insert(board) == 0) {
         throw new Exception("게시글 등록 실패!");
