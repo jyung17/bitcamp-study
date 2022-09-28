@@ -110,8 +110,6 @@ public class MariaDBBoardDao implements BoardDao {
         writer.setNo(rs.getInt("mno"));
         writer.setName(rs.getString("name"));
 
-        System.out.println(writer);
-
         board.setWriter(writer);
 
         list.add(board);
