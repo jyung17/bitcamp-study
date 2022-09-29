@@ -24,6 +24,7 @@ public class MariaDBBoardDao implements BoardDao {
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());
       pstmt.setInt(3, board.getWriter().getNo());
+
       return pstmt.executeUpdate();
     }
   }
@@ -31,7 +32,8 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public Board findByNo(int no) throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement(
-        "select b.bno, b.title, b.cdt, b.cont, b.vw_cnt, m.mno, m.name from app_board b join app_member m on b.mno = m.mno where b.bno="
+        "select b.bno, b.title, b.cdt, b.cont, b.vw_cnt, m.mno, m.name "
+        + "from app_board b join app_member m on b.mno = m.mno where b.bno="
             + no);
         ResultSet rs = pstmt.executeQuery()) {
 

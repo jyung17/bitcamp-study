@@ -28,12 +28,30 @@ public class BoardUpdateController extends HttpServlet {
 
     try {
       Board board = new Board();
+
+      // board no=71;
+      // getNo = 71;
       board.setNo(Integer.parseInt(request.getParameter("no")));
       board.setTitle(request.getParameter("title"));
       board.setContent(request.getParameter("content"));
 
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
+      System.out.println(loginMember);
+
+      System.out.println(boardDao.findByNo(board.getNo()).getWriter());
+      System.out.println(boardDao.findByNo(board.getNo()).getWriter().getNo());
+
       if (boardDao.findByNo(board.getNo()).getWriter().getNo() != loginMember.getNo()) {
+        //loginMember.getNo() = 23
+        // 
+        /*
+         * boardDao.findByNo(board.getNo()) ==> boardDao.findByNo(게시글번호)
+         * boardDao.findByNo(board.getNo()).getWriter()
+         *  => Member [no=23, name=user1, email=null, password=null, createdDate=null]
+         * boardDao.findByNo(board.getNo()).getWriter().getNo()
+         *  => 23
+         */
+
         throw new Exception("게시글 작성자가 아닙니다.");
       }
 
