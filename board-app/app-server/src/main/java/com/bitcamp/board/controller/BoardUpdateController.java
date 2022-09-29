@@ -27,6 +27,7 @@ public class BoardUpdateController extends HttpServlet {
       throws ServletException, IOException {
 
     try {
+      request.setCharacterEncoding("UTF-8");
       Board board = new Board();
 
       board.setNo(Integer.parseInt(request.getParameter("no")));
