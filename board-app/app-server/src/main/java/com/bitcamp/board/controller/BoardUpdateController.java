@@ -35,10 +35,10 @@ public class BoardUpdateController extends HttpServlet {
       board.setContent(request.getParameter("content"));
 
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
-      System.out.println(loginMember);
+      //      System.out.println(loginMember);
 
-      System.out.println(boardDao.findByNo(board.getNo()).getWriter());
-      System.out.println(boardDao.findByNo(board.getNo()).getWriter().getNo());
+      //      System.out.println(boardDao.findByNo(board.getNo()).getWriter());
+      //      System.out.println(boardDao.findByNo(board.getNo()).getWriter().getNo());
 
       if (boardDao.findByNo(board.getNo()).getWriter().getNo() != loginMember.getNo()) {
         /*

@@ -12,7 +12,7 @@
 <body>
   <h1>회원 등록-(JSP-Servlet)</h1>
 
-  <form action='add'>
+  <form action='add' method="post">
     <table border='1'>
       <tr>
         <th>이름</th>

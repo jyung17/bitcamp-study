@@ -22,15 +22,16 @@ public class MemberAddController extends HttpServlet {
   }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    Member member = new Member();
-    member.setName(request.getParameter("name"));
-    member.setEmail(request.getParameter("email"));
-    member.setPassword(request.getParameter("password"));
-
     try {
+      request.setCharacterEncoding("UTF-8");
+
+      Member member = new Member();
+      member.setName(request.getParameter("name"));
+      member.setEmail(request.getParameter("email"));
+      member.setPassword(request.getParameter("password"));
+
       if (memberDao.insert(member) == 0) {
         throw new Exception("사용자 등록 실패!");
       }
