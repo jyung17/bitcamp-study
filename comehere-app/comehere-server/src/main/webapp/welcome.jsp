@@ -6,11 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>bitcamp</title>
+<title>Comehere</title>
 </head>
 <body>
-  <h1>환영합니다!-JSP</h1>
-  <p>비트캠프 게시판 관리 시스템 프로젝트 입니다.</p>
+  <h1>환영합니다!-Comehere</h1>
+  <p>comehere 게시판 관리 시스템 프로젝트 입니다.</p>
+  <img width="500" src="images/img.jpeg">
   <ul>
     <li><a href="board/list">게시판</a></li>
     <li><a href="member/list">회원</a></li>
