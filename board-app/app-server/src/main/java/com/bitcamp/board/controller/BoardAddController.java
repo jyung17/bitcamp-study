@@ -78,7 +78,7 @@ public class BoardAddController extends HttpServlet {
         if (item.isFormField()) { // 일반 입력 값이라
           String paramName = item.getFieldName(); // 
           String paramValue = item.getString("UTF-8");
-          //          System.out.println("getFieldName : getString = " + paramName + " : " + paramValue);
+          System.out.println("getFieldName : getString = " + paramName + " : " + paramValue);
 
           switch (paramName) {
             case "title":
