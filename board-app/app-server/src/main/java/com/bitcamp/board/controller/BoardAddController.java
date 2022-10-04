@@ -72,6 +72,10 @@ public class BoardAddController extends HttpServlet {
       // 첨부파일명을 저장할 컬렉션 객체 준비
       List<AttachedFile> attachedFiles = new ArrayList<>();
 
+      // 임시 폴더에 저장된 파일을 옮길 폴더 경로 알아내기
+      String dirPath = request.getServletContext().getRealPath("/board/files");
+      //System.out.println(dirPath + "/" + filename);
+
       // 각 파트의 데이터를 꺼내 Board 객체에 담는다.
       for (FileItem item : items) {
         if (item.isFormField()) { // 일반 입력 값이라
@@ -96,10 +100,6 @@ public class BoardAddController extends HttpServlet {
           //          AttachedFile attachedFile = new AttachedFile(filename);
           //          attachedFiles.add(attachedFile);
           attachedFiles.add(new AttachedFile(filename));
-
-          // 임시 폴더에 저장된 파일을 옮길 폴더 경로 알아내기
-          String dirPath = request.getServletContext().getRealPath("/board/files");
-          //System.out.println(dirPath + "/" + filename);
 
           // FileItem 객체가 가리키는 임시폴더에 저장된 파일을 
           // 우리가 지정한 디렉토리로 옮긴다.

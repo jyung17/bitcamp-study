@@ -21,12 +21,8 @@ public class MariaDBBoardDao implements BoardDao {
 
   @Override
   public int insert(Board board) throws Exception {
-    try (
-        PreparedStatement pstmt =
-            con.prepareStatement("insert into app_board(title,cont,mno) values(?, ?, ?)",
-                Statement.RETURN_GENERATED_KEYS);
-        PreparedStatement pstmt2 =
-            con.prepareStatement("insert into app_board_file(filepath, bno) values(?, ?)")) {
+    try (PreparedStatement pstmt = con.prepareStatement(
+        "insert into app_board(title,cont,mno) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
       // 게시글 제목과 내용을 app_board 테이블에 저장한다.
       pstmt.setString(1, board.getTitle());
@@ -48,14 +44,14 @@ public class MariaDBBoardDao implements BoardDao {
         board.setNo(rs.getInt(1));
         //System.out.println("MariaDBBoardDao=rs.getInt(1) : " + rs.getInt(1));
       }
-
-      // 게시글의 첨부파일을 app_board_file 테이블에 저장한다.
-      List<AttachedFile> attachedFiles = board.getAttachedFiles();
-      for (AttachedFile attachedFile : attachedFiles) {
-        pstmt2.setString(1, attachedFile.getFilepath());
-        pstmt2.setInt(2, board.getNo());
-        pstmt2.executeUpdate();
-      }
+      insertFiles(board);
+      //      // 게시글의 첨부파일을 app_board_file 테이블에 저장한다.
+      //      List<AttachedFile> attachedFiles = board.getAttachedFiles();
+      //      for (AttachedFile attachedFile : attachedFiles) {
+      //        pstmt2.setString(1, attachedFile.getFilepath());
+      //        pstmt2.setInt(2, board.getNo());
+      //        pstmt2.executeUpdate();
+      //      }
 
       return count;
     }
@@ -97,7 +93,6 @@ public class MariaDBBoardDao implements BoardDao {
           AttachedFile file = new AttachedFile();
           file.setNo(rs2.getInt("bfno"));
           file.setFilepath(rs2.getString("filepath"));
-          file.setBoardNo(rs2.getInt("bno"));
           attachedFiles.add(file);
         }
         board.setAttachedFiles(attachedFiles);
@@ -111,13 +106,17 @@ public class MariaDBBoardDao implements BoardDao {
   public int update(Board board) throws Exception {
     try (PreparedStatement pstmt =
         con.prepareStatement("update app_board set title=?, cont=? where bno=?")) {
+
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());
       pstmt.setInt(3, board.getNo());
 
       int count = pstmt.executeUpdate();
-      System.out.println(count);
 
+      // 게시글을 변경했다면 첨부 파일 이름을 추가한다.
+      if (count > 0) {
+        insertFiles(board);
+      }
       return count;
     }
   }
@@ -125,6 +124,9 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public int delete(int no) throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement("delete from app_board where bno=?")) {
+
+      // 게시글의 첨부파일을 먼저 삭제한다.
+      deleteFiles(no);
 
       pstmt.setInt(1, no);
       return pstmt.executeUpdate();
@@ -173,6 +175,23 @@ public class MariaDBBoardDao implements BoardDao {
   }
 
   @Override
+  public int insertFiles(Board board) throws Exception {
+    try (PreparedStatement pstmt =
+        con.prepareStatement("insert into app_board_file(filepath, bno) values(?, ?)")) {
+
+      // 게시글의 첨부파일을 app_board_file 테이블에 저장한다.
+      List<AttachedFile> attachedFiles = board.getAttachedFiles();
+      for (AttachedFile attachedFile : attachedFiles) {
+        pstmt.setString(1, attachedFile.getFilepath());
+        pstmt.setInt(2, board.getNo());
+        pstmt.executeUpdate();
+      }
+
+      return attachedFiles.size();
+    }
+  }
+
+  @Override
   public AttachedFile findFileByNo(int fileNo) throws Exception {
     try (
         PreparedStatement pstmt = con.prepareStatement(
@@ -197,6 +216,15 @@ public class MariaDBBoardDao implements BoardDao {
         PreparedStatement pstmt = con.prepareStatement("delete from app_board_file where bfno=?")) {
 
       pstmt.setInt(1, fileNo);
+      return pstmt.executeUpdate();
+    }
+  }
+
+  @Override
+  public int deleteFiles(int boardNo) throws Exception {
+    try (PreparedStatement pstmt = con.prepareStatement("delete from app_board_file where bno=?")) {
+
+      pstmt.setInt(1, boardNo);
       return pstmt.executeUpdate();
     }
   }

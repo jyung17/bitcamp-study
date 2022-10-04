@@ -9,11 +9,11 @@
 <body>
   <h1>게시글 상세 정보-(JSP + Servlet + EL)</h1>
 
-  <form action='update' method="post">
+  <form action='update' method="post" enctype="multipart/form-data">
     <table border='1'>
       <tr>
         <th>번호</th>
-        <td><input name='no' type='number' value='${board.no}' readonly='false'></td>
+        <td><input name='no' type='number' value='${board.no}' readonly></td>
         <%--
       out.write("<td><input name='no' type='number' value='");
       out.write(((Board)request.getAttribute("board")).getNo());
@@ -57,8 +57,8 @@
     </table>
     <p>
       <button type='submit'>변경</button>
-      <a href='delete?no=${board.no}'><button>삭제</button></a>
-      <a href='list'><button>목록</button></a>
+      <a href='delete?no=${board.no}'>삭제</a>
+      <a href='list'>목록</a>
     </p>
   </form>
 </body>
