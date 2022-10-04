@@ -34,11 +34,19 @@ public class MariaDBBoardDao implements BoardDao {
       pstmt.setInt(3, board.getWriter().getNo());
       int count = pstmt.executeUpdate();
 
+      //int boardNo = pstmt.getGeneratedKeys();
+      // 아까 말한데로 인서트가 한번에 여러개가 이루어지는 경우 그러면 PK가 여러개 존재할 수 있다.
+      // 리턴값은 단순 int값이아니라 컬렉션값이다.
+      //List<Integer> boardList = pstmt.getGeneratedKeys();
+      // 여러개의 컬럼을 묶어서 하나의 PK로 만들수있다. 그러면 Int가 여러개일 수 있다.=> 불가능하다.
+      // 리턴하는거 자체를 resultSet으로 하고 pk가 여러개인경우 rs.next()로 한줄 씩 꺼내서 rs.getInt(1)으로 꺼낼수 있다. 
 
+      //System.out.println("MariaDBBoardDao=pstmt.getGeneratedKeys() : " + pstmt.getGeneratedKeys());
       // 게시글을 app_board 테이블에 입력 한 후 자동 증가된 PK 값을 꺼낸다.
       try (ResultSet rs = pstmt.getGeneratedKeys()) {
         rs.next();
         board.setNo(rs.getInt(1));
+        //System.out.println("MariaDBBoardDao=rs.getInt(1) : " + rs.getInt(1));
       }
 
       // 게시글의 첨부파일을 app_board_file 테이블에 저장한다.
@@ -77,6 +85,22 @@ public class MariaDBBoardDao implements BoardDao {
       writer.setName(rs.getString("name"));
 
       board.setWriter(writer);
+
+      // 게시글 첨부파일 조회가져오기
+      try (
+          PreparedStatement pstmt2 = con
+              .prepareStatement("select bfno, filepath, bno from app_board_file where bno=" + no);
+          ResultSet rs2 = pstmt2.executeQuery()) {
+
+        ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
+        while (rs2.next()) {
+          AttachedFile file = new AttachedFile();
+          file.setNo(rs2.getInt("bfno"));
+          file.setFilepath(rs2.getString("filepath"));
+          attachedFiles.add(file);
+        }
+        board.setAttachedFiles(attachedFiles);
+      }
 
       return board;
     }

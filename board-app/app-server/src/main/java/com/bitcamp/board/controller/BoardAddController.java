@@ -18,7 +18,6 @@ import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
 
-
 @WebServlet("/board/add")
 public class BoardAddController extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -68,7 +67,7 @@ public class BoardAddController extends HttpServlet {
       List<FileItem> items = upload.parseRequest(request);
 
       // 클라이언트가 멀티파트로 보낸 데이터를 저장할 도메인 객체를 준비한다.
-      Board board = new Board();
+      Board board = new Board(); //게시글 데이터를 저장함
 
       // 첨부파일명을 저장할 컬렉션 객체 준비
       List<AttachedFile> attachedFiles = new ArrayList<>();
@@ -77,8 +76,8 @@ public class BoardAddController extends HttpServlet {
       for (FileItem item : items) {
         if (item.isFormField()) { // 일반 입력 값이라
           String paramName = item.getFieldName(); // 
-          String paramValue = item.getString("UTF-8");
-          System.out.println("getFieldName : getString = " + paramName + " : " + paramValue);
+          String paramValue = item.getString("UTF-8"); // 데이터를 UTF-8 디코딩해 paramValue에 저장 
+          //System.out.println("getFieldName : getString = " + paramName + " : " + paramValue);
 
           switch (paramName) {
             case "title":
@@ -88,6 +87,7 @@ public class BoardAddController extends HttpServlet {
           }
 
         } else { // 파일이라면
+          // 절대 충돌이 일어나지않는, 값이 같을수 없
           // 다른 클라이언트가 보낸 파일명과 중복되지 않도록 임의의 새 파일명을 생성한다.
           String filename = UUID.randomUUID().toString();
 
@@ -99,7 +99,7 @@ public class BoardAddController extends HttpServlet {
 
           // 임시 폴더에 저장된 파일을 옮길 폴더 경로 알아내기
           String dirPath = request.getServletContext().getRealPath("/board/files");
-          System.out.println(dirPath + "/" + filename);
+          //System.out.println(dirPath + "/" + filename);
 
           // FileItem 객체가 가리키는 임시폴더에 저장된 파일을 
           // 우리가 지정한 디렉토리로 옮긴다.
@@ -111,6 +111,7 @@ public class BoardAddController extends HttpServlet {
       // Board 객체에 파일명 목록을 담고 있는 컬랙션 객체를 저장한다.
       board.setAttachedFiles(attachedFiles);
 
+      // Board 객체에 사용자 정보를 저장한다.
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
       board.setWriter(loginMember);
 
