@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
+import com.bitcamp.board.service.BoardService;
 
 // Servlet API에서 제공하는 Multipart/form-data 처리기를 사용하려면
 // 서블릿에 다음 애노테이션으로 설정해야한다.
@@ -24,11 +24,11 @@ import com.bitcamp.board.domain.Member;
 public class BoardAddController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  BoardDao boardDao;
+  BoardService boardService;
 
   @Override
   public void init() {
-    boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    boardService = (BoardService) this.getServletContext().getAttribute("boardService");
   }
 
   @Override
@@ -51,16 +51,6 @@ public class BoardAddController extends HttpServlet {
 
       Collection<Part> parts = request.getParts();
 
-      // for (Part part : parts){
-      //    System.out.println(part.getName());
-      //}
-      //      Board [no=0, title=ABC가각간, content=ABC가각간, password=null, viewCount=0, createdDate=null, writer=null]
-      //          title
-      //          content
-      //          files
-      //          files
-      //          files
-
       for (Part part : parts) {
         if (!part.getName().equals("files")) {
           continue;
@@ -76,17 +66,11 @@ public class BoardAddController extends HttpServlet {
       // Board 객체에서 파일명 목록을 담고 있는 컬렉션 객체를 저장한다.
       board.setAttachedFiles(attachedFiles);
 
-      // Board 객체에 로그인 사용자 정보를 저장한다.
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
       board.setWriter(loginMember);
 
-      // 게시글 등
-      if (boardDao.insert(board) == 0) {
-        throw new Exception("게시글 등록 실패!");
-      }
-
-      // 첨부파일 등록
-      boardDao.insertFiles(board);
+      // 서비스 객체에 업무를 맡긴다.
+      boardService.add(board);
 
       response.sendRedirect("list");
     } catch (

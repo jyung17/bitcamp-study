@@ -6,8 +6,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MariaDBBoardDao;
 import com.bitcamp.board.dao.MariaDBMemberDao;
+import com.bitcamp.board.dao.MemberDao;
+import com.bitcamp.board.service.BoardService;
 
 // 웹 애플리케이션이 시작되었을 때 공유할 자원을 준비시키거나 해제하는 일을 한다.
 @WebListener
@@ -29,9 +32,13 @@ public class ContextLoaderListener implements ServletContextListener {
       //  - 생성자 다음에 호출되는 init()가 호출될 때 ServletConfig 객체가 주입된다.
       // 왜? 아직 ServletContext 객체가 준비되지 않았기 때문이다.
       // 그래서 생성자 다음에 호출되는 init()에서 getServletContext()를 호출해야 한다.
+
+      BoardDao boardDao = new MariaDBBoardDao(con);
+      MemberDao memberDao = new MariaDBMemberDao(con);
       ServletContext ctx = sce.getServletContext();
-      ctx.setAttribute("boardDao", new MariaDBBoardDao(con));
-      ctx.setAttribute("memberDao", new MariaDBMemberDao(con));
+      ctx.setAttribute("boardService", new BoardService(boardDao));
+      ctx.setAttribute("memberDao", memberDao);
+      //ctx.setAttribute("memberService", new BoardService(boardDao));
     } catch (Exception e) {
       e.printStackTrace();
     }

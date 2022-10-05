@@ -8,35 +8,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.service.BoardService;
 
 
 @WebServlet("/board/list")
 public class BoardListController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  BoardDao boardDao;
+  BoardService boardService;
 
   @Override
   public void init() {
-    boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    boardService = (BoardService) this.getServletContext().getAttribute("boardService");
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-
-      //      PrintWriter out = response.getWriter();
-      //      out.println("<HTML>");
-      //      out.println("<head><title>HELLO</title></head>");
-      //      out.println("<body>");
-      //      out.println("HELLO " + request.getAttribute("name"));
-      //      out.println("</body>");
-      //      out.println("</html>");
-
-      List<Board> boards = boardDao.findAll();
+      List<Board> boards = boardService.list();
       // 정상적으로 실행했다면 JSP가 사용할 수 있도록 ServletRequest 보관소에 저장한다.
       request.setAttribute("boards", boards);
 
@@ -45,12 +36,6 @@ public class BoardListController extends HttpServlet {
       RequestDispatcher 요청배달자 = request.getRequestDispatcher("/board/list.jsp");
       요청배달자.include(request, response); // JSP를 실행한 후 리턴된다.
 
-      //      out.println("<HTML>");
-      //      out.println("<head><title>HELLO</title></head>");
-      //      out.println("<body>");
-      //      out.println("Hello S3 " + request.getAttribute("name"));
-      //      out.println("</body>");
-      //      out.println("</html>");
 
     } catch (Exception e) {
       // 예외가 발생하면 예외를 처리하는 JSP에게 UI 생성을 위임한다.
