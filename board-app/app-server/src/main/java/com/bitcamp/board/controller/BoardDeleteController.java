@@ -32,21 +32,15 @@ public class BoardDeleteController extends HttpServlet {
         throw new Exception("게시글 작성자가 아닙니다.");
       }
 
+      // 첨부파일 삭제
+      // 게시글의 첨부파일을 먼저 삭제한다.
+      boardDao.deleteFiles(no);
+
+      // 게시글 삭
       if (boardDao.delete(no) == 0) {
         throw new Exception("게시글 삭제 실패!");
       }
-      // Redirect:
-      // - 클라이언트에게 콘텐트를 보내지 않는다.
-      // - 응답 프로토콜
-      //      HTTP/1.1 302
-      //      Location: list
-      //      Content-Length: 0
-      //      Date: Mon, 26 Sep 2022 05:23:40 GMT
-      //      Keep-Alive: timeout=20
-      //      Connection: keep-alive
-      //
-      //      (콘텐트 없음!)
-      //
+
       response.sendRedirect("list");
 
     } catch (Exception e) {
