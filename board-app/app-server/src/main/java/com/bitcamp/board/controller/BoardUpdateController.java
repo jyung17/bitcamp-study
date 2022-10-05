@@ -45,7 +45,7 @@ public class BoardUpdateController extends HttpServlet {
       Collection<Part> parts = request.getParts();
 
       for (Part part : parts) {
-        if (!part.getName().equals("files"))
+        if (!part.getName().equals("files") || part.getSize() == 0)
           continue;
 
         String filename = UUID.randomUUID().toString();
