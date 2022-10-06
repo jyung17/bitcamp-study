@@ -93,7 +93,9 @@ CREATE TABLE member (
   detail_addr VARCHAR(255) NOT NULL COMMENT '상세주소', -- 상세주소
   jno         INTEGER      NOT NULL COMMENT '직업번호', -- 직업번호
   acount      VARCHAR(100) NULL     COMMENT '계좌번호', -- 계좌번호
-  profil      VARCHAR(255) NOT NULL COMMENT '프로필사진' -- 프로필사진
+  profil      VARCHAR(255) NOT NULL COMMENT '프로필사진', -- 프로필사진
+  token       VARCHAR(255) NULL     COMMENT '이메일토큰', -- 이메일토큰
+  status      BOOLEAN      NOT NULL COMMENT '상태' -- 상태
 )
 COMMENT '회원';
 
@@ -126,9 +128,9 @@ CREATE TABLE contest (
   ctgno   INTEGER      NOT NULL COMMENT '공모전카테고리번호', -- 공모전카테고리번호
   title   VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
   subcont MEDIUMTEXT   NOT NULL COMMENT '내용', -- 내용
-  cdt     DATE         NULL     DEFAULT now() COMMENT '등록일', -- 등록일
+  cdt     DATE         NOT NULL DEFAULT now() COMMENT '등록일', -- 등록일
   sdate   DATE         NULL     COMMENT '시작일', -- 시작일
-  edate   DATE         NOT NULL COMMENT '종료일', -- 종료일
+  edate   DATE         NULL     COMMENT '종료일', -- 종료일
   vcnt    INTEGER      NOT NULL COMMENT '조회수', -- 조회수
   org     VARCHAR(255) NOT NULL COMMENT '주최기관명', -- 주최기관명
   appl    VARCHAR(255) NULL     COMMENT '접수방법', -- 접수방법

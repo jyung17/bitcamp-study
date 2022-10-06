@@ -1,53 +1,53 @@
 package com.bitcamp.board.service;
 
-import java.sql.Connection;
 import java.util.List;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
+import com.bitcamp.sql.DataSource;
 
 public class DefaultBoardService implements BoardService {
-  Connection con;
+  DataSource ds;
   BoardDao boardDao;
 
-  public DefaultBoardService(BoardDao boardDao, Connection con) {
+  public DefaultBoardService(BoardDao boardDao, DataSource ds) {
     this.boardDao = boardDao;
-    this.con = con;
+    this.ds = ds;
   };
 
   @Override
   public void add(Board board) throws Exception {
-    con.setAutoCommit(false);
+    ds.getConnection().setAutoCommit(false);
     try {
       if (boardDao.insert(board) == 0) {
         throw new Exception("게시글 등록 실패!");
       }
       boardDao.insertFiles(board);
-      con.commit();
+      ds.getConnection().commit();
     } catch (Exception e) {
-      con.rollback();
+      ds.getConnection().rollback();
       throw e;
     } finally {
-      con.setAutoCommit(true);
+      ds.getConnection().setAutoCommit(true);
     }
   }
 
   @Override
   public boolean update(Board board) throws Exception {
     try {
-      con.setAutoCommit(false);
+      ds.getConnection().setAutoCommit(false);
       if (boardDao.update(board) == 0) {
         return false;
       }
       boardDao.insertFiles(board);
-      con.commit();
+      ds.getConnection().commit();
       return true;
 
     } catch (Exception e) {
-      con.rollback();
+      ds.getConnection().rollback();
       throw e;
     } finally {
-      con.setAutoCommit(true);
+      ds.getConnection().setAutoCommit(true);
     }
   }
 
@@ -63,17 +63,17 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   public boolean delete(int no) throws Exception {
-    con.setAutoCommit(false);
+    ds.getConnection().setAutoCommit(false);
     try {
       boardDao.deleteFiles(no);
       boolean result = boardDao.delete(no) > 0;
-      con.commit();
+      ds.getConnection().commit();
       return result;
     } catch (Exception e) {
-      con.rollback();
+      ds.getConnection().rollback();
       throw e;
     } finally {
-      con.setAutoCommit(true);
+      ds.getConnection().setAutoCommit(true);
     }
   }
 

@@ -1,6 +1,5 @@
 package com.bitcamp.board.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -9,19 +8,20 @@ import java.util.List;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
+import com.bitcamp.sql.DataSource;
 
 public class MariaDBBoardDao implements BoardDao {
 
-  Connection con;
+  DataSource ds;
 
   // DAO가 사용할 의존 객체 Connection을 생성자의 파라미터로 받는다.
-  public MariaDBBoardDao(Connection con) {
-    this.con = con;
+  public MariaDBBoardDao(DataSource ds) {
+    this.ds = ds;
   }
 
   @Override
   public int insert(Board board) throws Exception {
-    try (PreparedStatement pstmt = con.prepareStatement(
+    try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
         "insert into app_board(title,cont,mno) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
       // 게시글 제목과 내용을 app_board 테이블에 저장한다.
@@ -51,8 +51,8 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public Board findByNo(int no) throws Exception {
     try (
-        PreparedStatement pstmt =
-            con.prepareStatement("select b.bno, b.title, b.cdt, b.cont, b.vw_cnt, m.mno, m.name "
+        PreparedStatement pstmt = ds.getConnection()
+            .prepareStatement("select b.bno, b.title, b.cdt, b.cont, b.vw_cnt, m.mno, m.name "
                 + "from app_board b join app_member m on b.mno = m.mno where b.bno=" + no);
         ResultSet rs = pstmt.executeQuery()) {
 
@@ -75,7 +75,7 @@ public class MariaDBBoardDao implements BoardDao {
 
       // 게시글 첨부파일 조회가져오기
       try (
-          PreparedStatement pstmt2 = con
+          PreparedStatement pstmt2 = ds.getConnection()
               .prepareStatement("select bfno, filepath, bno from app_board_file where bno=" + no);
           ResultSet rs2 = pstmt2.executeQuery()) {
 
@@ -96,7 +96,7 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public int update(Board board) throws Exception {
     try (PreparedStatement pstmt =
-        con.prepareStatement("update app_board set title=?, cont=? where bno=?")) {
+        ds.getConnection().prepareStatement("update app_board set title=?, cont=? where bno=?")) {
 
       pstmt.setString(1, board.getTitle());
       pstmt.setString(2, board.getContent());
@@ -108,7 +108,8 @@ public class MariaDBBoardDao implements BoardDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (PreparedStatement pstmt = con.prepareStatement("delete from app_board where bno=?")) {
+    try (PreparedStatement pstmt =
+        ds.getConnection().prepareStatement("delete from app_board where bno=?")) {
 
       pstmt.setInt(1, no);
       return pstmt.executeUpdate();
@@ -117,10 +118,9 @@ public class MariaDBBoardDao implements BoardDao {
 
   @Override
   public List<Board> findAll() throws Exception {
-    try (
-        PreparedStatement pstmt = con.prepareStatement(
-            "select b.bno, b.title, b.cdt, b.vw_cnt, m.mno, m.name " + "from app_board b "
-                + "join app_member m on b.mno = m.mno " + "order by b.bno desc;");
+    try (PreparedStatement pstmt = ds.getConnection()
+        .prepareStatement("select b.bno, b.title, b.cdt, b.vw_cnt, m.mno, m.name "
+            + "from app_board b " + "join app_member m on b.mno = m.mno " + "order by b.bno desc;");
         ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Board> list = new ArrayList<>();
@@ -146,8 +146,8 @@ public class MariaDBBoardDao implements BoardDao {
 
   @Override
   public int insertFiles(Board board) throws Exception {
-    try (PreparedStatement pstmt =
-        con.prepareStatement("insert into app_board_file(filepath, bno) values(?, ?)")) {
+    try (PreparedStatement pstmt = ds.getConnection()
+        .prepareStatement("insert into app_board_file(filepath, bno) values(?, ?)")) {
 
       // 게시글의 첨부파일을 app_board_file 테이블에 저장한다.
       List<AttachedFile> attachedFiles = board.getAttachedFiles();
@@ -164,7 +164,7 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public AttachedFile findFileByNo(int fileNo) throws Exception {
     try (
-        PreparedStatement pstmt = con.prepareStatement(
+        PreparedStatement pstmt = ds.getConnection().prepareStatement(
             "select bfno, filepath, bno from app_board_file where bfno=" + fileNo);
         ResultSet rs = pstmt.executeQuery()) {
 
@@ -182,8 +182,8 @@ public class MariaDBBoardDao implements BoardDao {
 
   @Override
   public int deleteFile(int fileNo) throws Exception {
-    try (
-        PreparedStatement pstmt = con.prepareStatement("delete from app_board_file where bfno=?")) {
+    try (PreparedStatement pstmt =
+        ds.getConnection().prepareStatement("delete from app_board_file where bfno=?")) {
 
       pstmt.setInt(1, fileNo);
       return pstmt.executeUpdate();
@@ -192,7 +192,8 @@ public class MariaDBBoardDao implements BoardDao {
 
   @Override
   public int deleteFiles(int boardNo) throws Exception {
-    try (PreparedStatement pstmt = con.prepareStatement("delete from app_board_file where bno=?")) {
+    try (PreparedStatement pstmt =
+        ds.getConnection().prepareStatement("delete from app_board_file where bno=?")) {
 
       pstmt.setInt(1, boardNo);
       return pstmt.executeUpdate();
