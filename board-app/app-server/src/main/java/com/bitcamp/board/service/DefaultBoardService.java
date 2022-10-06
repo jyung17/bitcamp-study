@@ -1,36 +1,54 @@
 package com.bitcamp.board.service;
 
+import java.sql.Connection;
 import java.util.List;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 
 public class DefaultBoardService implements BoardService {
+  Connection con;
   BoardDao boardDao;
 
-  public DefaultBoardService(BoardDao boardDao) {
+  public DefaultBoardService(BoardDao boardDao, Connection con) {
     this.boardDao = boardDao;
+    this.con = con;
   };
 
   @Override
   public void add(Board board) throws Exception {
-    // 1) 게시글 등록
-    if (boardDao.insert(board) == 0) {
-      throw new Exception("게시글 등록 실패!");
+    con.setAutoCommit(false);
+    try {
+      if (boardDao.insert(board) == 0) {
+        throw new Exception("게시글 등록 실패!");
+      }
+      boardDao.insertFiles(board);
+      con.commit();
+    } catch (Exception e) {
+      con.rollback();
+      throw e;
+    } finally {
+      con.setAutoCommit(true);
     }
-    // 2) 첨부파일 등록
-    boardDao.insertFiles(board);
   }
 
   @Override
   public boolean update(Board board) throws Exception {
-    // 1) 게시글 변경
-    if (boardDao.update(board) == 0) {
-      return false;
+    try {
+      con.setAutoCommit(false);
+      if (boardDao.update(board) == 0) {
+        return false;
+      }
+      boardDao.insertFiles(board);
+      con.commit();
+      return true;
+
+    } catch (Exception e) {
+      con.rollback();
+      throw e;
+    } finally {
+      con.setAutoCommit(true);
     }
-    // 2) 첨부파일 추가
-    boardDao.insertFiles(board);
-    return true;
   }
 
   @Override
@@ -45,11 +63,18 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   public boolean delete(int no) throws Exception {
-    // 첨부파일 삭제
-    // 게시글의 첨부파일을 먼저 삭제한다.
-    boardDao.deleteFiles(no);
-    // 게시글 삭제
-    return boardDao.delete(no) > 0;
+    con.setAutoCommit(false);
+    try {
+      boardDao.deleteFiles(no);
+      boolean result = boardDao.delete(no) > 0;
+      con.commit();
+      return result;
+    } catch (Exception e) {
+      con.rollback();
+      throw e;
+    } finally {
+      con.setAutoCommit(true);
+    }
   }
 
   @Override

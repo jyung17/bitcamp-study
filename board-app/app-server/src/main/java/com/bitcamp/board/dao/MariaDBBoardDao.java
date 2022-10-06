@@ -35,7 +35,7 @@ public class MariaDBBoardDao implements BoardDao {
       // 리턴값은 단순 int값이아니라 컬렉션값이다.
       //List<Integer> boardList = pstmt.getGeneratedKeys();
       // 여러개의 컬럼을 묶어서 하나의 PK로 만들수있다. 그러면 Int가 여러개일 수 있다.=> 불가능하다.
-      // 리턴하는거 자체를 resultSet으로 하고 pk가 여러개인경우 rs.next()로 한줄 씩 꺼내서 rs.getInt(1)으로 꺼낼수 있다. 
+      // 리턴하는거 자체를 resultSet으로 하고 pk가 여러개인경우 rs.next()로 한줄 씩 꺼내서 rs.getInt(1), rs.getInt(2)으로 꺼낼수 있다. 
 
       //System.out.println("MariaDBBoardDao=pstmt.getGeneratedKeys() : " + pstmt.getGeneratedKeys());
       // 게시글을 app_board 테이블에 입력 한 후 자동 증가된 PK 값을 꺼낸다.
@@ -122,18 +122,6 @@ public class MariaDBBoardDao implements BoardDao {
             "select b.bno, b.title, b.cdt, b.vw_cnt, m.mno, m.name " + "from app_board b "
                 + "join app_member m on b.mno = m.mno " + "order by b.bno desc;");
         ResultSet rs = pstmt.executeQuery()) {
-
-      /*
-        select 
-        b.bno,
-        b.title,
-        b.cdt,
-        b.vw_cnt,
-        m.mno,
-        m.name
-        from app_board b
-        join app_member m on b.mno = m.mno
-      */
 
       ArrayList<Board> list = new ArrayList<>();
 
