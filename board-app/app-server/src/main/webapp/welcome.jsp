@@ -12,8 +12,8 @@
   <h1>환영합니다!-JSP</h1>
   <p>비트캠프 게시판 관리 시스템 프로젝트 입니다.</p>
   <ul>
-    <li><a href="board/list">게시판</a></li>
-    <li><a href="member/list">회원</a></li>
+    <li><a href="service/board/list">게시판</a></li>
+    <li><a href="service/member/list">회원</a></li>
 <%--
 <%
 HttpSession clientSession = request.getSession();
@@ -24,10 +24,10 @@ pageContext.setAttribute("member", member);
 
     <c:choose>
       <c:when test="${not empty sessionScope.loginMember}">
-      <li> <a href="auth/logout">${sessionScope.loginMember.name} (로그아웃)</a></li>
+      <li> <a href="service/auth/logout">${sessionScope.loginMember.name} (로그아웃)</a></li>
       </c:when>
       <c:otherwise>
-        <li><a href='auth/form.jsp'>로그인</a></li>
+        <li><a href='service/auth/form'>로그인</a></li>
       </c:otherwise>
     </c:choose>
   </ul>

@@ -34,11 +34,10 @@ public class MemberAddController extends HttpServlet {
 
       memberService.add(member);
 
-      response.sendRedirect("list");
+      request.setAttribute("viewName", "redirect:list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

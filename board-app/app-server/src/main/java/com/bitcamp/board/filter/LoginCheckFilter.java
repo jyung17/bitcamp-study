@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bitcamp.board.domain.Member;
 
-@WebFilter("*")
+@WebFilter("/service/*")
 public class LoginCheckFilter implements Filter {
 
   @Override
@@ -52,14 +52,24 @@ public class LoginCheckFilter implements Filter {
     //    /board/list
     //    /board/detail
 
-    String servletPath = httpRequest.getServletPath();
+    //    String servletPath = httpRequest.getServletPath();
+    //    System.out.println("servletPath : " + servletPath);
+    //  URL 매핑이 "/service/*" 형식으로 되어 있을 때
+    // * 경로를 알아내려면 다음의 메서드를 호출해야 한다.
+    String getServletPath = httpRequest.getServletPath();
+    System.out.println("getServletPath : " + getServletPath);
+    String servletPath = httpRequest.getPathInfo();
+    System.out.println("servletPath : " + servletPath);
+
+
     // 콘텐트를 틍록, 변경, 삭제하는 경우 로그인 여부를 확인한다.
     if (servletPath.endsWith("add") || servletPath.endsWith("update")
         || servletPath.endsWith("delete")) {
+      System.out.println(servletPath.endsWith("add"));
 
       Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
       if (loginMember == null) { // 로그인 하지 않았다
-        httpResponse.sendRedirect(httpRequest.getContextPath() + "/auth/form.jsp");
+        httpResponse.sendRedirect(httpRequest.getContextPath() + "/service/auth/form");
         return;
         //getContextPath 웹애플리케이션인 경우 애플리케이션 이름이 바뀌면 자동으로 변경된다.
       }

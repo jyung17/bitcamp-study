@@ -6,29 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bitcamp.board.service.BoardService;
+import com.bitcamp.board.service.MemberService;
 
-
-@WebServlet("/board/list")
-public class BoardListController extends HttpServlet {
+@WebServlet("/member/form")
+public class MemberFormController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  BoardService boardService;
+  MemberService memberService;
 
   @Override
   public void init() {
-    boardService = (BoardService) this.getServletContext().getAttribute("boardService");
+    memberService = (MemberService) this.getServletContext().getAttribute("memberService");
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    try {
-      request.setAttribute("boards", boardService.list());
-      request.setAttribute("viewName", "/board/list.jsp");
-
-    } catch (Exception e) {
-      request.setAttribute("exception", e);
-    }
+    request.setAttribute("viewName", "/member/form.jsp");
   }
 }

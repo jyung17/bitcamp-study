@@ -44,7 +44,7 @@ for (Board board : boards) {
 </c:forEach>
   </table>
   <p>
-    <a href='../'>메인</a>
+    <a href='../../'>메인</a>
   </p>
 </body>
 </html>

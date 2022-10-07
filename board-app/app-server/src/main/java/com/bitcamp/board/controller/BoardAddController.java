@@ -45,7 +45,6 @@ public class BoardAddController extends HttpServlet {
 
       // 첨부파일명을 저장할 컬렉션 객체 준비
       List<AttachedFile> attachedFiles = new ArrayList<>();
-
       // 임시 폴더에 저장된 파일을 옮길 폴더 경로 알아내기
       String dirPath = request.getServletContext().getRealPath("/board/files");
 
@@ -68,16 +67,13 @@ public class BoardAddController extends HttpServlet {
 
       Member loginMember = (Member) request.getSession().getAttribute("loginMember");
       board.setWriter(loginMember);
-
       // 서비스 객체에 업무를 맡긴다.
       boardService.add(board);
-
-      response.sendRedirect("list");
+      request.setAttribute("viewName", "redirect:list");
     } catch (
 
     Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

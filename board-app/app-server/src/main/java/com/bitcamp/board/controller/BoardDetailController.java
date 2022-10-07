@@ -34,13 +34,11 @@ public class BoardDetailController extends HttpServlet {
         throw new Exception("게시글 조회 실패!");
       }
 
-      request.setAttribute("board", board);
-      response.setContentType("text/html; charset=UTF-8");
-      request.getRequestDispatcher("/board/detail.jsp").include(request, response);
+      request.setAttribute("board", board); // JSP가 사용할수 있도록 서블릿 리퀘스트에 저장한다.
+      request.setAttribute("viewName", "/board/detail.jsp");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }
 }

@@ -156,7 +156,7 @@ ALTER TABLE contest
 -- 재능판매
 CREATE TABLE product (
   pno   INTEGER      NOT NULL COMMENT '재능판매번호', -- 재능판매번호
-  pcno  INTEGER      NOT NULL COMMENT '재능판매카테고리번호', -- 재능판매카테고리번호
+  pcno  VARCHAR(255) NOT NULL COMMENT '재능판매카테고리번호', -- 재능판매카테고리번호
   mno   INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
   title VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
   cont  MEDIUMTEXT   NOT NULL COMMENT '내용', -- 내용
@@ -255,10 +255,10 @@ ALTER TABLE portfolio
 
 -- 재능판매카테고리
 CREATE TABLE product_category (
-  pcno     INTEGER      NOT NULL COMMENT '재능판매카테고리번호', -- 재능판매카테고리번호
+  pcno     VARCHAR(255) NOT NULL COMMENT '재능판매카테고리번호', -- 재능판매카테고리번호
   pctier   INTEGER      NOT NULL COMMENT '카테고리티어', -- 카테고리티어
   pcname   VARCHAR(255) NOT NULL COMMENT '카테고리이름', -- 카테고리이름
-  pcparent INTEGER      NULL     COMMENT '부모카테고리번호' -- 부모카테고리번호
+  pcparent VARCHAR(255) NULL     COMMENT '부모카테고리번호' -- 부모카테고리번호
 )
 COMMENT '재능판매카테고리';
 
@@ -268,12 +268,6 @@ ALTER TABLE product_category
     PRIMARY KEY (
       pcno -- 재능판매카테고리번호
     );
-
--- 재능판매카테고리 유니크 인덱스
-CREATE UNIQUE INDEX UIX_product_category
-  ON product_category ( -- 재능판매카테고리
-    pcname ASC -- 카테고리이름
-  );
 
 -- 1 : 1 문의
 CREATE TABLE qna (
@@ -534,8 +528,8 @@ ALTER TABLE faq
 
 -- 관심사
 CREATE TABLE onemoa_interest (
-  mno  INTEGER NOT NULL COMMENT '회원번호', -- 회원번호
-  pcno INTEGER NOT NULL COMMENT '재능판매카테고리번호' -- 재능판매카테고리번호
+  mno  INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+  pcno VARCHAR(255) NOT NULL COMMENT '재능판매카테고리번호' -- 재능판매카테고리번호
 )
 COMMENT '관심사';
 

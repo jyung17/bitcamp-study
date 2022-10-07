@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 // 스레드 전용 DB 커넥션을 제공하는 일을 한다.
+// DataSource : 커넥션 관리자
 public class DataSource {
   String jdbcUrl;
   String username;
@@ -17,7 +18,6 @@ public class DataSource {
 
   public DataSource(String driver, String jdbcUrl, String username, String password)
       throws Exception {
-
     // JDBC Driver 클래스 로딩하기
     //  Class.forName("org.mariadb.jdbc.Driver");
     Class.forName(driver);
@@ -28,7 +28,6 @@ public class DataSource {
 
   //  Connection con =
   //      DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
-
   public Connection getConnection() throws Exception {
     Thread currThread = Thread.currentThread();
     System.out.printf("%s=> getConnection() 호출\n", currThread.getName());
