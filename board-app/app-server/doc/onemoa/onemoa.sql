@@ -62,7 +62,7 @@ DROP TABLE IF EXISTS team_field RESTRICT;
 DROP TABLE IF EXISTS faq RESTRICT;
 
 -- 관심사
-DROP TABLE IF EXISTS onemoa_interest RESTRICT;
+DROP TABLE IF EXISTS interest RESTRICT;
 
 -- 관리자
 DROP TABLE IF EXISTS admin_member RESTRICT;
@@ -70,13 +70,13 @@ DROP TABLE IF EXISTS admin_member RESTRICT;
 -- 주문내역
 DROP TABLE IF EXISTS product_order RESTRICT;
 
--- 1대1문의
+-- 1대1대화
 DROP TABLE IF EXISTS message RESTRICT;
 
 -- 직업
 DROP TABLE IF EXISTS job RESTRICT;
 
--- 1대1문의 첨부파일
+-- 1대1대화 첨부파일
 DROP TABLE IF EXISTS message_file RESTRICT;
 
 -- 회원
@@ -92,6 +92,7 @@ CREATE TABLE member (
   base_addr   VARCHAR(255) NOT NULL COMMENT '기본주소', -- 기본주소
   detail_addr VARCHAR(255) NOT NULL COMMENT '상세주소', -- 상세주소
   jno         INTEGER      NOT NULL COMMENT '직업번호', -- 직업번호
+  bank        VARCHAR(255) NULL     COMMENT '은행명', -- 은행명
   acount      VARCHAR(100) NULL     COMMENT '계좌번호', -- 계좌번호
   profil      VARCHAR(255) NOT NULL COMMENT '프로필사진', -- 프로필사진
   token       VARCHAR(255) NULL     COMMENT '이메일토큰', -- 이메일토큰
@@ -155,14 +156,16 @@ ALTER TABLE contest
 
 -- 재능판매
 CREATE TABLE product (
-  pno   INTEGER      NOT NULL COMMENT '재능판매번호', -- 재능판매번호
-  pcno  VARCHAR(255) NOT NULL COMMENT '재능판매카테고리번호', -- 재능판매카테고리번호
-  mno   INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
-  title VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
-  cont  MEDIUMTEXT   NOT NULL COMMENT '내용', -- 내용
-  price INTEGER      NOT NULL COMMENT '가격', -- 가격
-  vcnt  INTEGER      NOT NULL COMMENT '조회수', -- 조회수
-  cdt   DATE         NOT NULL DEFAULT now() COMMENT '작성일' -- 작성일
+  pno           INTEGER      NOT NULL COMMENT '재능판매번호', -- 재능판매번호
+  pcno          VARCHAR(255) NOT NULL COMMENT '재능판매카테고리번호', -- 재능판매카테고리번호
+  mno           INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+  title         VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
+  cont          MEDIUMTEXT   NOT NULL COMMENT '내용', -- 내용
+  price         INTEGER      NOT NULL COMMENT '가격', -- 가격
+  vcnt          INTEGER      NOT NULL DEFAULT 0 COMMENT '조회수', -- 조회수
+  cdt           DATE         NOT NULL DEFAULT now() COMMENT '작성일', -- 작성일
+  thumbnail     VARCHAR(255) NULL     COMMENT '썸네일파일이름', -- 썸네일파일이름
+  thumbnailpath VARCHAR(255) NULL     COMMENT '썸네일파일경로' -- 썸네일파일경로
 )
 COMMENT '재능판매';
 
@@ -257,7 +260,7 @@ ALTER TABLE portfolio
 CREATE TABLE product_category (
   pcno     VARCHAR(255) NOT NULL COMMENT '재능판매카테고리번호', -- 재능판매카테고리번호
   pctier   INTEGER      NOT NULL COMMENT '카테고리티어', -- 카테고리티어
-  pcname   VARCHAR(255) NOT NULL COMMENT '카테고리이름', -- 카테고리이름
+  pcname   VARCHAR(255) NULL     COMMENT '카테고리이름', -- 카테고리이름
   pcparent VARCHAR(255) NULL     COMMENT '부모카테고리번호' -- 부모카테고리번호
 )
 COMMENT '재능판매카테고리';
@@ -268,6 +271,12 @@ ALTER TABLE product_category
     PRIMARY KEY (
       pcno -- 재능판매카테고리번호
     );
+
+-- 재능판매카테고리 유니크 인덱스
+CREATE UNIQUE INDEX UIX_product_category
+  ON product_category ( -- 재능판매카테고리
+    pcname ASC -- 카테고리이름
+  );
 
 -- 1 : 1 문의
 CREATE TABLE qna (
@@ -527,15 +536,15 @@ ALTER TABLE faq
   MODIFY COLUMN faqno INTEGER NOT NULL AUTO_INCREMENT COMMENT 'FAQ번호';
 
 -- 관심사
-CREATE TABLE onemoa_interest (
+CREATE TABLE interest (
   mno  INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
   pcno VARCHAR(255) NOT NULL COMMENT '재능판매카테고리번호' -- 재능판매카테고리번호
 )
 COMMENT '관심사';
 
 -- 관심사
-ALTER TABLE onemoa_interest
-  ADD CONSTRAINT PK_onemoa_interest -- 관심사 기본키
+ALTER TABLE interest
+  ADD CONSTRAINT PK_interest -- 관심사 기본키
     PRIMARY KEY (
       mno,  -- 회원번호
       pcno  -- 재능판매카테고리번호
@@ -587,7 +596,7 @@ ALTER TABLE product_order
 ALTER TABLE product_order
   MODIFY COLUMN pono INTEGER NOT NULL AUTO_INCREMENT COMMENT '구매번호';
 
--- 1대1문의
+-- 1대1대화
 CREATE TABLE message (
   msgno INTEGER    NOT NULL COMMENT '메신저번호', -- 메신저번호
   mno   INTEGER    NOT NULL COMMENT '질문자번호', -- 질문자번호
@@ -596,11 +605,11 @@ CREATE TABLE message (
   type  BOOLEAN    NOT NULL COMMENT '메시지유형', -- 메시지유형
   cdt   DATE       NOT NULL DEFAULT now() COMMENT '생성날짜' -- 생성날짜
 )
-COMMENT '1대1문의';
+COMMENT '1대1대화';
 
--- 1대1문의
+-- 1대1대화
 ALTER TABLE message
-  ADD CONSTRAINT PK_message -- 1대1문의 기본키
+  ADD CONSTRAINT PK_message -- 1대1대화 기본키
     PRIMARY KEY (
       msgno -- 메신저번호
     );
@@ -631,18 +640,18 @@ CREATE UNIQUE INDEX UIX_job
 ALTER TABLE job
   MODIFY COLUMN jno INTEGER NOT NULL AUTO_INCREMENT COMMENT '직업번호';
 
--- 1대1문의 첨부파일
+-- 1대1대화 첨부파일
 CREATE TABLE message_file (
   msgfno INTEGER      NOT NULL COMMENT '첨부파일번호', -- 첨부파일번호
   fname  VARCHAR(255) NOT NULL COMMENT '파일이름', -- 파일이름
   fpath  VARCHAR(255) NOT NULL COMMENT '파일경로', -- 파일경로
   msgno  INTEGER      NOT NULL COMMENT '메신저번호' -- 메신저번호
 )
-COMMENT '1대1문의 첨부파일';
+COMMENT '1대1대화 첨부파일';
 
--- 1대1문의 첨부파일
+-- 1대1대화 첨부파일
 ALTER TABLE message_file
-  ADD CONSTRAINT PK_message_file -- 1대1문의 첨부파일 기본키
+  ADD CONSTRAINT PK_message_file -- 1대1대화 첨부파일 기본키
     PRIMARY KEY (
       msgfno -- 첨부파일번호
     );
@@ -881,8 +890,8 @@ ALTER TABLE team_field
     );
 
 -- 관심사
-ALTER TABLE onemoa_interest
-  ADD CONSTRAINT FK_member_TO_onemoa_interest -- 회원 -> 관심사
+ALTER TABLE interest
+  ADD CONSTRAINT FK_member_TO_interest -- 회원 -> 관심사
     FOREIGN KEY (
       mno -- 회원번호
     )
@@ -891,8 +900,8 @@ ALTER TABLE onemoa_interest
     );
 
 -- 관심사
-ALTER TABLE onemoa_interest
-  ADD CONSTRAINT FK_product_category_TO_onemoa_interest -- 재능판매카테고리 -> 관심사
+ALTER TABLE interest
+  ADD CONSTRAINT FK_product_category_TO_interest -- 재능판매카테고리 -> 관심사
     FOREIGN KEY (
       pcno -- 재능판매카테고리번호
     )
@@ -920,9 +929,9 @@ ALTER TABLE product_order
       pno -- 재능판매번호
     );
 
--- 1대1문의
+-- 1대1대화
 ALTER TABLE message
-  ADD CONSTRAINT FK_member_TO_message -- 회원 -> 1대1문의
+  ADD CONSTRAINT FK_member_TO_message -- 회원 -> 1대1대화
     FOREIGN KEY (
       mno -- 질문자번호
     )
@@ -930,9 +939,9 @@ ALTER TABLE message
       mno -- 회원번호
     );
 
--- 1대1문의
+-- 1대1대화
 ALTER TABLE message
-  ADD CONSTRAINT FK_member_TO_message2 -- 회원 -> 1대1문의2
+  ADD CONSTRAINT FK_member_TO_message2 -- 회원 -> 1대1대화2
     FOREIGN KEY (
       mno2 -- 판매자번호
     )
@@ -940,12 +949,12 @@ ALTER TABLE message
       mno -- 회원번호
     );
 
--- 1대1문의 첨부파일
+-- 1대1대화 첨부파일
 ALTER TABLE message_file
-  ADD CONSTRAINT FK_message_TO_message_file -- 1대1문의 -> 1대1문의 첨부파일
+  ADD CONSTRAINT FK_message_TO_message_file -- 1대1대화 -> 1대1대화 첨부파일
     FOREIGN KEY (
       msgno -- 메신저번호
     )
-    REFERENCES message ( -- 1대1문의
+    REFERENCES message ( -- 1대1대화
       msgno -- 메신저번호
     );

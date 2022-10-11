@@ -16,7 +16,7 @@ tr:hover {
 </style>
 </head>
 <body>
-  <h1>게시글-(JSP + Servlet + EL + JSTL)</h1>
+  <h1><a href='../../'>게시글-(JSP + Servlet + EL + JSTL)</a></h1>
 
   <a href='form'>새 글</a>
   <table border='1'>

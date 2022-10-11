@@ -17,7 +17,7 @@ tr:hover {
 </style>
 </head>
 <body>
-  <h1>회원-(JSP + Servlet + EL + JSTL)</h1>
+  <h1><a href='../../'>회원-(JSP + Servlet + EL + JSTL)</a></h1>
   <a href='form'>새 회원</a>
   <table border='1'>
     <tr>

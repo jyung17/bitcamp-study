@@ -7,7 +7,7 @@
 <title>bitcamp</title>
 </head>
 <body>
-  <h1>게시글 상세 정보-(JSP + Servlet + EL)</h1>
+  <h1><a href='../../'>게시글 상세 정보-(JSP + Servlet + EL)</a></h1>
 
   <form action='update' method="post" enctype="multipart/form-data">
     <table border='1'>
