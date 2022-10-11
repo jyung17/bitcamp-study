@@ -4,22 +4,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
+import org.springframework.stereotype.Repository;
 import com.bitcamp.board.domain.Member;
-import com.bitcamp.sql.DataSource;
 
+
+// Spring IoC 컨테이너가 관리하는 개체임을 표시한다.
+@Repository // DAO 역할을 수행하는 객체에 붙이는 애노테이션
+// - 이 애노테이션을 붙이면 Spring IoC 컨테이너가 객체를 자동 생성한다.
+// - 객체의 이름을 명시하지 않으면
+//   클래스 이름(첫 알파벳은 소문자. 예: "mariaDBMemberDao")을 사용하여 저장한다.
+// - 물론 생성자의 파라미터 값을 자동으로 주입한다.
+// - 파라미터에 해당하는 객체가 없다면 생성 오류가 발생한다.
 public class MariaDBMemberDao implements MemberDao {
 
   DataSource ds;
 
-  // DAO가 사용할 의존 객체 Connection을 생성자의 파라미터로 받는다.
   public MariaDBMemberDao(DataSource ds) {
+    System.out.println("4) MariaDBMemberDao() 호출됨!");
     this.ds = ds;
   }
 
   @Override
   public int insert(Member member) throws Exception {
     try (PreparedStatement pstmt = ds.getConnection()
-        .prepareStatement("insert into app_member(name,email,pwd) values(?, ?, sha2(?,256))")) {
+        .prepareStatement("insert into app_member(name,email,pwd) values(?,?,sha2(?,256))")) {
+
       pstmt.setString(1, member.getName());
       pstmt.setString(2, member.getEmail());
       pstmt.setString(3, member.getPassword());
@@ -30,15 +40,13 @@ public class MariaDBMemberDao implements MemberDao {
 
   @Override
   public Member findByNo(int no) throws Exception {
-    //try() {} 할때 () <- Java.lang.AutoCloseable 타입의 변수만 가능
+
     try (
         PreparedStatement pstmt = ds.getConnection()
             .prepareStatement("select mno,name,email,cdt from app_member where mno=" + no);
         ResultSet rs = pstmt.executeQuery()) {
 
-      System.out.println(rs);
-
-      if (!rs.next()) { // rs.next() ->  select 결과에서 한개의 레코드를 가져온다
+      if (!rs.next()) {
         return null;
       }
 
@@ -55,6 +63,7 @@ public class MariaDBMemberDao implements MemberDao {
   public int update(Member member) throws Exception {
     try (PreparedStatement pstmt = ds.getConnection()
         .prepareStatement("update app_member set name=?, email=?, pwd=sha2(?,256) where mno=?")) {
+
       pstmt.setString(1, member.getName());
       pstmt.setString(2, member.getEmail());
       pstmt.setString(3, member.getPassword());
@@ -71,7 +80,6 @@ public class MariaDBMemberDao implements MemberDao {
             ds.getConnection().prepareStatement("delete from app_board where mno=?");
         PreparedStatement pstmt2 =
             ds.getConnection().prepareStatement("delete from app_member where mno=?")) {
-      //        PreparedStatement pstmt2 = ds.getConnection().prepareStatement("delete from app_member2 where mno=?")) { // 에러발생
 
       // 커넥션 객체를 수동 커밋 상태로 설정한다.
       ds.getConnection().setAutoCommit(false);
@@ -83,15 +91,20 @@ public class MariaDBMemberDao implements MemberDao {
       // 회원을 삭제한다.
       pstmt2.setInt(1, no);
       int count = pstmt2.executeUpdate();
+
       // 현재까지 작업한 데이터 변경 결과를 실제 테이블에 적용해 달라고 요청한다.
       ds.getConnection().commit();
+
       return count;
+
     } catch (Exception e) {
       // 예외가 발생하면 마지막 커밋 상태로 돌린다.
       // => 임시 데이터베이스에 보관된 이전 작업 결과를 모두 취소한다.
       ds.getConnection().rollback();
+
       // 예외 발생 사실을 호출자에게 전달한다.
       throw e;
+
     } finally {
       // 삭제 작업 후 자동 커밋 상태로 전환한다.
       ds.getConnection().setAutoCommit(true);
@@ -107,7 +120,7 @@ public class MariaDBMemberDao implements MemberDao {
 
       ArrayList<Member> list = new ArrayList<>();
 
-      while (rs.next()) { // rs.next() ->  select 결과에서 한개의 레코드를 가져온다
+      while (rs.next()) {
         Member member = new Member();
         member.setNo(rs.getInt("mno"));
         member.setName(rs.getString("name"));
@@ -115,22 +128,21 @@ public class MariaDBMemberDao implements MemberDao {
 
         list.add(member);
       }
+
       return list;
     }
   }
 
   @Override
   public Member findByEmailPassword(String email, String password) throws Exception {
-    System.out.println(ds.getConnection());
-
     try (PreparedStatement pstmt = ds.getConnection().prepareStatement(
-        "select mno,name,email,cdt from app_member where email=? and pwd=sha2(?,256)");) {
+        "select mno,name,email,cdt from app_member where email=? and pwd=sha2(?,256)")) {
 
       pstmt.setString(1, email);
       pstmt.setString(2, password);
 
       try (ResultSet rs = pstmt.executeQuery()) {
-        if (!rs.next()) { // rs.next() ->  select 결과에서 한개의 레코드를 가져온다
+        if (!rs.next()) {
           return null;
         }
 
