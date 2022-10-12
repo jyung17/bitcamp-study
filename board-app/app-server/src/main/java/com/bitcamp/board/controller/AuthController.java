@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.bitcamp.board.domain.Member;
 import com.bitcamp.board.service.MemberService;
@@ -12,16 +13,21 @@ import com.bitcamp.board.service.MemberService;
 @Controller // 페이지 컨트롤러에 붙이는 애노테이션
 //- 애노테이션을 붙일 때 객체 이름을 명시하면 그 이름으로 저장한다.
 //- 프론트 컨트롤러는 페이지 컨트로러를 찾을 때 이 이름으로 찾을 것이다.
-public class LoginController {
+public class AuthController {
 
   MemberService memberService;
 
-  public LoginController(MemberService memberService) {
+  public AuthController(MemberService memberService) {
     this.memberService = memberService;
   }
 
+  @GetMapping("/auth/form")
+  public String form(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    return "/auth/form.jsp";
+  }
+
   @PostMapping("/auth/login")
-  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String email = request.getParameter("email");
     String password = request.getParameter("password");
 
@@ -42,5 +48,12 @@ public class LoginController {
     response.addCookie(cookie);
     request.setAttribute("member", member);
     return "/auth/loginResult.jsp";
+  }
+
+  @GetMapping("/auth/logout")
+  public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HttpSession session = request.getSession(); // 요청한 클라이언트의 전용 HttpSession 보관소를 얻는다.
+    session.invalidate(); // 현재 세션을 무효화시킨다.
+    return "redirect:../../";
   }
 }

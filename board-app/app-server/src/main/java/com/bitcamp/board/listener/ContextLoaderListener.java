@@ -27,6 +27,14 @@ public class ContextLoaderListener implements ServletContextListener {
       iocContainer.register(AppConfig.class);
       iocContainer.refresh();// 자바 config zmffotm(AppConfig)에 설정된 대로 객체를 생성한다.
 
+      System.out.println("-------스프링 모든 빈 출력하기-------");
+      String[] beanDefinitionNames = iocContainer.getBeanDefinitionNames();
+      for (String beanDefinitionName : beanDefinitionNames) {
+        Object bean = iocContainer.getBean(beanDefinitionName);
+        System.out.println("name = " + beanDefinitionName + " object = " + bean);
+      }
+      System.out.println("--------------");
+
       ServletContext ctx = sce.getServletContext();
 
       // 자바 코드로 서블릿 객체를 직접 생성하여 서버에 등록하기
