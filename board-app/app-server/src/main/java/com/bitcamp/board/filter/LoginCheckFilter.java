@@ -7,12 +7,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bitcamp.board.domain.Member;
 
-@WebFilter("/service/*")
+// @WebFilter("/service/*")
 public class LoginCheckFilter implements Filter {
 
   @Override
@@ -65,7 +64,7 @@ public class LoginCheckFilter implements Filter {
     // 콘텐트를 틍록, 변경, 삭제하는 경우 로그인 여부를 확인한다.
     if (servletPath.toLowerCase().endsWith("add") || servletPath.toLowerCase().endsWith("update")
         || servletPath.toLowerCase().endsWith("delete")) {
-      System.out.println(servletPath.endsWith("add"));
+      //System.out.println(servletPath.endsWith("add"));
 
       Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
       if (loginMember == null) { // 로그인 하지 않았다
