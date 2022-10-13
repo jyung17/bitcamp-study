@@ -31,15 +31,14 @@ public class ContextLoaderListener implements ServletContextListener {
           new AnnotationConfigWebApplicationContext();
 
       iocContainer.register(AppConfig.class);
-      iocContainer.refresh();// 자바 config zmffotm(AppConfig)에 설정된 대로 객체를 생성한다.
 
-      System.out.println("-------스프링 모든 빈 출력하기-------");
-      String[] beanDefinitionNames = iocContainer.getBeanDefinitionNames();
-      for (String beanDefinitionName : beanDefinitionNames) {
-        Object bean = iocContainer.getBean(beanDefinitionName);
-        System.out.println("name = " + beanDefinitionName + " object = " + bean);
-      }
-      System.out.println("--------------");
+      //      System.out.println("-------스프링 모든 빈 출력하기-------");
+      //      String[] beanDefinitionNames = iocContainer.getBeanDefinitionNames();
+      //      for (String beanDefinitionName : beanDefinitionNames) {
+      //        Object bean = iocContainer.getBean(beanDefinitionName);
+      //        System.out.println("name = " + beanDefinitionName + " object = " + bean);
+      //      }
+      //      System.out.println("--------------");
 
       ServletContext ctx = sce.getServletContext();
 
@@ -60,7 +59,7 @@ public class ContextLoaderListener implements ServletContextListener {
           // filterConfig.addMappingForServletNames 서블릿 이름으로 필터를 연결
           // 요청이들어올때 DispatcherServlet전에 필터를 실행하려면 false
           // 어떤요청? DispatcherType.REQUEST
-          // 서블릿이 있는데 요청이들어 그때 꽂는다.
+          // 서블릿이 있는데 요청이들어오면 그때 꽂는다.
           // 요청이들어왔는데 다른 서블릿이 다른 서블릿으로 FORWARD또는 INCLUDE할때도 필터를 꽂는다.
           EnumSet.of(DispatcherType.REQUEST, DispatcherType.INCLUDE, DispatcherType.FORWARD), false,
           "DispatcherServlet");
