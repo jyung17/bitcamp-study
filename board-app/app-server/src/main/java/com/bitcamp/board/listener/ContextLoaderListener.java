@@ -26,7 +26,7 @@ public class ContextLoaderListener implements ServletContextListener {
     System.out.println("공유 자원을 준비 중!!");
     try {
 
-      // 웹 기능이 포함된 스프 IoC 컨테이너 준비
+      // 웹 기능이 포함된 스프링 IoC 컨테이너 준비
       AnnotationConfigWebApplicationContext iocContainer =
           new AnnotationConfigWebApplicationContext();
 
@@ -45,10 +45,10 @@ public class ContextLoaderListener implements ServletContextListener {
       // 자바 코드로 서블릿 객체를 직접 생성하여 서버에 등록하기
       DispatcherServlet servlet = new DispatcherServlet(iocContainer);
       Dynamic config = ctx.addServlet("DispatcherServlet", servlet);
-      config.addMapping("/service/*");
+      config.addMapping("/service/*"); // /service/* 주소에서 실행되게 매핑한다.
       config.setMultipartConfig(
           new MultipartConfigElement(this.getClass().getAnnotation(MultipartConfig.class)));
-      config.setLoadOnStartup(1);
+      config.setLoadOnStartup(1); //1번째, 가장 먼저 시작하는 서블릿으로 지정
 
       // 필터 등록
       CharacterEncodingFilter filter = new CharacterEncodingFilter("UTF-8");
