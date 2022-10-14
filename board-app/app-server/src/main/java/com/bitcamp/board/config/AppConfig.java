@@ -41,8 +41,11 @@ public class AppConfig {
   }
 
   // 객체가 리턴한 값을 transactionManager라는 이름으로 저장한다.
-  @Bean("transactionManager")
-  public PlatformTransactionManager createTransactionManager(DataSource ds) {
+  // @Bean 애노테이션을 붙일 때 객체 이름을 지정하면
+  // 그 이름으로 리턴 값을 컨테이너에 보관한다.
+  // 이름을 지정하지 않으면 메서드 이름으로 보관한다.
+  @Bean
+  public PlatformTransactionManager transactionManager(DataSource ds) {
     // Spring IoC 컨테이너는 이 메서드를 호출하기 전에 
     // 이 메서드가 원하는 파라미터 값인 DataSource를 먼저 생성한다.
     // => createDataSource() 메서드를 먼저 호출한다.
@@ -53,14 +56,14 @@ public class AppConfig {
   // multipart/form-data 형식으로 보내온 요청 데이터를
   // 도메인 객체로 받는 일을 할 도우미 객체를 등록한다. 
   // 이 객체가 등록된 경우 multipart/form-data를 도메인 객체로 받을 수 있다.
-  @Bean("multipartResolver")
-  public MultipartResolver createMultipartResolver() {
+  @Bean
+  public MultipartResolver multipartResolver() {
     return new StandardServletMultipartResolver();
   }
 
   // Spring WebMVC의 기본 ViewResolver를 교체한다.
-  @Bean("viewResolver")
-  public ViewResolver createViewResolver() {
+  @Bean
+  public ViewResolver viewResolver() {
     InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
     viewResolver.setViewClass(JstlView.class); // 주어진 URL을 처리할 객체 => JSP 실행시킨다.
     viewResolver.setPrefix("/WEB-INF/jsp/"); //
