@@ -13,7 +13,7 @@
   <p>비트캠프 게시판 관리 시스템 프로젝트 입니다.</p>
   <ul>
     <li><a href="${contextPath}/app/board/list">게시판</a></li>
-    <li><a href="${contextPath}/app/member/list">회원</a></li>
+    <li><a href="${contextPath}/admin/member/list">회원</a></li>
 <%--
 <%
 HttpSession clientSession = request.getSession();

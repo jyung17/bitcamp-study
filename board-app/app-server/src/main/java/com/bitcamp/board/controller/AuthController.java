@@ -21,6 +21,7 @@ public class AuthController {
   MemberService memberService;
 
   public AuthController(MemberService memberService) {
+    System.out.println("AuthController() 호출됨!");
     this.memberService = memberService;
   }
 
