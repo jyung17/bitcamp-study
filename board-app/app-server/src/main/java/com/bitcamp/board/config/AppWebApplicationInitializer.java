@@ -12,7 +12,7 @@ public class AppWebApplicationInitializer
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class<?>[] {RootConfig.class, DatabaseConfig.class};
+    return new Class<?>[] {RootConfig.class, DatabaseConfig.class, MybatisConfig.class};
   }
 
   @Override

@@ -13,7 +13,7 @@ public class DefaultMemberService implements MemberService {
   MemberDao memberDao;
 
   public DefaultMemberService(MemberDao memberDao) {
-    System.out.println("5) DefaultMemberService() 호출됨!");
+    System.out.println("DefaultMemberService() 호출됨!");
     this.memberDao = memberDao;
   };
 
