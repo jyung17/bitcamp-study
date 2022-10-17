@@ -14,6 +14,8 @@ public class DefaultMemberService implements MemberService {
 
   public DefaultMemberService(MemberDao memberDao) {
     System.out.println("DefaultMemberService() 호출됨!");
+    System.out.println(memberDao.toString());
+    // MemberDao memberDao = com.bitcamp.board.dao.MybatisMemberDao@12f933c7
     this.memberDao = memberDao;
   };
 

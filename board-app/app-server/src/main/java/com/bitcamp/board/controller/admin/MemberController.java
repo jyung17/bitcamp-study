@@ -19,6 +19,8 @@ public class MemberController {
 
   public MemberController(MemberService memberService) {
     System.out.println("MemberController() 호출됨!");
+    System.out.println("memberService.toString()" + memberService.toString());
+    // com.bitcamp.board.service.DefaultMemberService@6dcb4f30
     this.memberService = memberService;
   }
 
