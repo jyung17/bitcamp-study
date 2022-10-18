@@ -11,7 +11,6 @@ import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
 
-
 // Spring IoC 컨테이너가 관리하는 개체임을 표시한다.
 @Repository // DAO 역할을 수행하는 객체에 붙이는 애노테이션
 // - 이 애노테이션을 붙이면 Spring IoC 컨테이너가 객체를 자동 생성한다.

@@ -1,6 +1,8 @@
 package com.bitcamp.board.service;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -16,14 +18,12 @@ import com.bitcamp.board.domain.Board;
 // - 만약 생성자가 원하는 파라미터 값이 없다면 생성 예외가 발생한다.
 public class DefaultBoardService implements BoardService {
 
+  @Autowired
   PlatformTransactionManager txManager;
-  BoardDao boardDao;
 
-  public DefaultBoardService(BoardDao boardDao, PlatformTransactionManager txManager) {
-    System.out.println("5) DefaultBoardService() 호출됨!");
-    this.boardDao = boardDao;
-    this.txManager = txManager;
-  }
+  @Autowired
+  @Qualifier("mybatisBoardDao")
+  BoardDao boardDao;
 
   @Override
   public void add(Board board) throws Exception {
@@ -38,8 +38,11 @@ public class DefaultBoardService implements BoardService {
       if (boardDao.insert(board) == 0) {
         throw new Exception("게시글 등록 실패!");
       }
+
       // 2) 첨부파일 등록
-      boardDao.insertFiles(board);
+      if (board.getAttachedFiles().size() > 0) {
+        boardDao.insertFiles(board);
+      }
       txManager.commit(status);
 
     } catch (Exception e) {
@@ -62,7 +65,9 @@ public class DefaultBoardService implements BoardService {
         return false;
       }
       // 2) 첨부파일 추가
-      boardDao.insertFiles(board);
+      if (board.getAttachedFiles().size() > 0) {
+        boardDao.insertFiles(board);
+      }
 
       txManager.commit(status);
       return true;
@@ -80,7 +85,17 @@ public class DefaultBoardService implements BoardService {
     // 즉 Controller는 Service 객체를 사용하고 Service 객체는 DAO를 사용하는 형식을 
     // 지키기 위함이다.
     // 사용 규칙이 동일하면 프로그래밍을 이해하기 쉬워진다.
-    return boardDao.findByNo(no);
+    // 방법1: 
+    // return boardDao.findByNo(no); // select를 두 번 실행한다.
+
+    // 방법2:
+    //    Board board = boardDao.findByNo2(no);
+    //    List<AttachedFile> attachedFiles = boardDao.findFilesByBoard(no);
+    //    board.setAttachedFiles(attachedFiles);
+    //    return board;
+
+    // 방법3:
+    return boardDao.findByNo3(no); // 첨부파일 데이터까지 조인하여 select를 한 번만 실행한다.
   }
 
   @Override
