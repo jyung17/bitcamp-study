@@ -2,7 +2,6 @@ package com.bitcamp.board.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -21,8 +20,12 @@ public class DefaultBoardService implements BoardService {
   @Autowired
   PlatformTransactionManager txManager;
 
+  // @Qualifier("mybatisBoardDao")
+  // 클래스 이름을 명시하는것보다 인터페이스명을 구현하는게좋다.
+  // 주입은 인터페이스를 구현한 클래스가 주입된다.
+  // 서비스 클래스를 바꾸지 않고 Dao를 쉽게 교체할 수 있다.
+  // 그래서 인터페이스를 사용한다.
   @Autowired
-  @Qualifier("mybatisBoardDao")
   BoardDao boardDao;
 
   @Override

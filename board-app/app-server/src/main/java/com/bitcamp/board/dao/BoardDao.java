@@ -17,6 +17,8 @@ public interface BoardDao {
 
   int delete(int no) throws Exception;
 
+  int deleteByMember(int memberNo) throws Exception; // 회원번호로 그 회원이 작성한 게시글 삭제
+
   int insertFiles(Board board) throws Exception;
 
   List<Board> findAll() throws Exception;
@@ -28,6 +30,8 @@ public interface BoardDao {
   int deleteFile(int fileNo) throws Exception;
 
   int deleteFiles(int boardNo) throws Exception;
+
+  int deleteFilesByMemberBoards(int memberNo) throws Exception; // 회원번호로 그 회원이 작성한 게시글들의 모든 첨부파일을 삭제
 }
 
 

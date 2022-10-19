@@ -14,6 +14,7 @@ public class MybatisBoardDao implements BoardDao {
 
   @Autowired
   DataSource ds;
+
   @Autowired
   SqlSessionFactory sqlSessionFactory;
 
@@ -24,7 +25,6 @@ public class MybatisBoardDao implements BoardDao {
     }
   }
 
-  // 게시글 상세 정보 가져오기 : 첨부파일 목록 포함 방법1
   @Override
   public Board findByNo1(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -32,14 +32,15 @@ public class MybatisBoardDao implements BoardDao {
       // 게시글 가져오기
       Board board = sqlSession.selectOne("BoardDao.findByNo", no);
 
-      // 게시글 첨부파일 가져오기
+      // 게시글의 첨부파일 가져오기
       List<AttachedFile> attachedFiles = sqlSession.selectList("BoardDao.findFilesByBoard", no);
+
       board.setAttachedFiles(attachedFiles);
+
       return board;
     }
   }
 
-  // 게시글 상세 정보 가져오기 : 첨부파일 목록 포함 방법2
   @Override
   public Board findByNo2(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -47,7 +48,6 @@ public class MybatisBoardDao implements BoardDao {
     }
   }
 
-  // 게시글 상세 정보 가져오기 : 첨부파일 목록 포함 방법3
   @Override
   public Board findByNo3(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -66,6 +66,13 @@ public class MybatisBoardDao implements BoardDao {
   public int delete(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       return sqlSession.delete("BoardDao.delete", no);
+    }
+  }
+
+  @Override
+  public int deleteByMember(int memberNo) throws Exception {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.delete("BoardDao.deleteByMember", memberNo);
     }
   }
 
@@ -109,6 +116,13 @@ public class MybatisBoardDao implements BoardDao {
   public int deleteFiles(int boardNo) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       return sqlSession.delete("BoardDao.deleteFiles", boardNo);
+    }
+  }
+
+  @Override
+  public int deleteFilesByMemberBoards(int memberNo) throws Exception {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.delete("BoardDao.deleteFilesByMemberBoards", memberNo);
     }
   }
 }

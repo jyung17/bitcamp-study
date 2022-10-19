@@ -66,7 +66,7 @@ public class MemberController {
   @GetMapping("delete")
   public String delete(int no) throws Exception {
     if (!memberService.delete(no)) {
-      throw new Exception("사용자 삭제 실패!");
+      throw new Exception("회원 삭제 오류입니다!");
     }
 
     return "redirect:list";

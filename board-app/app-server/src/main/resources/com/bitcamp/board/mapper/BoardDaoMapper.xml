@@ -5,98 +5,98 @@
 <mapper namespace="BoardDao">
 
   <resultMap type="board" id="boardMap">
-    <id column="bno" property="no" />
-    <result column="title" property="title" />
-    <result column="cont" property="content" />
-    <result column="cdt" property="createdDate" />
-    <result column="vw_cnt" property="viewCount" />
-
+    <id column="bno" property="no"/>
+    <result column="title" property="title"/>
+    <result column="cont" property="content"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="vw_cnt" property="viewCount"/>
+    
     <!-- 조인 결과에서 같은 게시글에 대해 한 개의 회원 데이터를 담을 경우 -->
     <association property="writer" javaType="member">
-      <id column="mno" property="no" />
-      <result column="name" property="name" />
+      <id column="mno" property="no"/>
+      <result column="name" property="name"/>
     </association>
-
-    <!-- association는 한개를 담을때 사용하고 리스트나 배열을 담을때는 collection을 사용한다. 프로퍼티가 
-      리스트일경우 조인 결과에서 같은 게시글에 대해 여러 개의 첨부 파일 데이터를 담을 경우 -->
-    <collection property="attachedFiles"
-      ofType="attachedFile">
-      <id column="bfno" property="no" />
-      <result column="filepath" property="filepath" />
+    
+    <!-- 조인 결과에서 같은 게시글에 대해 여러 개의 첨부 파일 데이터를 담을 경우 -->
+    <collection property="attachedFiles" ofType="attachedFile">
+      <id column="bfno" property="no"/>
+      <result column="filepath" property="filepath"/>
     </collection>
+    
   </resultMap>
-
-  <resultMap type="AttachedFile" id="attachedFileMap">
-    <id column="bfno" property="no" />
-    <result column="filepath" property="filepath" />
-    <result column="bno" property="boardNo" />
-  </resultMap>
-
-  <select id="findAll" resultMap="boardMap">
-  select
-    b.bno,
-    b.title,
-    b.cdt,
-    b.vw_cnt,
-    m.mno,
-    m.name
-  from
-    app_board b
-    join app_member m on b.mno = m.mno
-  order by
-    bno desc
-  </select>
   
-  <select id="findByNo3" resultMap="boardMap">
-  select
-    b.bno,
-    b.title,
-    b.cont,
-    b.cdt,
-    b.vw_cnt,
-    m.mno,
-    m.name,
-    bf.bfno,
-    bf.filepath
-  from
-    app_board b
-    join app_member m on b.mno = m.mno
-    left outer join app_board_file bf on b.bno = bf.bno
-  where 
-    b.bno=#{value}
+  <resultMap type="attachedFile" id="attachedFileMap">
+    <id column="bfno" property="no"/>
+    <result column="filepath" property="filepath"/>
+    <result column="bno" property="boardNo"/>
+  </resultMap>
+  
+  
+  <select id="findAll" resultMap="boardMap">
+    select
+      b.bno,
+      b.title,
+      b.cdt,
+      b.vw_cnt,
+      m.mno,
+      m.name
+    from 
+      app_board b
+      join app_member m on b.mno = m.mno
+    order by 
+      bno desc
   </select>
   
   <select id="findByNo" resultMap="boardMap">
-  select
-    b.bno,
-    b.title,
-    b.cont,
-    b.cdt,
-    b.vw_cnt,
-    m.mno,
-    m.name
-  from
-    app_board b
-    join app_member m on b.mno = m.mno
-  where 
-    b.bno=#{value}
+    select
+      b.bno,
+      b.title,
+      b.cont,
+      b.cdt,
+      b.vw_cnt,
+      m.mno,
+      m.name
+    from 
+      app_board b
+      join app_member m on b.mno = m.mno
+    where 
+      b.bno=#{value}
+  </select>
+  
+    <select id="findByNo3" resultMap="boardMap">
+    select
+      b.bno,
+      b.title,
+      b.cont,
+      b.cdt,
+      b.vw_cnt,
+      m.mno,
+      m.name,
+      bf.bfno,
+      bf.filepath
+    from 
+      app_board b
+      join app_member m on b.mno = m.mno
+      left outer join app_board_file bf on b.bno=bf.bno
+    where 
+      b.bno=#{value}
   </select>
   
   <select id="findFilesByBoard" resultMap="attachedFileMap">
-  select
-    bfno,
-    filepath, 
-    bno 
-  from 
-    app_board_file 
-  where 
-    bno =#{value}
+    select 
+      bfno, 
+      filepath, 
+      bno 
+    from 
+      app_board_file 
+    where 
+      bno = #{value}
   </select>
 
-  <!-- 자동으로 증가된 PK값을 사용하겠다. -->
   <insert id="insert" parameterType="board"
-    useGeneratedKeys="true" keyColumn="bno" keyProperty="no">
-    insert into app_board(title,cont,mno) values(#{title},#{content},#{writer.no})
+          useGeneratedKeys="true" keyColumn="bno" keyProperty="no">
+    insert into app_board(title,cont,mno) 
+    values(#{title},#{content},#{writer.no})
   </insert>
   
   <update id="update" parameterType="board">
@@ -107,45 +107,50 @@
   </update>
   
   <delete id="delete">
-    delete from app_board where bno=#{value}
+    delete from app_board 
+    where bno=#{value}
   </delete>
 
+  <delete id="deleteByMember">
+    delete from app_board 
+    where mno=#{value}
+  </delete>
+  
   <insert id="insertFiles" parameterType="board">
-    insert into app_board_file(filepath,bno)
-    values
+    insert into app_board_file(filepath,bno) 
+    values 
     <foreach collection="attachedFiles" item="file" separator=",">
-      (#{file.filepath},#{no}) <!-- #{no}는 board의 no -->
+      (#{file.filepath},#{no})
     </foreach>
   </insert>
-  <!--
-  [DEBUG] 2022-10-18 [http-nio-8888-exec-8] insertFiles - ==>  Preparing: insert into app_board_file(filepath,bno) values (?,?) , (?,?) , (?,?)
-[DEBUG] 2022-10-18 [http-nio-8888-exec-8] insertFiles - ==> Parameters: dc6da5ee-5459-49b6-b8be-097696b8a97e(String), 76(Integer), 005be5eb-5640-49e1-87be-f4d39ca59cb1(String), 76(Integer), 603ca90a-c0bc-4aac-9e8f-5310d7bb7b59(String), 76(Integer)
-[DEBUG] 2022-10-18 [http-nio-8888-exec-8] insertFiles - <==    Updates: 3 
-   -->
-   
+  
   <delete id="deleteFiles">
-    delete from app_board_file where bno=#{value}
+    delete from app_board_file 
+    where bno=#{value}
+  </delete>
+  
+  <delete id="deleteFilesByMemberBoards">
+    delete from app_board_file 
+    where bno in (select bno from app_board where mno = #{value})
   </delete>
   
   <delete id="deleteFile">
-    delete from app_board_file where bfno=#{value}
+    delete from app_board_file 
+    where bfno=#{value}
   </delete>
   
   <select id="findFileByNo" resultMap="attachedFileMap">
-    select
-      bfno,
-      filepath,
-      bno
+    select 
+      bfno, 
+      filepath, 
+      bno 
     from 
-      app_board_file
-   where
+      app_board_file 
+    where 
       bfno = #{value}
   </select>
 
-  <delete id="deleteByMember">
-    delete from app_board
-    where mno=#{value}
-  </delete>
-
-
 </mapper>
+
+
+

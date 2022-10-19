@@ -4,72 +4,68 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MemberDao">
 
-<!--  자바 객체의 프로퍼티와 컬럼 이름을 연결한다.
-      프라이머리 키 인경우에는 id라고 적어준다. 
--->
+  <!-- 자바 객체의 프로퍼티와 컬럼 이름을 연결한다. -->
   <resultMap type="member" id="memberMap">
-    <id column="mno" property="no"/> 
+    <id column="mno" property="no"/>
     <result column="name" property="name"/>
     <result column="email" property="email"/>
     <result column="cdt" property="createdDate"/>
   </resultMap>
 
   <insert id="insert" parameterType="member">
-    insert into app_member(name,email,pwd)
+    insert into app_member(name,email,pwd) 
     values(#{name},#{email},sha2(#{password},256))
   </insert>
 
   <select id="findByNo" resultMap="memberMap">
-    select
+    select 
       mno,
       name,
       email,
       cdt
-    from
-      app_member
-    where
-      mno=#{no}
+    from 
+      app_member 
+    where 
+      mno=#{value}
   </select>
   
   <select id="findAll" resultMap="memberMap">
-    select
+    select 
       mno,
       name,
       email 
     from 
-     app_member 
-    order by
-     name
+      app_member 
+    order by 
+      name
+  </select>
+
+  <select id="findByEmailPassword" resultMap="memberMap">
+    select 
+      mno,
+      name,
+      email,
+      cdt 
+    from 
+      app_member 
+    where 
+      email=#{email} and pwd=sha2(#{password},256)
   </select>
   
-  <update id="update" parameterType="member">
-    update
-      app_member
-    set 
+  <update id="update" parameterType="Member">
+    update app_member set 
       name=#{name}, 
       email=#{email}, 
       pwd=sha2(#{password},256) 
-    where
+    where 
       mno=#{no}
   </update>
   
   <delete id="delete">
-    delete
-    from
-      app_member
-    where
-      mno=#{value}
+    delete from app_member where mno=#{value}
   </delete>
 
-  <select id="findByEmailPassword" resultMap="memberMap">
-    select
-      mno,
-      name,
-      email,
-      cdt
-    from
-      app_member
-    where
-      email=#{email} and pwd=sha2(#{password},256)
-  </select>
 </mapper>
+
+
+
