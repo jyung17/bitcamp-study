@@ -5,33 +5,29 @@ import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 
 public interface BoardDao {
-  int insert(Board board) throws Exception; // < - Method signature
+  int insert(Board board);// < - Method signature
 
-  Board findByNo1(int no) throws Exception;
+  Board findByNo(int no);
 
-  Board findByNo2(int no) throws Exception;
+  int update(Board board);
 
-  Board findByNo3(int no) throws Exception;
+  int delete(int no);
 
-  int update(Board board) throws Exception;
+  int deleteByMember(int memberNo);// 회원번호로 그 회원이 작성한 게시글 삭제
 
-  int delete(int no) throws Exception;
+  int insertFiles(Board board);
 
-  int deleteByMember(int memberNo) throws Exception; // 회원번호로 그 회원이 작성한 게시글 삭제
+  List<Board> findAll();
 
-  int insertFiles(Board board) throws Exception;
+  AttachedFile findFileByNo(int fileNo);
 
-  List<Board> findAll() throws Exception;
+  List<AttachedFile> findFilesByBoard(int boardNo);
 
-  AttachedFile findFileByNo(int fileNo) throws Exception;
+  int deleteFile(int fileNo);
 
-  List<AttachedFile> findFilesByBoard(int boardNo) throws Exception;
+  int deleteFiles(int boardNo);
 
-  int deleteFile(int fileNo) throws Exception;
-
-  int deleteFiles(int boardNo) throws Exception;
-
-  int deleteFilesByMemberBoards(int memberNo) throws Exception; // 회원번호로 그 회원이 작성한 게시글들의 모든 첨부파일을 삭제
+  int deleteFilesByMemberBoards(int memberNo);// 회원번호로 그 회원이 작성한 게시글들의 모든 첨부파일을 삭제
 }
 
 
