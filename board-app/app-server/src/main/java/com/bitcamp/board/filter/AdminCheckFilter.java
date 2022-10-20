@@ -9,9 +9,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 import com.bitcamp.board.domain.Member;
 
 // @WebFilter("/service/member/*") // 서블릿 컨테이너에 직접URL을 등록하는경우에는 정교하게 필터를 제어할수있다.
+@Component
 public class AdminCheckFilter implements Filter {
 
   @Override
@@ -28,11 +30,13 @@ public class AdminCheckFilter implements Filter {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-    System.out.println("AdminCheckFilter.doFilter() 실행!");
-    Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
-    if (loginMember == null || !loginMember.getEmail().equals("admin@test.com")) {
-      httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
-      return;
+    if (httpRequest.getServletPath().startsWith("/member")) {
+      System.out.println("AdminCheckFilter.doFilter() 실행!");
+      Member loginMember = (Member) httpRequest.getSession().getAttribute("loginMember");
+      if (loginMember == null || !loginMember.getEmail().equals("admin@test.com")) {
+        httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
+        return;
+      }
     }
 
     chain.doFilter(request, response);

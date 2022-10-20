@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +36,11 @@ public class AuthController {
 
   // InternalResourceViewResolver 사용후
   @GetMapping("form")
-  public String form() throws Exception {
+  public String form(@CookieValue(name = "email", defaultValue = "") String email, Model model)
+      throws Exception {
+    model.addAttribute(email);
     return "auth/form";
-  } // JSTL에 담아서 리턴해도 된다
+  }
 
   //@RequestMapping(path = "/auth/login", method = RequestMethod.POST)
   @PostMapping("login")
@@ -68,6 +72,6 @@ public class AuthController {
   @GetMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate(); // 현재 세션을 무효화시킨다.
-    return "redirect:../../";
+    return "redirect:../";
   }
 }

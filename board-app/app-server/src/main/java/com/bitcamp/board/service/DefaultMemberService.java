@@ -3,7 +3,6 @@ package com.bitcamp.board.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MemberDao;
@@ -14,9 +13,6 @@ import com.bitcamp.board.domain.Member;
 //- 생성자에 파라미터가 있다면 해당 타입의 객체를 찾아 생성자를 호출할 때 주입할 것이다.
 //- 만약 생성자가 원하는 파라미터 값이 없다면 생성 예외가 발생한다.
 public class DefaultMemberService implements MemberService {
-
-  @Autowired
-  PlatformTransactionManager txManager;
 
   @Autowired
   MemberDao memberDao;
