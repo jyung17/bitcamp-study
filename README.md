@@ -251,10 +251,6 @@ export PATH=${JAVA_HOME}/bin:$PATH
   - 29. 추상 클래스를 사용하여 핸들러의 공통 기능 구현하기: 템플릿 메서드 패턴 적용
   - 30. List가 특정 타입의 목록만 다루게 하는 방법: 제네릭 문법 적용
   - 31. 기존 List 구현체를 자바 컬렉션 API로 교체하기: java.util 패키지의 클래스 사용
-
-### 25일
-
-- 아침 특강(com.eomcs.quiz)
   - ex01.Test19:
   - ex01.Test20:
 - Iterator 패턴과 중첩 클래스 사용법(eomcs-java-lang: com.eomcs.design_pattern.iterator.\*)
@@ -280,3 +276,4 @@ export PATH=${JAVA_HOME}/bin:$PATH
 ## 구글 미트
 
 https://meet.google.com/uou-bbtj-qzf
+..
