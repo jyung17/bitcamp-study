@@ -31,6 +31,7 @@ insert into member (mno, email, pwd, nick, name, tel, cdt, pstno, base_addr, det
 insert into member (mno, email, pwd, nick, name, tel, cdt, pstno, base_addr, detail_addr, jno, bank, acount, profil, token, status) values (4, 'user4@test.com', sha2('1111',256), '회원닉네임', '홍길동', '01044442222', '2022-10-07', '06134', '서울특별시 강남구 역삼동 819-3', '삼오빌딩 5-9층', 4, null, null, '프로필사진파일경로', '이메일토큰', 1);
 insert into member (mno, email, pwd, nick, name, tel, cdt, pstno, base_addr, detail_addr, jno, bank, acount, profil, token, status) values (5, 'user5@test.com', sha2('1111',256), '회원닉네임', '홍길동', '01055552222', '2022-10-07', '06134', '서울특별시 강남구 역삼동 819-3', '삼오빌딩 5-9층', 5, null, null, '프로필사진파일경로', '이메일토큰', 1);
 insert into member (mno, email, pwd, nick, name, tel, cdt, pstno, base_addr, detail_addr, jno, bank, acount, profil, token, status) values (6, 'user6@test.com', sha2('1111',256), '회원닉네임', '홍길동', '01066662222', '2022-10-07', '06134', '서울특별시 강남구 역삼동 819-3', '삼오빌딩 5-9층', 6, null, null, '프로필사진파일경로', '이메일토큰', 1);
+insert into member (mno, email, pwd, nick, name, tel, cdt, pstno, base_addr, detail_addr, jno, bank, acount, profil, token, status) values (7, 'user7@test.com', sha2('1111',256), '회원닉네임', '홍길동', '01076662222', '2022-10-07', '06134', '서울특별시 강남구 역삼동 819-3', '삼오빌딩 5-9층', 6, null, null, '프로필사진파일경로', '이메일토큰', 1);
 
 
 -- 재능판매카테고리 테이블
