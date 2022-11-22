@@ -8,16 +8,9 @@ import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 
-@Service // 서비스 역할을 수행하는 객체에 붙이는 애노테이션
-// - 이 애노테이션을 붙이면 Spring IoC 컨테이너가 객체를 자동으로 생성할 것이다.
-// - 생성자에 파라미터가 있다면 해당 타입의 객체를 찾아 생성자를 호출할 때 주입할 것이다.
-// - 만약 생성자가 원하는 파라미터 값이 없다면 생성 예외가 발생한다.
+@Service
 public class DefaultBoardService implements BoardService {
-  // @Qualifier("mybatisBoardDao")
-  // 클래스 이름을 명시하는것보다 인터페이스명을 구현하는게좋다.
-  // 주입은 인터페이스를 구현한 클래스가 주입된다.
-  // 서비스 클래스를 바꾸지 않고 Dao를 쉽게 교체할 수 있다.
-  // 그래서 인터페이스를 사용한다.
+
   @Autowired
   BoardDao boardDao;
 
@@ -28,6 +21,7 @@ public class DefaultBoardService implements BoardService {
     if (boardDao.insert(board) == 0) {
       throw new Exception("게시글 등록 실패!");
     }
+
     // 2) 첨부파일 등록
     if (board.getAttachedFiles().size() > 0) {
       boardDao.insertFiles(board);
@@ -37,14 +31,16 @@ public class DefaultBoardService implements BoardService {
   @Transactional
   @Override
   public boolean update(Board board) throws Exception {
-    //1) 게시글 변경
+    // 1) 게시글 변경
     if (boardDao.update(board) == 0) {
       return false;
     }
+
     // 2) 첨부파일 추가
     if (board.getAttachedFiles().size() > 0) {
       boardDao.insertFiles(board);
     }
+
     return true;
   }
 
@@ -64,8 +60,15 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
-  public List<Board> list() throws Exception {
-    return boardDao.findAll();
+  public List<Board> list(String keyword, String titleSort, int pageNo, int pageSize)
+      throws Exception {
+    int startIndex = (pageNo - 1) * pageSize; // 이전 페이지까지 레코드 개수
+    return boardDao.findAll(keyword, titleSort, startIndex, pageSize);
+  }
+
+  @Override
+  public int size(String keyword, String titleSort) throws Exception {
+    return boardDao.count(keyword, titleSort);
   }
 
   @Override

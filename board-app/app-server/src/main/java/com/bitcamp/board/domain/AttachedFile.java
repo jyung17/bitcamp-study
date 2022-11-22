@@ -7,8 +7,8 @@ public class AttachedFile {
 
   public AttachedFile() {}
 
-  public AttachedFile(String filepahth) {
-    this.filepath = filepahth;
+  public AttachedFile(String filepath) {
+    this.filepath = filepath;
   }
 
   @Override
@@ -39,7 +39,6 @@ public class AttachedFile {
   public void setBoardNo(int boardNo) {
     this.boardNo = boardNo;
   }
-
 
 
 }

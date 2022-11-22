@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex01</title>
+</head>
+<body>
+<h1>DOM API를 간단히 다룰 수 있도록 라이브러리 만들기 </h1>
+제목: <input id="title"></input><br>
+내용: <textarea id="contest"></textarea><br> 
+조회수: <span id="viewCount"></span><br>
+<button id="btn1" data-no="27">버튼1</button>
+<script src="bitcamp-min.js"></script>
+<script>
+"use strict"
+
+console.log($("h1").html());
+$("h1").html("오호라...이것이다2!!");
+</script>
+</body>
+</html>

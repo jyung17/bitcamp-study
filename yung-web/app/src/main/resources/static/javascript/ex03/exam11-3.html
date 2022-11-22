@@ -37,6 +37,9 @@ box2.setValue(200);
 console.log(box1.getValue());
 console.log(box2.getValue());
 
+console.log(box1.value); // -> value는 클로저들이 사용하기위해 만든 메모리공간 그래서 접근이 안된다.
+console.log(box2.value); 
+
 </script>
 
 </body>

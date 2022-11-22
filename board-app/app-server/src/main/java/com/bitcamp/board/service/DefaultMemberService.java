@@ -8,10 +8,7 @@ import com.bitcamp.board.dao.BoardDao;
 import com.bitcamp.board.dao.MemberDao;
 import com.bitcamp.board.domain.Member;
 
-@Service // 서비스 역할을 수행하는 객체에 붙이는 애노테이션
-//- 이 애노테이션을 붙이면 Spring IoC 컨테이너가 객체를 자동으로 생성할 것이다.
-//- 생성자에 파라미터가 있다면 해당 타입의 객체를 찾아 생성자를 호출할 때 주입할 것이다.
-//- 만약 생성자가 원하는 파라미터 값이 없다면 생성 예외가 발생한다.
+@Service 
 public class DefaultMemberService implements MemberService {
 
   @Autowired
@@ -19,6 +16,7 @@ public class DefaultMemberService implements MemberService {
 
   @Autowired
   BoardDao boardDao;
+
 
   @Override
   public void add(Member member) throws Exception {
@@ -53,3 +51,11 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findAll();
   }
 }
+
+
+
+
+
+
+
+

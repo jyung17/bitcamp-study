@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.springframework.stereotype.Controller;
@@ -17,15 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 import com.bitcamp.board.domain.Member;
 import com.bitcamp.board.service.BoardService;
 
-// CRUD 요청을 처리하는 페이지 컨트롤러들을 한 개의 클래스로 합친다.
-
-@Controller // 페이지 컨트롤러에 붙이는 애노테이션
+@Controller
 @RequestMapping("/board/")
 public class BoardController {
 
@@ -37,31 +35,36 @@ public class BoardController {
     this.boardService = boardService;
     this.sc = sc;
   }
-  //  InternalResourceViewResolver 사용 전:
+
+  // InternalResourceViewResolver 사용 전:
   //
   //  @GetMapping("form")
-  //  public String form(HttpServletResponse response) throws Exception {
+  //  public String form() throws Exception {
   //    return "board/form";
   //  }
 
-  //  InternalResourceViewResolver 사용 후:
+  // InternalResourceViewResolver 사용 후:
   @GetMapping("form")
-  public void form() throws Exception {}
+  public void form() throws Exception {
+  }
 
-  @PostMapping("add")
-  public String add(Board board, MultipartFile[] files, HttpServletRequest request,
+  @PostMapping("add") 
+  public String add(
+      Board board,
+      MultipartFile[] files,
       HttpSession session) throws Exception {
+
     board.setAttachedFiles(saveAttachedFiles(files));
     board.setWriter((Member) session.getAttribute("loginMember"));
-    boardService.add(board);
 
+    boardService.add(board);
     return "redirect:list";
   }
 
-  private List<AttachedFile> saveAttachedFiles(Part[] files) throws IOException, ServletException {
+  private List<AttachedFile> saveAttachedFiles(Part[] files)
+      throws IOException, ServletException {
     List<AttachedFile> attachedFiles = new ArrayList<>();
     String dirPath = sc.getRealPath("/board/files");
-    //Collection<Part> parts = request.getParts();
 
     for (Part part : files) {
       if (part.getSize() == 0) {
@@ -79,10 +82,9 @@ public class BoardController {
       throws IOException, ServletException {
     List<AttachedFile> attachedFiles = new ArrayList<>();
     String dirPath = sc.getRealPath("/board/files");
-    //Collection<Part> parts = request.getParts();
 
     for (MultipartFile part : files) {
-      if (part.isEmpty()) { // 비어있다면 continue; 다음꺼로  빈파일 있다면 저장하지 않는다.
+      if (part.isEmpty()) {
         continue;
       }
 
@@ -93,48 +95,124 @@ public class BoardController {
     return attachedFiles;
   }
 
-  //  @GetMapping("list")
-  //  public ModelAndView list() throws Exception {
-  //    ModelAndView mv = new ModelAndView();
-  //    mv.addObject("boards", boardService.list()); // ServletRquest 보관소에 저장하고
-  //    mv.setViewName("board/list"); // jsp파일의 주소를 매핑한다.
-  //    return mv;
-  //  }
-
   @GetMapping("list")
-  public void list(Model model) throws Exception {
-    model.addAttribute("boards", boardService.list());
+  public void list(
+      String keyword, 
+      String titleSort,
+      @RequestParam(defaultValue = "1") int pageNo,
+      @RequestParam(defaultValue = "3") int pageSize,
+      Model model) throws Exception {
+    if (keyword != null && keyword.length() == 0) {
+      keyword = null;
+    }
+    if (titleSort != null && titleSort.length() == 0) {
+      titleSort = null;
+    }
+
+    if (pageSize < 3) {
+      pageSize = 3;
+    } else if (pageSize > 7) {
+      pageSize = 7;
+    }
+
+    int count = boardService.size(keyword, titleSort);
+
+    int maxPageNo = count / pageSize;
+    if ((count % pageSize) > 0) {
+      maxPageNo++;
+    }
+
+    if (pageNo < 1) {
+      pageNo = 1;
+    } else if (pageNo > maxPageNo) {
+      pageNo = maxPageNo;
+    }
+
+    model.addAttribute("boards", boardService.list(keyword, titleSort, pageNo, pageSize));
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("titleSort", titleSort);
+    model.addAttribute("pageNo", pageNo);
+    model.addAttribute("maxPageNo", maxPageNo);
+    model.addAttribute("pageSize", pageSize); 
+  }
+
+  @RequestMapping("list-ajax")
+  public void listAjax(
+      String keyword, 
+      String titleSort,
+      @RequestParam(defaultValue = "1") int pageNo,
+      @RequestParam(defaultValue = "3") int pageSize,
+      Model model) throws Exception {
+    if (keyword != null && keyword.length() == 0) {
+      keyword = null;
+    }
+    if (titleSort != null && titleSort.length() == 0) {
+      titleSort = null;
+    }
+
+    if (pageSize < 3) {
+      pageSize = 3;
+    } else if (pageSize > 7) {
+      pageSize = 7;
+    }
+
+    int count = boardService.size(keyword, titleSort);
+
+    int maxPageNo = count / pageSize;
+    if ((count % pageSize) > 0) {
+      maxPageNo++;
+    }
+
+    if (pageNo < 1) {
+      pageNo = 1;
+    } else if (pageNo > maxPageNo) {
+      pageNo = maxPageNo;
+    }
+    if (pageNo == 0) {
+      pageNo = 1;
+    }
+
+
+    System.out.println("=====> " + pageNo);
+    model.addAttribute("boards", boardService.list(keyword, titleSort, pageNo, pageSize));
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("titleSort", titleSort);
+    model.addAttribute("pageNo", pageNo);
+    model.addAttribute("maxPageNo", maxPageNo);
+    model.addAttribute("pageSize", pageSize); 
   }
 
   @GetMapping("detail")
   public Map detail(int no) throws Exception {
     Board board = boardService.get(no);
     if (board == null) {
-      throw new Exception("해당 번호의 게시글이 없습니다.!");
+      throw new Exception("해당 번호의 게시글이 없습니다!");
     }
 
-    Map map = new HashMap<>();
+    Map map = new HashMap();
     map.put("board", board);
+
     return map;
   }
 
-  @PostMapping("update") // 요청을 들어 왔을 때 호출될 메서드에 붙이는 애노테이션
-  public String update(Board board, Part[] files, HttpSession session) throws Exception {
+  @PostMapping("update")
+  public String update(
+      Board board,
+      Part[] files,
+      HttpSession session) 
+          throws Exception {
+
     board.setAttachedFiles(saveAttachedFiles(files));
 
-    // 게시글의 작성자가 로그인 사용자인지 검사한다.
-    //checkOwner(board.getNo(), request.getSession());
     checkOwner(board.getNo(), session);
 
     if (!boardService.update(board)) {
-      throw new Exception("게시글을 변경할 수 없습니다.");
+      throw new Exception("게시글을 변경할 수 없습니다!");
     }
 
     return "redirect:list";
   }
 
-
-  // 만약 오너가 아니면 예외를 던진다.
   private void checkOwner(int boardNo, HttpSession session) throws Exception {
     Member loginMember = (Member) session.getAttribute("loginMember");
     if (boardService.get(boardNo).getWriter().getNo() != loginMember.getNo()) {
@@ -143,10 +221,12 @@ public class BoardController {
   }
 
   @GetMapping("delete")
-  public String delete(int no, HttpSession session) throws Exception {
+  public String delete(
+      int no, 
+      HttpSession session) 
+          throws Exception {
 
     checkOwner(no, session);
-
     if (!boardService.delete(no)) {
       throw new Exception("게시글을 삭제할 수 없습니다.");
     }
@@ -155,22 +235,30 @@ public class BoardController {
   }
 
   @GetMapping("fileDelete")
-  public String fileDelete(int no, HttpSession session) throws Exception {
-    // 첨부파일 정보를 가져온다.
-    AttachedFile attachedFile = boardService.getAttachedFile(no);
+  public String fileDelete(
+      int no,
+      HttpSession session) 
+          throws Exception {
 
-    // 게시글의 작성자가 로그인 사용자인지 검사한다.
+    AttachedFile attachedFile = boardService.getAttachedFile(no); 
+
     Member loginMember = (Member) session.getAttribute("loginMember");
-    Board board = boardService.get(attachedFile.getBoardNo());
+    Board board = boardService.get(attachedFile.getBoardNo()); 
+
     if (board.getWriter().getNo() != loginMember.getNo()) {
       throw new Exception("게시글 작성자가 아닙니다.");
     }
 
-    // 첨부파일을 삭제한다.
     if (!boardService.deleteAttachedFile(no)) {
       throw new Exception("게시글 첨부파일을 삭제할 수 없습니다.");
     }
 
-    return "redirect:detail?no=" + board.getNo(); // Board 객체를 여기서도 사용해야해서 Board 객체를 생
+    return "redirect:detail?no=" + board.getNo();
   }
 }
+
+
+
+
+
+

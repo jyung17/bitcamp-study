@@ -14,10 +14,25 @@ repositories {
 }
 
 dependencies {
+   // spring-webmvc 관련 라이브러리
+  // spring-boot-starter 라이브러리들은 기본설정을 하는 클래스들이 포함되어있다.
+  implementation ('org.springframework.boot:spring-boot-starter-web') {
+    // 기본 서블릿 컨테이너 톰캣 제거 
+    exclude group:'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+  }
+  
+  // Undertow 서블릿 컨테이너
+  implementation 'org.springframework.boot:spring-boot-starter-undertow'
+  
+  // Thymeleaf 관련 라이브러리
+  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
   implementation 'org.apache.commons:commons-text:1.9'
-  implementation 'org.springframework.boot:spring-boot-starter-web'
+  // implementation 'org.springframework.boot:spring-boot-starter-web'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+      // Thymeleaf 관련 라이브러리
+  // implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 test {

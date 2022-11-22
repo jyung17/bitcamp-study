@@ -5,7 +5,7 @@ import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 
 // 비즈니스 로직을 수행하는 객체의 사용규칙(호출규칙)
-// 인터페이스를 만드는이유는 교체하기 쉽게하기 위해서(유지보수에 용이)
+//
 public interface BoardService {
 
   void add(Board board) throws Exception;
@@ -16,9 +16,20 @@ public interface BoardService {
 
   boolean delete(int no) throws Exception;
 
-  List<Board> list() throws Exception;
+  List<Board> list(String keyword, String titleSort, int pageNo, int pageSize) throws Exception;
+
+  int size(String keyword, String titleSort) throws Exception;
 
   AttachedFile getAttachedFile(int fileNo) throws Exception;
 
   boolean deleteAttachedFile(int fileNo) throws Exception;
+
 }
+
+
+
+
+
+
+
+

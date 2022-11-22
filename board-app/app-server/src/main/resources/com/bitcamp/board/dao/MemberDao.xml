@@ -62,7 +62,8 @@
   </update>
   
   <delete id="delete">
-    delete from app_member where mno=#{value}
+    delete from app_member 
+    where mno=#{value}
   </delete>
 
 </mapper>

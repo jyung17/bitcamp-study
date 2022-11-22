@@ -2,12 +2,14 @@ package com.bitcamp.board.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 
-@Mapper // DAO를 자동생성할때 사용하는 Mapper 클래스다
+@Mapper
 public interface BoardDao {
-  int insert(Board board);// < - Method signature
+
+  int insert(Board board);
 
   Board findByNo(int no);
 
@@ -15,11 +17,17 @@ public interface BoardDao {
 
   int delete(int no);
 
-  int deleteByMember(int memberNo);// 회원번호로 그 회원이 작성한 게시글 삭제
+  int deleteByMember(int memberNo);
+
+  List<Board> findAll(
+      @Param("keyword") String keyword, 
+      @Param("titleSort") String titleSort,
+      @Param("startIndex") int startIndex,
+      @Param("size") int size);
+
+  int count(@Param("keyword") String keyword, @Param("titleSort") String titleSort);
 
   int insertFiles(Board board);
-
-  List<Board> findAll();
 
   AttachedFile findFileByNo(int fileNo);
 
@@ -29,7 +37,19 @@ public interface BoardDao {
 
   int deleteFiles(int boardNo);
 
-  int deleteFilesByMemberBoards(int memberNo);// 회원번호로 그 회원이 작성한 게시글들의 모든 첨부파일을 삭제
+  int deleteFilesByMemberBoards(int memberNo);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

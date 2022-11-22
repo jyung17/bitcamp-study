@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Board {
 
-  public int no;
+  private int no;
   private String title;
   private String content;
   private String password;
@@ -23,7 +23,6 @@ public class Board {
         + writer + "]";
   }
 
-  //프로퍼티(setter/getter) : no
   public int getNo() {
     return no;
   }
@@ -77,9 +76,6 @@ public class Board {
   }
 
   public void setWriter(Member writer) {
-    if (writer != null) {
-
-    }
     this.writer = writer;
   }
 
@@ -91,6 +87,12 @@ public class Board {
     this.attachedFiles = attachedFiles;
   }
 
+
 }
+
+
+
+
+
 
 
